@@ -16,10 +16,11 @@ public class QuestionsService {
 
   private final Map<String, Set<Question>> questions = new HashMap<>();
 
-  public void save(Question question) {
+  public Question save(Question question) {
     var list = questions.getOrDefault(question.topic(), new HashSet<>());
     list.add(question);
     questions.putIfAbsent(question.topic(), list);
+    return question;
   }
 
   public Set<Question> getByTopic(String topic) {
