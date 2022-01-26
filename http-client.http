@@ -1,0 +1,7 @@
+### Get all questions
+GET {{host}}/api/questions
+
+
+### Get all questions by specified topic
+GET {{host}}/api/questions?topic=Maven
+
