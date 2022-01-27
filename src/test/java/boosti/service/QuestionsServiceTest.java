@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 import boosti.model.Question;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +16,12 @@ class QuestionsServiceTest {
 
   @BeforeEach
   void setUp() {
-    service.save(new Question("Java", "What is JVM"));
-    service.save(new Question("Java", "What is JRE"));
-    service.save(new Question("Java", "What is Garbage Collector"));
-
-    service.save(new Question("Maven", "What is BOM (Bill of materials)"));
+    Stream.of(
+            new Question("Java", "What is JVM"),
+            new Question("Java", "What is JRE"),
+            new Question("Java", "What is Garbage Collector"),
+            new Question("Maven", "What is BOM (Bill of materials)"))
+        .forEach(service::save);
   }
 
   @Test
