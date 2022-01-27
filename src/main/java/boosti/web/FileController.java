@@ -52,7 +52,7 @@ public class FileController {
             .filter(it -> it.endsWith("csv"))
             .isPresent();
     if (!hasValidExtension) {
-      throw new RuntimeException("Unsupported file type");
+      throw new RuntimeException("Unsupported file type.");
     }
   }
 }

@@ -53,7 +53,7 @@ class QuestionParserTest {
     // then
     var expectedMessage =
         "Input value cannot be parsed, separator=, input=Value that does not contain separator";
-    String actualMessage = exception.getMessage();
+    var actualMessage = exception.getMessage();
 
     assertThat(actualMessage, Matchers.is(expectedMessage));
   }
@@ -65,7 +65,7 @@ class QuestionParserTest {
 
     // then
     var expectedMessage = "Input value cannot be parsed, separator=, input=";
-    String actualMessage = exception.getMessage();
+    var actualMessage = exception.getMessage();
 
     assertThat(actualMessage, Matchers.is(expectedMessage));
   }
@@ -78,7 +78,7 @@ class QuestionParserTest {
 
     // then
     var expectedMessage = "Could not create 'Question' from empty values.";
-    String actualMessage = exception.getMessage();
+    var actualMessage = exception.getMessage();
 
     assertThat(actualMessage, Matchers.is(expectedMessage));
   }
