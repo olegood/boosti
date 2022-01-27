@@ -23,6 +23,10 @@ public class QuestionsService {
     return question;
   }
 
+  public Map<String, Set<Question>> getQuestionsWithTopics() {
+    return questions;
+  }
+
   public Set<Question> getByTopic(String topic) {
     return questions.getOrDefault(topic, emptySet());
   }
