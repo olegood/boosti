@@ -11,21 +11,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    properties = "spring.main.banner-mode=off",
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class QuestionsControllerITCase {
 
-  @LocalServerPort
-  int randomServerPort;
+  @LocalServerPort int randomServerPort;
 
   @Test
   void shouldSaveQuestionAndEnsureItIsReturnedBack() {
     // given
-    var body = """
-      {
-        "topic": "Kotlin",
-        "text": "What is the difference between '.kt' and '.kts' files?"
-      }
-    """;
+    var body =
+        "{\"topic\": \"Kotlin\",\"text\": \"What is the difference between '.kt' and '.kts' files?\"}";
 
     // when
     given()
