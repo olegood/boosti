@@ -32,12 +32,12 @@ body {
 
 /* Style the content */
 .content {
-    background-color: #ddd;
+    background-color: #f1f1f1;
     padding: 10px;
 }
 
 /* Style the footer */
 .footer {
-    background-color: #f1f1f1;
+    background-color: #ddd;
     padding: 10px;
 }
