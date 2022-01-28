@@ -7,11 +7,7 @@ class QuestionsList extends React.Component {
     questions: []
   }
 
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     QuestionsService.getAll().then(resp => {
       const questions = resp.data
       this.setState({questions})
