@@ -24,4 +24,7 @@ Content-Type: application/json
   "text": "What is the difference between '.kt' and '.kts' files?"
 }
 
+### Get Build Properties (Application Info)
+GET {{host}}/api/build-properties
+
 ###

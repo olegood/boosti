@@ -1,18 +1,19 @@
 import './App.css';
+import AppInfo from "./components/appInfo.js";
 import QuestionsList from "./components/QuestionsList.js";
 
 function App() {
   return (<>
-    <div className={'topnav'}>
+    <div className='topnav'>
       <a href="#">Questions</a>
       <a href="#">About</a>
     </div>
 
-    <div className={"content"}>
+    <div className='content'>
       <QuestionsList/>
     </div>
-    <div className={'footer'}>
-      <p>Version: dev</p>
+    <div className='footer'>
+      <AppInfo/>
     </div>
   </>);
 }
