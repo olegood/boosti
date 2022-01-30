@@ -4,9 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.util.stream.Stream;
-
 import boosti.model.Question;
+import java.util.stream.Stream;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,8 @@ class QuestionParserTest {
     var result = parser.parse(input);
 
     // then
-    assertThat(result, Matchers.is(expectedResult));
+    assertThat(result.topic(), Matchers.is(expectedResult.topic()));
+    assertThat(result.text(), Matchers.is(expectedResult.text()));
   }
 
   static Stream<Arguments> inputValueAndExpectedResultProvider() {
