@@ -12,7 +12,7 @@ export default class AppInfo extends React.Component {
   render() {
     const {version, timestamp} = this.state
     return (<>
-      <p><b>Version:</b> {version} <b>Timestamp:</b> {timestamp}</p>
+      <p><b>Version:</b> {version ? version : "N/A"} <b>Timestamp:</b> {timestamp ? timestamp : "N/A"}</p>
     </>)
   }
 }

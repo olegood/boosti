@@ -1,6 +1,6 @@
 import './App.css';
 import AppInfo from "./components/appInfo.js";
-import QuestionsList from "./components/QuestionsList.js";
+import QuestionsContainer from "./components/questions/questionsContainer.js";
 
 function App() {
   return (<>
@@ -10,7 +10,7 @@ function App() {
     </div>
 
     <div className='content'>
-      <QuestionsList/>
+      <QuestionsContainer/>
     </div>
     <div className='footer'>
       <AppInfo/>
