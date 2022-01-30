@@ -44,6 +44,7 @@
         <configuration>
           <excludes>
             <exclude>**/*ITCase</exclude>
+            <exclude>**/*APITest</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -82,6 +83,12 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <includes>
+                <include>**/*ITCase.java</include>
+                <include>**/*APITest.java</include>
+              </includes>
+            </configuration>
           </plugin>
           <plugin>
             <groupId>org.jacoco</groupId>

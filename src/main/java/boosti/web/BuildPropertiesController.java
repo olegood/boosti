@@ -1,7 +1,6 @@
 package boosti.web;
 
 import java.util.Properties;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.web.bind.annotation.CrossOrigin;

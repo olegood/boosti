@@ -1,13 +1,12 @@
 package boosti.web;
 
+import boosti.service.QuestionParser;
+import boosti.service.QuestionsService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Predicate;
-
-import boosti.service.QuestionParser;
-import boosti.service.QuestionsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +24,7 @@ public class FileController {
     this.parser = parser;
   }
 
-  @PostMapping("/api/upload")
+  @PostMapping("/api/file/upload")
   public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file) {
     try (var inputStream = file.getInputStream();
         var br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {

@@ -6,7 +6,7 @@ GET {{host}}/api/questions
 GET {{host}}/api/questions?topic=Maven
 
 ### Upload questions
-POST {{host}}/api/upload
+POST {{host}}/api/file/upload
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
