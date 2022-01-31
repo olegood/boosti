@@ -39,7 +39,8 @@ class QuestionsContainer extends React.Component {
     const hasQuestions = questions && questions.length > 0;
     const hasSelectedItems = selected && selected.size > 0;
     return <>
-      {hasQuestions ? <h1>List of Questions</h1> : <h1>No Questions</h1>}
+      <h1>List of Questions</h1>
+      {!hasQuestions ? <p>No questions.</p> : ''}
       {
         questions
           .sort((qOne, qTwo) => {

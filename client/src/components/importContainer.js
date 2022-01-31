@@ -11,6 +11,7 @@ export default function ImportContainer() {
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsSelected(true);
+    setUploadResult('');
   };
 
   const handleSubmission = () => {
@@ -50,7 +51,9 @@ export default function ImportContainer() {
         <button onClick={handleSubmission} disabled={!isSelected}>Upload</button>
       </div>
       {uploadResult && (
-        <div><p><b>Result:</b> {uploadResult}</p></div>
+        <div>
+          <p><b>Result:</b> {uploadResult}</p>
+        </div>
       )}
     </div>
   </>

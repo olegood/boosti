@@ -10,7 +10,6 @@ function App() {
     <div className='topnav'>
       <a href="/questions">Questions</a>
       <a href="/import">Import</a>
-      <a href="#">About</a>
     </div>
 
     <div className='content'>
