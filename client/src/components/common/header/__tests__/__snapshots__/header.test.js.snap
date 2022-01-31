@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> snapshot 1`] = `
+<div
+  className="MuiTypography-root MuiTypography-h3 css-gepadz-MuiTypography-root"
+>
+  Header text
+</div>
+`;
