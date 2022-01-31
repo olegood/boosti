@@ -1,18 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import AppInfoService from "../service/appInfoService";
+import {Typography} from "@mui/material";
 
-export default class AppInfo extends React.Component {
+export default function AppInfo() {
 
-  state = {}
+  const [version, setVersion] = useState('')
 
-  componentDidMount() {
-    AppInfoService.getBuildInfo().then(resp => this.setState(resp.data))
-  }
+  AppInfoService.getBuildInfo().then(resp => {
+    const {version} = resp.data
+    setVersion(version)
+  });
 
-  render() {
-    const {version, timestamp} = this.state
-    return (<>
-      <p><b>Version:</b> {version ? version : "N/A"} <b>Timestamp:</b> {timestamp ? timestamp : "N/A"}</p>
-    </>)
-  }
+  return (<>
+    <Typography variant="overline" display="block">
+      <b>Version:</b> {version ? version : 'N/A'}
+    </Typography>
+  </>)
 }

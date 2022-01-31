@@ -2,6 +2,8 @@ import React from "react";
 import FileDownload from "js-file-download"
 import QuestionsService from "../../service/questionsService";
 import Question from "./question";
+import {Button, Typography} from '@mui/material';
+import Header from "../common/header/header";
 
 class QuestionsContainer extends React.Component {
 
@@ -39,8 +41,12 @@ class QuestionsContainer extends React.Component {
     const hasQuestions = questions && questions.length > 0;
     const hasSelectedItems = selected && selected.size > 0;
     return <>
-      <h1>List of Questions</h1>
-      {!hasQuestions ? <p>No questions.</p> : ''}
+      <Header text={'List of Questions'}/>
+      {!hasQuestions ?
+        <Typography variant="body1" display="block">
+          No questions.
+        </Typography>
+        : ''}
       {
         questions
           .sort((qOne, qTwo) => {
@@ -50,12 +56,12 @@ class QuestionsContainer extends React.Component {
           })
           .map(item => {
             const {id, text} = item
-            return <Question key={id} id={id} text={text} onChange={this.handleOnChange}/>
+            return <Question id={id} key={id} text={text} onChange={this.handleOnChange}/>
           })
       }
-      {hasQuestions && <div>
-        <button type={"button"} onClick={this.handleExport} disabled={!hasSelectedItems}>Export</button>
-      </div>}
+      {hasQuestions &&
+        <Button variant="contained" onClick={this.handleExport} disabled={!hasSelectedItems}>Export</Button>
+      }
     </>
   }
 }

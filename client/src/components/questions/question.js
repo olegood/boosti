@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from "react";
+import {Checkbox, FormControlLabel, FormGroup} from "@mui/material";
 
-function Question(props) {
+export default function Question(props) {
   const {id, text, onChange} = props
   return (
-    <>
-      <input type={"checkbox"} id={id} value={id} onChange={onChange}/>
-      <label htmlFor={id}> {text}</label><br/>
-    </>
+    <FormGroup>
+      <FormControlLabel control={<Checkbox id={`${id}`} value={id} onChange={onChange} />} label={text}/>
+    </FormGroup>
   )
 }
 
@@ -16,5 +16,3 @@ Question.propTypes = {
   text: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
-
-export default Question

@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
 import QuestionsService from "../service/questionsService";
+import {Button, List, ListItem, styled, Typography} from "@mui/material";
+import FileInfo from "./fileInfo";
+import Header from "./common/header/header";
+
+const Input = styled('input')({
+  display: 'none',
+});
 
 export default function ImportContainer() {
 
@@ -8,10 +15,13 @@ export default function ImportContainer() {
 
   const [uploadResult, setUploadResult] = useState("");
 
+  const [isError, setIsError] = useState(false)
+
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsSelected(true);
     setUploadResult('');
+    setIsError(false)
   };
 
   const handleSubmission = () => {
@@ -19,41 +29,32 @@ export default function ImportContainer() {
     data.append("file", selectedFile);
 
     QuestionsService.uploadFile(data)
-      .then(resp => setUploadResult("Success"))
-      .catch(err => setUploadResult(err.response.data))
+      .then(resp => {
+        setIsError(false)
+        setUploadResult("Success")
+      })
+      .catch(err => {
+        setIsError(true)
+        setUploadResult(err.response.data)
+      })
   };
 
   return <>
-    <h1>Import File</h1>
+    <Header text={'Import File'}/>
     <div>
-      <input type="file" name="file" onChange={changeHandler}/>
-      {isSelected ? (
-        <div>
-          <ul>
-            <li>Filename: {selectedFile.name}</li>
-
-            {selectedFile.type && <li>
-              Filetype: {selectedFile.type}
-            </li>}
-            <li>Size in bytes: {selectedFile.size}</li>
-            <li>
-              Last Modified Date:{' '}
-              {selectedFile.lastModifiedDate.toLocaleDateString()}
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <ul>
-          <li>Select a file to show details</li>
-        </ul>
-      )}
-      <div>
-        <button onClick={handleSubmission} disabled={!isSelected}>Upload</button>
-      </div>
+      <label htmlFor="contained-button-file">
+        <Input type="file" id="contained-button-file" onChange={changeHandler}/>
+        <Button variant="contained" component="span">
+          Browse
+        </Button>
+      </label>
+      <FileInfo selectedFile={selectedFile}/>
+      <Button variant="contained" onClick={handleSubmission} disabled={!isSelected}>Upload</Button>
       {uploadResult && (
-        <div>
-          <p><b>Result:</b> {uploadResult}</p>
-        </div>
+        <Typography variant="overline" display="block">
+          <b>Result:</b>
+          <div className={isError ? 'm-color-failure' : 'm-color-success'}>{uploadResult}</div>
+        </Typography>
       )}
     </div>
   </>

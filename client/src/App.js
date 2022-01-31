@@ -5,11 +5,17 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ImportContainer from "./components/importContainer";
 import React from 'react';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import {Link} from "@mui/material";
+
 function App() {
   return (<>
     <div className='topnav'>
-      <a href="/questions">Questions</a>
-      <a href="/import">Import</a>
+      <Link href="/questions">Questions</Link>
+      <Link href="/import">Import</Link>
     </div>
 
     <div className='content'>

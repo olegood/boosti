@@ -42,6 +42,10 @@ body {
     padding: 10px;
 }
 
-ul {
-    list-style-type: none;
+.m-color-failure {
+    color: red;
+}
+
+.m-color-success {
+    color: forestgreen;
 }
