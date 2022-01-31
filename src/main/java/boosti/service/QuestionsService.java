@@ -1,27 +1,23 @@
 package boosti.service;
 
-import static java.util.Collections.emptySet;
-import static java.util.stream.Collectors.toSet;
-
-import boosti.model.Question;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import boosti.model.Question;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionsService {
 
-  private final Map<String, Set<Question>> questions = new HashMap<>();
+  private final Set<Question> questions = new HashSet<>();
 
   public Question save(Question origin) {
     var question = fillQuestionId(origin);
-    var list = questions.getOrDefault(question.topic(), new HashSet<>());
-    list.add(question);
-    questions.putIfAbsent(question.topic(), list);
+    questions.add(fillQuestionId(origin));
     return question;
   }
 
@@ -30,7 +26,7 @@ public class QuestionsService {
   }
 
   public Map<String, Set<Question>> getQuestionsWithTopics() {
-    return questions;
+    return questions.stream().collect(Collectors.groupingBy(Question::topic, Collectors.toSet()));
   }
 
   public List<Question> getById(Collection<Long> ids) {
@@ -38,10 +34,12 @@ public class QuestionsService {
   }
 
   public Set<Question> getByTopic(String topic) {
-    return questions.getOrDefault(topic, emptySet());
+    return questions.stream()
+        .filter(question -> topic.equals(question.topic()))
+        .collect(Collectors.toSet());
   }
 
   public Set<Question> getAll() {
-    return questions.values().stream().flatMap(Set::stream).collect(toSet());
+    return questions;
   }
 }

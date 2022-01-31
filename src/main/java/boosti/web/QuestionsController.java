@@ -38,17 +38,6 @@ public class QuestionsController {
     return ResponseEntity.status(HttpStatus.CREATED).body(result);
   }
 
-  @PostMapping("/api/questions/export")
-  public ResponseEntity<Resource> export(@RequestBody Set<Long> ids) {
-    var questions = questionsService.getById(ids);
-    if (isEmpty(questions)) {
-      return ResponseEntity.noContent().build();
-    }
-
-    var resource = exportService.export(questions);
-    return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
-  }
-
   @GetMapping("/api/questions")
   public Set<Question> getByTopic(@RequestParam(required = false) Optional<String> topic) {
     return topic.map(questionsService::getByTopic).orElseGet(questionsService::getAll);

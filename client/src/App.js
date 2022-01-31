@@ -1,16 +1,26 @@
 import './App.css';
 import AppInfo from "./components/appInfo.js";
-import QuestionsContainer from "./components/questions/questionsContainer.js";
+import QuestionsContainer from "./components/questions/questionsContainer";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import ImportContainer from "./components/importContainer";
+import React from 'react';
 
 function App() {
   return (<>
     <div className='topnav'>
-      <a href="#">Questions</a>
+      <a href="/questions">Questions</a>
+      <a href="/import">Import</a>
       <a href="#">About</a>
     </div>
 
     <div className='content'>
-      <QuestionsContainer/>
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} element={<QuestionsContainer/>}/>
+          <Route path={"/questions"} element={<QuestionsContainer/>}/>
+          <Route path={"/import"} element={<ImportContainer/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
     <div className='footer'>
       <AppInfo/>

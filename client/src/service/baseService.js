@@ -11,4 +11,8 @@ export default class BaseService {
   post(url, body) {
     return axios.post(`${baseUrl}${url}`, body)
   }
+
+  post(url, body, config) {
+    return axios.post(`${baseUrl}${url}`, body, config)
+  }
 }

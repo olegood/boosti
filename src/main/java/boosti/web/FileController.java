@@ -1,18 +1,21 @@
 package boosti.web;
 
-import boosti.service.QuestionParser;
-import boosti.service.QuestionsService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Predicate;
+
+import boosti.service.QuestionParser;
+import boosti.service.QuestionsService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class FileController {
 
@@ -31,7 +34,7 @@ public class FileController {
       checkSupportingFileType(file);
       parseContent(br);
     } catch (Exception e) {
-      return ResponseEntity.internalServerError().body(e.getMessage());
+      return ResponseEntity.unprocessableEntity().body(e.getMessage());
     }
     return ResponseEntity.ok().build();
   }

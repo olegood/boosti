@@ -49,7 +49,7 @@ class FileControllerTest {
     var result = fileController.uploadFile(file);
 
     // then
-    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.INTERNAL_SERVER_ERROR));
+    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.UNPROCESSABLE_ENTITY));
     assertThat(result.getBody(), Matchers.is("Unsupported file type."));
   }
 
@@ -79,6 +79,6 @@ class FileControllerTest {
     var result = fileController.uploadFile(file);
 
     // then
-    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.INTERNAL_SERVER_ERROR));
+    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.UNPROCESSABLE_ENTITY));
   }
 }
