@@ -5,17 +5,22 @@ import { Container, List, ListItem } from '@mui/material';
 
 export default function PageAbout() {
 
-  const [appInfo, setAppInfo] = useState({})
+  const [appInfo, setAppInfo] = useState({
+    name: 'N/A',
+    group: 'N/A',
+    artifact: 'N/A',
+    version: 'N/A'
+  });
 
-  useEffect(() =>{
+  useEffect(() => {
     AppInfoService.getBuildInfo().then(resp => {
-      setAppInfo(resp.data)
-    })
+      setAppInfo(resp.data);
+    });
   });
 
   const { name, group, artifact, version } = appInfo
 
-  return (<>
+  return <>
     <Container maxWidth="xl">
       <Header text={'About'}/>
       <List>
@@ -26,5 +31,5 @@ export default function PageAbout() {
         <ListItem>React: {React.version}</ListItem>
       </List>
     </Container>
-  </>)
+  </>;
 }
