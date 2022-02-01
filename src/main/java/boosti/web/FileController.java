@@ -1,13 +1,12 @@
 package boosti.web;
 
+import boosti.service.QuestionParser;
+import boosti.service.QuestionsService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Predicate;
-
-import boosti.service.QuestionParser;
-import boosti.service.QuestionsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
