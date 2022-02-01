@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/preset-react": "^7.16.7",
+    "eslint": "^8.8.0",
+    "eslint-plugin-jsx": "^0.1.0"
+  }
+}
