@@ -2,7 +2,7 @@ import React from 'react';
 import FileDownload from 'js-file-download'
 import QuestionsService from '../../service/questionsService';
 import Question from './question';
-import { Button, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import Header from '../common/header/header';
 
 class QuestionsContainer extends React.Component {
@@ -41,6 +41,7 @@ class QuestionsContainer extends React.Component {
     const hasQuestions = questions && questions.length > 0;
     const hasSelectedItems = selected && selected.size > 0;
     return <>
+      <Container maxWidth="xl">
       <Header text={'List of Questions'}/>
       {!hasQuestions ?
         <Typography variant="body1" display="block">
@@ -62,6 +63,7 @@ class QuestionsContainer extends React.Component {
       {hasQuestions &&
         <Button variant="contained" onClick={this.handleExport} disabled={!hasSelectedItems}>Export</Button>
       }
+      </Container>
     </>
   }
 }
