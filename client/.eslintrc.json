@@ -1,0 +1,13 @@
+{
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
+  },
+  "rules": {
+    "quotes": ["error", "single"],
+    "object-curly-spacing": ["error", "always"]
+  }
+}

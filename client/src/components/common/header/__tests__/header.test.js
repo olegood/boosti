@@ -1,6 +1,6 @@
 import Header from '../header'
 import renderer from 'react-test-renderer'
-import {Typography} from "@mui/material";
+import { Typography } from '@mui/material'
 
 describe('<Header />', () => {
   test('snapshot', () => {
@@ -9,7 +9,7 @@ describe('<Header />', () => {
 
     // then
     const tree = component.toJSON()
-    expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot()
   })
 
   test('should render correctly', () => {
@@ -21,8 +21,8 @@ describe('<Header />', () => {
     const testInstance = testRenderer.root
 
     // then
-    expect(testInstance.findByType(Typography).props.variant).toBe('h3');
-    expect(testInstance.findByType(Typography).props.component).toBe('div');
+    expect(testInstance.findByType(Typography).props.variant).toBe('h3')
+    expect(testInstance.findByType(Typography).props.component).toBe('div')
 
     expect(testInstance.findByType(Typography).props.children).toEqual(text)
   })

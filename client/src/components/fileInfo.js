@@ -1,18 +1,18 @@
-import {List, ListItem} from "@mui/material";
-import React from "react";
+import { List, ListItem } from '@mui/material'
+import React from 'react'
 
 export default function FileInfo(props) {
 
-  const {selectedFile} = props
+  const { selectedFile } = props
 
   const showFileInfo = selectedFile => {
-    const {name, type, size, lastModifiedDate} = selectedFile
-    return <List>
+    const { name, type, size, lastModifiedDate } = selectedFile
+    return (<><List>
       <ListItem>Filename: {name}</ListItem>
       {type && <ListItem>Filetype: {type}</ListItem>}
       <ListItem>Size in bytes: {size}</ListItem>
       <ListItem>Last Modified Date: {lastModifiedDate.toLocaleDateString()}</ListItem>
-    </List>
+    </List></>)
   }
 
   const showNoInfo = () => {

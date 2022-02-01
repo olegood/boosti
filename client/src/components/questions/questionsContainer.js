@@ -1,9 +1,9 @@
-import React from "react";
-import FileDownload from "js-file-download"
-import QuestionsService from "../../service/questionsService";
-import Question from "./question";
-import {Button, Typography} from '@mui/material';
-import Header from "../common/header/header";
+import React from 'react';
+import FileDownload from 'js-file-download'
+import QuestionsService from '../../service/questionsService';
+import Question from './question';
+import { Button, Typography } from '@mui/material';
+import Header from '../common/header/header';
 
 class QuestionsContainer extends React.Component {
 
@@ -14,30 +14,30 @@ class QuestionsContainer extends React.Component {
   componentDidMount() {
     QuestionsService.getQuestions().then(resp => {
       const questions = resp.data
-      this.setState({questions})
+      this.setState({ questions })
     }).catch(err => console.error(err))
   }
 
   handleOnChange = (item) => {
-    const {selected} = this.state
-    const {id} = item.target
+    const { selected } = this.state
+    const { id } = item.target
     if (selected.has(id)) {
       selected.delete(id)
     } else {
       selected.add(id)
     }
-    this.setState({selected})
+    this.setState({ selected })
   }
 
   handleExport = () => {
-    const {selected} = this.state
+    const { selected } = this.state
     QuestionsService.exportQuestions([...selected])
-      .then(resp => FileDownload(resp.data, 'export_' + Date.now().valueOf() + ".txt"))
+      .then(resp => FileDownload(resp.data, 'export_' + Date.now().valueOf() + '.txt'))
       .catch(err => console.error(err))
   }
 
   render() {
-    const {questions, selected} = this.state
+    const { questions, selected } = this.state
     const hasQuestions = questions && questions.length > 0;
     const hasSelectedItems = selected && selected.size > 0;
     return <>
@@ -55,7 +55,7 @@ class QuestionsContainer extends React.Component {
             return textOne.localeCompare(textTwo)
           })
           .map(item => {
-            const {id, text} = item
+            const { id, text } = item
             return <Question id={id} key={id} text={text} onChange={this.handleOnChange}/>
           })
       }
