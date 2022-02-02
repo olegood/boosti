@@ -49,13 +49,13 @@ export default function QuestionsGrid() {
 
   return (
     <Container maxWidth="xl">
-      <div style={{ height: 600, width: '100%' }}>
+      <div style={{ height: 700, width: '100%' }}>
         <DataGrid
           loading={loading}
           rows={rows}
           columns={columns}
-          pageSize={20}
-          rowsPerPageOptions={[20]}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
           components={{
