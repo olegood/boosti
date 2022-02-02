@@ -5,6 +5,12 @@ import QuestionsService from '../../service/questionsService'
 import Header from '../common/header/header'
 import Question from './question'
 
+/**
+ * Will be cleaned up in future releases.
+ *
+ * @deprecated
+ * @see #24
+ */
 export default function QuestionsContainer() {
 
   const [questions, setQuestions] = useState([])
@@ -15,7 +21,7 @@ export default function QuestionsContainer() {
       const questions = resp.data
       setQuestions(questions)
     }).catch(err => console.error(err))
-  })
+  }, [])
 
   const handleOnChange = (item) => {
     const { id } = item.target

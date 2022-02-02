@@ -16,7 +16,7 @@ export default function PageAbout() {
     AppInfoService.getBuildInfo().then(resp => {
       setAppInfo(resp.data)
     })
-  })
+  }, [])
 
   const { name, group, artifact, version } = appInfo
 

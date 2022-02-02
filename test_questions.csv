@@ -1,4 +1,12 @@
 Groovy,What is Groovy?
 Maven,How could we build project?
+Maven,What is BOM (Bill of materials)?
+Maven,How could we use profiles?
+Maven,CLI command to skip unit tests?
 Maven,What version of Maven do you use?
 SQL,What is DML?
+SQL,What is DDL?
+ReactJS,What is the difference between functional and non-functional components?
+JS,What is the difference between 'var' and 'let'?
+Java,What is the difference between interface and abstract class?
+Java,What does @FunctionalInterface annotation mean?

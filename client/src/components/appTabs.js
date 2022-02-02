@@ -7,6 +7,7 @@ import * as React from 'react'
 import ImportContainer from './import/importContainer.js'
 import PageAbout from './pageAbout.js'
 import QuestionsContainer from './questions/questionsContainer.js'
+import QuestionsGrid from './questions/questionsGrid.js'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -52,18 +53,22 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Questions" {...a11yProps(0)} />
-          <Tab label="Import" {...a11yProps(1)} />
-          <Tab label="About" {...a11yProps(1)} />
+          <Tab label="Questions (old)" {...a11yProps(0)} />
+          <Tab label="Questions" {...a11yProps(1)} />
+          <Tab label="Import" {...a11yProps(2)} />
+          <Tab label="About" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <QuestionsContainer/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ImportContainer/>
+        <QuestionsGrid/>
       </TabPanel>
       <TabPanel value={value} index={2}>
+        <ImportContainer/>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
         <PageAbout/>
       </TabPanel>
     </Box>

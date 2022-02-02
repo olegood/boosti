@@ -2,6 +2,12 @@ import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+/**
+ * Will be cleaned up in future releases.
+ *
+ * @deprecated
+ * @see #24
+ */
 export default function Question(props) {
   const { id, text, onChange } = props
   return (<>
