@@ -1,12 +1,12 @@
-import BaseService from "./baseService.js";
+import BaseService from './baseService.js'
 
 class QuestionsService extends BaseService {
 
-  getAll = () => this.get(`/api/questions/all`)
+  getAll = () => this.get('/api/questions/all')
 
-  getQuestions = () => this.get(`/api/questions`)
+  getQuestions = () => this.get('/api/questions')
 
-  exportQuestions = data => this.post(`/api/questions/export`, data)
+  exportQuestions = data => this.post('/api/questions/export', data)
 
   uploadFile = data => this.post('/api/file/upload', data, {
     headers: {

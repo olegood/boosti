@@ -1,46 +1,50 @@
-import React from "react";
-import FileDownload from "js-file-download"
-import QuestionsService from "../../service/questionsService";
-import Question from "./question";
+import { Button, Container, Typography } from '@mui/material'
+import FileDownload from 'js-file-download'
+import React, { useEffect, useState } from 'react'
+import QuestionsService from '../../service/questionsService'
+import Header from '../common/header/header'
+import Question from './question'
 
-class QuestionsContainer extends React.Component {
+/**
+ * Will be cleaned up in future releases.
+ *
+ * @deprecated
+ * @see #24
+ */
+export default function QuestionsContainer() {
 
-  state = {
-    questions: [], selected: new Set()
-  }
+  const [questions, setQuestions] = useState([])
+  const [selected, setSelected] = useState(new Set())
 
-  componentDidMount() {
+  useEffect(() => {
     QuestionsService.getQuestions().then(resp => {
       const questions = resp.data
-      this.setState({questions})
+      setQuestions(questions)
     }).catch(err => console.error(err))
+  }, [])
+
+  const handleOnChange = (item) => {
+    const { id } = item.target
+    selected.has(id) ? selected.delete(id) : selected.add(id)
+    setSelected(selected)
   }
 
-  handleOnChange = (item) => {
-    const {selected} = this.state
-    const {id} = item.target
-    if (selected.has(id)) {
-      selected.delete(id)
-    } else {
-      selected.add(id)
-    }
-    this.setState({selected})
-  }
-
-  handleExport = () => {
-    const {selected} = this.state
+  const handleExport = () => {
     QuestionsService.exportQuestions([...selected])
-      .then(resp => FileDownload(resp.data, 'export_' + Date.now().valueOf() + ".txt"))
+      .then(resp => FileDownload(resp.data, 'export_' + Date.now().valueOf() + '.txt'))
       .catch(err => console.error(err))
   }
 
-  render() {
-    const {questions, selected} = this.state
-    const hasQuestions = questions && questions.length > 0;
-    const hasSelectedItems = selected && selected.size > 0;
-    return <>
-      <h1>List of Questions</h1>
-      {!hasQuestions ? <p>No questions.</p> : ''}
+  const hasQuestions = questions && questions.length > 0
+  const hasSelectedItems = selected && selected.size > 0
+  return (<>
+    <Container maxWidth="xl">
+      <Header text={'List of Questions'}/>
+      {!hasQuestions ?
+        <Typography variant="body1" display="block">
+          No questions.
+        </Typography>
+        : ''}
       {
         questions
           .sort((qOne, qTwo) => {
@@ -49,15 +53,13 @@ class QuestionsContainer extends React.Component {
             return textOne.localeCompare(textTwo)
           })
           .map(item => {
-            const {id, text} = item
-            return <Question key={id} id={id} text={text} onChange={this.handleOnChange}/>
+            const { id, text } = item
+            return <Question id={id} key={id} text={text} onChange={handleOnChange}/>
           })
       }
-      {hasQuestions && <div>
-        <button type={"button"} onClick={this.handleExport} disabled={!hasSelectedItems}>Export</button>
-      </div>}
-    </>
-  }
+      {hasQuestions &&
+        <Button variant="contained" onClick={handleExport} disabled={!hasSelectedItems}>Export</Button>
+      }
+    </Container>
+  </>)
 }
-
-export default QuestionsContainer

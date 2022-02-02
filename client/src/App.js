@@ -1,30 +1,16 @@
-import './App.css';
-import AppInfo from "./components/appInfo.js";
-import QuestionsContainer from "./components/questions/questionsContainer";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import ImportContainer from "./components/importContainer";
-import React from 'react';
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+import React from 'react'
+import AppFooter from './components/appFooter.js'
+import AppTabs from './components/appTabs.js'
+import ResponsiveAppBar from './components/responsiveAppBar'
 
-function App() {
+export default function App() {
   return (<>
-    <div className='topnav'>
-      <a href="/questions">Questions</a>
-      <a href="/import">Import</a>
-    </div>
-
-    <div className='content'>
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<QuestionsContainer/>}/>
-          <Route path={"/questions"} element={<QuestionsContainer/>}/>
-          <Route path={"/import"} element={<ImportContainer/>}/>
-        </Routes>
-      </BrowserRouter>
-    </div>
-    <div className='footer'>
-      <AppInfo/>
-    </div>
-  </>);
+    <ResponsiveAppBar/>
+    <AppTabs/>
+    <AppFooter/>
+  </>)
 }
-
-export default App;

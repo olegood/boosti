@@ -3,10 +3,9 @@ package boosti.service.export;
 import static java.nio.ByteBuffer.allocate;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import boosti.model.Question;
 import java.util.Collection;
 import java.util.function.Function;
-
-import boosti.model.Question;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
