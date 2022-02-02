@@ -1,6 +1,6 @@
+import { Typography } from '@mui/material'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Typography } from '@mui/material'
 
 export default function Header(props) {
   const { text } = props

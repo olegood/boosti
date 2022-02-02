@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import AppInfoService from '../service/appInfoService';
-import Header from './common/header/header';
-import { Container, List, ListItem } from '@mui/material';
+import { Container, List, ListItem } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import AppInfoService from '../service/appInfoService'
+import Header from './common/header/header'
 
 export default function PageAbout() {
 
@@ -10,13 +10,13 @@ export default function PageAbout() {
     group: 'N/A',
     artifact: 'N/A',
     version: 'N/A'
-  });
+  })
 
   useEffect(() => {
     AppInfoService.getBuildInfo().then(resp => {
-      setAppInfo(resp.data);
-    });
-  });
+      setAppInfo(resp.data)
+    })
+  })
 
   const { name, group, artifact, version } = appInfo
 
@@ -31,5 +31,5 @@ export default function PageAbout() {
         <ListItem>React: {React.version}</ListItem>
       </List>
     </Container>
-  </>;
+  </>
 }

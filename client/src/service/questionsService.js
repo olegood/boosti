@@ -1,4 +1,4 @@
-import BaseService from './baseService.js';
+import BaseService from './baseService.js'
 
 class QuestionsService extends BaseService {
 

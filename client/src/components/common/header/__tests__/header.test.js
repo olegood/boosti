@@ -1,6 +1,6 @@
-import Header from '../header'
-import renderer from 'react-test-renderer'
 import { Typography } from '@mui/material'
+import renderer from 'react-test-renderer'
+import Header from '../header'
 
 describe('<Header />', () => {
   test('snapshot', () => {

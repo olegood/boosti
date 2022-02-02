@@ -2,7 +2,7 @@ import BaseService from './baseService'
 
 class AppInfoService extends BaseService {
 
-  getBuildInfo = () => this.get('/api/build-properties');
+  getBuildInfo = () => this.get('/api/build-properties')
 
 }
 
