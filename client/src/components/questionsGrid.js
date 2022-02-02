@@ -2,7 +2,7 @@ import { Button, Container } from '@mui/material'
 import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid'
 import FileDownload from 'js-file-download'
 import React, { useEffect, useState } from 'react'
-import QuestionsService from '../../service/questionsService.js'
+import QuestionsService from '../service/questionsService.js'
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },

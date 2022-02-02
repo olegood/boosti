@@ -6,8 +6,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import ImportContainer from './import/importContainer.js'
 import PageAbout from './pageAbout.js'
-import QuestionsContainer from './questions/questionsContainer.js'
-import QuestionsGrid from './questions/questionsGrid.js'
+import QuestionsGrid from './questionsGrid.js'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -22,7 +21,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography component='div'>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -53,22 +52,18 @@ export default function BasicTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Questions (old)" {...a11yProps(0)} />
-          <Tab label="Questions" {...a11yProps(1)} />
-          <Tab label="Import" {...a11yProps(2)} />
-          <Tab label="About" {...a11yProps(3)} />
+          <Tab label="Questions" {...a11yProps(0)} />
+          <Tab label="Import" {...a11yProps(1)} />
+          <Tab label="About" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <QuestionsContainer/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
         <QuestionsGrid/>
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
         <ImportContainer/>
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         <PageAbout/>
       </TabPanel>
     </Box>
