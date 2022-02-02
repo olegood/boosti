@@ -96,18 +96,18 @@ const ResponsiveAppBar = () => {
           >
             BooTI
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(({ name, url }) => (
-              <Button
-                key={name}
-                component={Link} to={url}
-                // onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {name}
-              </Button>
-            ))}
-          </Box>
+          {/*<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>*/}
+          {/*  {pages.map(({ name, url }) => (*/}
+          {/*    <Button*/}
+          {/*      key={name}*/}
+          {/*      component={Link} to={url}*/}
+          {/*      // onClick={handleCloseNavMenu}*/}
+          {/*      sx={{ my: 2, color: 'white', display: 'block' }}*/}
+          {/*    >*/}
+          {/*      {name}*/}
+          {/*    </Button>*/}
+          {/*  ))}*/}
+          {/*</Box>*/}
         </Toolbar>
       </Container>
     </AppBar>
