@@ -2,15 +2,16 @@ package boosti.web;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import boosti.model.Question;
-import boosti.service.QuestionParser;
 import boosti.service.QuestionsService;
+import boosti.service.parse.Parser;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class FileControllerTest {
 
   @Mock MultipartFile file;
 
-  @Mock QuestionParser questionParser;
+  @Mock Parser parser;
 
   @Mock QuestionsService questionsService;
 
@@ -41,7 +42,7 @@ class FileControllerTest {
   }
 
   @Test
-  void shouldReturnInternalErrorForUnsupportedFileExtension() throws Exception {
+  void shouldReturnInternalErrorForUnsupportedFileExtension() {
     // given
     when(file.getOriginalFilename()).thenReturn("not_valid_extension.err");
 
@@ -54,11 +55,11 @@ class FileControllerTest {
   }
 
   @Test
-  void shouldReturnSuccessForSupportedFileExtension() throws Exception {
+  void shouldReturnSuccessForSupportedFileExtension() {
     // given
     when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
 
-    when(questionParser.parse(anyString())).thenReturn(new Question("<topic>", "<text>"));
+    when(parser.parseFrom(anyCollection())).thenReturn(List.of(new Question("<topic>", "<text>")));
     when(questionsService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
@@ -73,7 +74,7 @@ class FileControllerTest {
     // given
     when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
 
-    when(questionParser.parse(anyString())).thenThrow(RuntimeException.class);
+    when(parser.parseFrom(anyCollection())).thenThrow(RuntimeException.class);
 
     // when
     var result = fileController.uploadFile(file);

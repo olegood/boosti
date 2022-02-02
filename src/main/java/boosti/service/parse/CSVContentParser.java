@@ -1,4 +1,8 @@
-package boosti.service;
+package boosti.service.parse;
+
+import java.util.Collection;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import boosti.model.Question;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Configuration
 @PropertySource("classpath:upload.properties")
-public class QuestionParser {
+public class CSVContentParser implements Parser {
 
   @Value("${separator}")
   private String separator;
@@ -18,7 +22,16 @@ public class QuestionParser {
     this.separator = separator;
   }
 
-  public Question parse(String value) {
+  @Override
+  public Collection<Question> parseFrom(Collection<String> values) {
+    return values.stream()
+        .filter((Predicate.not(String::isBlank)))
+        .filter(it -> !it.startsWith("#"))
+        .map(this::parse)
+        .collect(Collectors.toList());
+  }
+
+  private Question parse(String value) {
     checkInputValue(value);
 
     var index = value.indexOf(separator);
@@ -34,7 +47,7 @@ public class QuestionParser {
   private void checkInputValue(String input) {
     if (input.isBlank() || !input.contains(separator)) {
       throw new RuntimeException(
-              "Input value cannot be parsed, separator=" + separator + " input=" + input);
+          "Input value cannot be parsed, separator=" + separator + " input=" + input);
     }
   }
 
