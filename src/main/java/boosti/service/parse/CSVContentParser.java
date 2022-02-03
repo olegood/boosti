@@ -45,7 +45,7 @@ public class CSVContentParser implements Parser {
   }
 
   private void checkInputValue(String input) {
-    if (input.isBlank() || !input.contains(separator)) {
+    if (!input.contains(separator)) {
       throw new ParserException(
           "Input value cannot be parsed, separator=" + separator + " input=" + input);
     }

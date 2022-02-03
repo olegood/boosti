@@ -110,11 +110,11 @@ class CSVContentParserTest {
 
   @Test
   void shouldThrowExceptionIfInputValueHasNoSeparatorInIt() {
+    // given
+    var values = List.of("Value that does not contain separator");
+
     // when
-    var exception =
-        assertThrows(
-            RuntimeException.class,
-            () -> parser.parseFrom(List.of("Value that does not contain separator")));
+    var exception = assertThrows(RuntimeException.class, () -> parser.parseFrom(values));
 
     // then
     var expectedMessage =
