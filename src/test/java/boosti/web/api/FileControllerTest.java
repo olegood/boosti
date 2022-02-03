@@ -1,4 +1,4 @@
-package boosti.web;
+package boosti.web.api;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,7 +33,8 @@ class FileControllerTest {
 
   @Mock QuestionsService questionsService;
 
-  @Spy @InjectMocks FileController fileController;
+  @Spy @InjectMocks
+  FileController fileController;
 
   @BeforeEach
   void setUp() throws Exception {

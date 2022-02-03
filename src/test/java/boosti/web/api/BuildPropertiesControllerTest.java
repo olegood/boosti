@@ -1,4 +1,4 @@
-package boosti.web;
+package boosti.web.api;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;

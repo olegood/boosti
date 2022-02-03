@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -30,11 +29,7 @@ public class QuestionsService {
     return question.id() == null ? new Question(question.topic(), question.text()) : question;
   }
 
-  public Map<String, Set<Question>> getQuestionsWithTopics() {
-    return questions.stream().collect(Collectors.groupingBy(Question::topic, Collectors.toSet()));
-  }
-
-  public List<Question> getById(Collection<Long> ids) {
+  public List<Question> getByIds(Collection<Long> ids) {
     return questions.stream().filter(it -> ids.contains(it.id())).collect(toList());
   }
 

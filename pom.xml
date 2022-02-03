@@ -112,7 +112,7 @@
                         <limit>
                           <counter>INSTRUCTION</counter>
                           <value>COVEREDRATIO</value>
-                          <minimum>0.80</minimum>
+                          <minimum>0.90</minimum>
                         </limit>
                         <limit>
                           <counter>CLASS</counter>
@@ -128,7 +128,7 @@
                         <limit>
                           <counter>LINE</counter>
                           <value>COVEREDRATIO</value>
-                          <minimum>80%</minimum>
+                          <minimum>90%</minimum>
                         </limit>
                       </limits>
                       <excludes>

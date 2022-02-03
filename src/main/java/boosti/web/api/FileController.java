@@ -1,4 +1,4 @@
-package boosti.web;
+package boosti.web.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

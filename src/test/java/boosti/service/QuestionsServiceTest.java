@@ -39,7 +39,7 @@ class QuestionsServiceTest {
   @Test
   void shouldReturnQuestionsByValidIds() {
     // when
-    var result = service.getById(List.of(41L, 42L));
+    var result = service.getByIds(List.of(41L, 42L));
 
     // then
     assertThat(result, hasSize(2));
@@ -48,7 +48,7 @@ class QuestionsServiceTest {
   @Test
   void shouldReturnOneFoundQuestionsByPassedIds() {
     // when
-    var result = service.getById(List.of(41L, -1L, -2L));
+    var result = service.getByIds(List.of(41L, -1L, -2L));
 
     // then
     assertThat(result, hasSize(1));
@@ -57,7 +57,7 @@ class QuestionsServiceTest {
   @Test
   void shouldReturnEmptyCollectionIfNoQuestionsFoundByIds() {
     // when
-    var result = service.getById(List.of(-1L, -2L));
+    var result = service.getByIds(List.of(-1L, -2L));
 
     // then
     assertThat(result, empty());

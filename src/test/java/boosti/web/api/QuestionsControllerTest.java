@@ -1,22 +1,17 @@
-package boosti.web;
+package boosti.web.api;
 
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
-import java.util.Set;
 
 import boosti.model.Question;
 import boosti.service.QuestionsService;
-import boosti.service.export.ExportService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -29,9 +24,9 @@ import org.springframework.http.HttpStatus;
 class QuestionsControllerTest {
 
   @Mock QuestionsService questionsService;
-  @Mock ExportService exportService;
 
-  @InjectMocks QuestionsController questionsController;
+  @InjectMocks
+  QuestionsController questionsController;
 
   @Test
   void shouldReturnCreatedWhenSaveQuestion() {
@@ -45,31 +40,6 @@ class QuestionsControllerTest {
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.CREATED));
     assertThat(result.getBody(), is(question));
-  }
-
-  @Test
-  void shouldReturnNoContentIfNoQuestionsToExport() {
-    // given
-    when(questionsService.getById(anyCollection())).thenReturn(emptyList());
-
-    // when
-    var result = questionsController.export(Set.of(42L, 43L));
-
-    // then
-    assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
-  }
-
-  @Test
-  void shouldReturnOkWhenQuestionsCanBeExported() {
-    // given
-    when(questionsService.getById(anyCollection()))
-        .thenReturn(singletonList(new Question("<topic>", "<text>")));
-
-    // when
-    var result = questionsController.export(Set.of(42L, 43L));
-
-    // then
-    assertThat(result.getStatusCode(), is(HttpStatus.OK));
   }
 
   @Test

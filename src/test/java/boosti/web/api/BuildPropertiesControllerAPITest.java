@@ -1,4 +1,4 @@
-package boosti.web;
+package boosti.web.api;
 
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.is;
