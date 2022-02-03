@@ -46,14 +46,14 @@ public class CSVContentParser implements Parser {
 
   private void checkInputValue(String input) {
     if (input.isBlank() || !input.contains(separator)) {
-      throw new RuntimeException(
+      throw new ParserException(
           "Input value cannot be parsed, separator=" + separator + " input=" + input);
     }
   }
 
   private void ensureQuestionCouldBeCreated(String topic, String text) {
     if (topic.isBlank() || text.isBlank()) {
-      throw new RuntimeException("Could not create 'Question' from empty values.");
+      throw new ParserException("Could not create 'Question' from empty values.");
     }
   }
 }
