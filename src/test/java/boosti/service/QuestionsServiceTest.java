@@ -5,9 +5,11 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
-import boosti.model.Question;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import boosti.model.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,6 +34,33 @@ class QuestionsServiceTest {
 
     // then
     assertThat(result, hasSize(4));
+  }
+
+  @Test
+  void shouldReturnQuestionsByValidIds() {
+    // when
+    var result = service.getById(List.of(41L, 42L));
+
+    // then
+    assertThat(result, hasSize(2));
+  }
+
+  @Test
+  void shouldReturnOneFoundQuestionsByPassedIds() {
+    // when
+    var result = service.getById(List.of(41L, -1L, -2L));
+
+    // then
+    assertThat(result, hasSize(1));
+  }
+
+  @Test
+  void shouldReturnEmptyCollectionIfNoQuestionsFoundByIds() {
+    // when
+    var result = service.getById(List.of(-1L, -2L));
+
+    // then
+    assertThat(result, empty());
   }
 
   @Test
