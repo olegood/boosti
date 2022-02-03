@@ -1,6 +1,7 @@
 package boosti.service;
 
-import boosti.model.Question;
+import static java.util.stream.Collectors.toList;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import boosti.model.Question;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,7 +35,7 @@ public class QuestionsService {
   }
 
   public List<Question> getById(Collection<Long> ids) {
-    return getAll().stream().filter(it -> ids.contains(it.id())).toList();
+    return questions.stream().filter(it -> ids.contains(it.id())).collect(toList());
   }
 
   public Set<Question> getByTopic(String topic) {
