@@ -4,17 +4,19 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+import java.util.Set;
+
 import boosti.model.Question;
 import boosti.service.QuestionsService;
 import boosti.service.export.ExportService;
-import java.util.Optional;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -82,6 +84,7 @@ class QuestionsControllerTest {
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.OK));
     assertThat(result.getBody(), is(notNullValue()));
+    assertThat(result.getBody(), isA(Question.class));
   }
 
   @Test

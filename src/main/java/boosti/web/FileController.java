@@ -25,7 +25,7 @@ public class FileController {
   }
 
   @PostMapping("/api/file/upload")
-  public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file) {
+  public ResponseEntity<String> uploadFile(@RequestParam MultipartFile file) {
     try (var inputStream = file.getInputStream();
         var br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
       checkSupportingFileType(file);

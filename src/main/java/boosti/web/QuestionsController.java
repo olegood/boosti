@@ -2,12 +2,13 @@ package boosti.web;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
-import boosti.model.Question;
-import boosti.service.QuestionsService;
-import boosti.service.export.ExportService;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
+import boosti.model.Question;
+import boosti.service.QuestionsService;
+import boosti.service.export.ExportService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ public class QuestionsController {
   }
 
   @PostMapping("/api/questions")
-  public ResponseEntity<?> saveQuestion(@RequestBody Question question) {
+  public ResponseEntity<Question> saveQuestion(@RequestBody Question question) {
     var result = questionsService.save(question);
     return ResponseEntity.status(HttpStatus.CREATED).body(result);
   }
@@ -53,23 +54,27 @@ public class QuestionsController {
     return topic.map(questionsService::getByTopic).orElseGet(questionsService::getAll);
   }
 
-  /** @deprecated use {@link QuestionsController#getByTopic(Optional)} instead */
-  @Deprecated
+  /**
+   * Should be considered to delete in JavaScript as well.
+   *
+   * @deprecated use {@link QuestionsController#getByTopic(Optional)} instead
+   */
+  @Deprecated(since = "0.2", forRemoval = true)
   @GetMapping("/api/questions/all")
   public Map<String, Set<Question>> getAll() {
     return questionsService.getQuestionsWithTopics();
   }
 
   @DeleteMapping("/api/questions/{id}")
-  public ResponseEntity<?> delete(@PathVariable Long id) {
+  public ResponseEntity<Question> delete(@PathVariable Long id) {
     Optional<Question> question = questionsService.delete(id);
-    return question.isPresent()
-        ? ResponseEntity.ok().body(question)
-        : ResponseEntity.notFound().build();
+    return question
+        .map(value -> ResponseEntity.ok().body(value))
+        .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/api/questions")
-  public ResponseEntity<?> deleteAll() {
+  public ResponseEntity<Void> deleteAll() {
     return ResponseEntity.noContent().build();
   }
 }
