@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,6 +30,20 @@ class QuestionsControllerTest {
   @Mock ExportService exportService;
 
   @InjectMocks QuestionsController questionsController;
+
+  @Test
+  void shouldReturnCreatedWhenSaveQuestion() {
+    // given
+    var question = new Question("<topic>", "<text>");
+    when(questionsService.save(question)).then(AdditionalAnswers.returnsFirstArg());
+
+    // when
+    var result = questionsController.saveQuestion(question);
+
+    // then
+    assertThat(result.getStatusCode(), is(HttpStatus.CREATED));
+    assertThat(result.getBody(), is(question));
+  }
 
   @Test
   void shouldReturnNoContentIfNoQuestionsToExport() {

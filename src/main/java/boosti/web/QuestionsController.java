@@ -53,6 +53,8 @@ public class QuestionsController {
     return topic.map(questionsService::getByTopic).orElseGet(questionsService::getAll);
   }
 
+  /** @deprecated use {@link QuestionsController#getByTopic(Optional)} instead */
+  @Deprecated
   @GetMapping("/api/questions/all")
   public Map<String, Set<Question>> getAll() {
     return questionsService.getQuestionsWithTopics();
