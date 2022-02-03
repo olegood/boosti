@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionsService {
 
-  private final Set<Question> questions = new HashSet<>();
+  private Set<Question> questions = new HashSet<>();
 
   public Question save(Question origin) {
     var question = fillQuestionId(origin);
@@ -50,5 +50,10 @@ public class QuestionsService {
     var questionToDelete = questions.stream().filter(matchById).findAny();
     questions.removeIf(matchById);
     return questionToDelete;
+  }
+
+  public Set<Question> deleteAll() {
+    questions = new HashSet<>();
+    return questions;
   }
 }

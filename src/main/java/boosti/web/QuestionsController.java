@@ -65,4 +65,9 @@ public class QuestionsController {
         ? ResponseEntity.ok().body(question)
         : ResponseEntity.notFound().build();
   }
+
+  @DeleteMapping("/api/questions")
+  public ResponseEntity<?> deleteAll() {
+    return ResponseEntity.noContent().build();
+  }
 }

@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import boosti.model.Question;
 import java.util.Optional;
@@ -62,7 +61,6 @@ class QuestionsServiceTest {
     var result = service.delete(41L);
 
     // then
-    assertTrue(result.isPresent());
     assertThat(result, is(deletedQuestion));
     assertThat(service.getAll(), hasSize(3));
   }
@@ -75,5 +73,15 @@ class QuestionsServiceTest {
     // then
     assertThat(result, is(Optional.empty()));
     assertThat(service.getAll(), hasSize(4));
+  }
+
+  @Test
+  void shouldReturnEmptySetAfterDeleteAll() {
+    // when
+    var result = service.deleteAll();
+
+    // then
+    assertThat(result, empty());
+    assertThat(service.getAll(), empty());
   }
 }

@@ -5,6 +5,7 @@ import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -78,5 +79,15 @@ class QuestionsControllerTest {
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
+  }
+
+  @Test
+  void shouldReturnNoContentWhenDeleteAllQuestions() {
+    // when
+    var result = questionsController.deleteAll();
+
+    // then
+    assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
+    assertThat(result.getBody(), is(nullValue()));
   }
 }
