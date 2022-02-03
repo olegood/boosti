@@ -5,7 +5,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +43,12 @@ public class QuestionsService {
 
   public Set<Question> getAll() {
     return questions;
+  }
+
+  public Optional<Question> delete(Long id) {
+    Predicate<Question> matchById = question -> Objects.equals(question.id(), id);
+    var questionToDelete = questions.stream().filter(matchById).findAny();
+    questions.removeIf(matchById);
+    return questionToDelete;
   }
 }

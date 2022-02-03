@@ -3,15 +3,17 @@ package boosti.web;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.anyCollection;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-
-import java.util.Set;
 
 import boosti.model.Question;
 import boosti.service.QuestionsService;
 import boosti.service.export.ExportService;
-import org.hamcrest.Matchers;
+import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,7 +38,7 @@ class QuestionsControllerTest {
     var result = questionsController.export(Set.of(42L, 43L));
 
     // then
-    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.NO_CONTENT));
+    assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
   }
 
   @Test
@@ -49,6 +51,32 @@ class QuestionsControllerTest {
     var result = questionsController.export(Set.of(42L, 43L));
 
     // then
-    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.OK));
+    assertThat(result.getStatusCode(), is(HttpStatus.OK));
+  }
+
+  @Test
+  void shouldReturnSuccessIfQuestionWasSuccessfullyDeleted() {
+    // given
+    when(questionsService.delete(anyLong()))
+        .thenReturn(Optional.of(new Question("<topic>", "<text>")));
+
+    // when
+    var result = questionsController.delete(42L);
+
+    // then
+    assertThat(result.getStatusCode(), is(HttpStatus.OK));
+    assertThat(result.getBody(), is(notNullValue()));
+  }
+
+  @Test
+  void shouldReturnNotFoundIfQuestionWasNotDeleted() {
+    // given
+    when(questionsService.delete(anyLong())).thenReturn(Optional.empty());
+
+    // when
+    var result = questionsController.delete(-2L);
+
+    // then
+    assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
   }
 }
