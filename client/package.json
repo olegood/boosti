@@ -28,6 +28,11 @@
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -45,6 +50,7 @@
     "@babel/eslint-parser": "^7.16.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "enzyme": "^3.11.0",
-    "eslint": "^8.8.0"
+    "eslint": "^8.8.0",
+    "husky": "^7.0.4"
   }
 }
