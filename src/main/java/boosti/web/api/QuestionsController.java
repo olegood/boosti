@@ -1,7 +1,7 @@
 package boosti.web.api;
 
+import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
 
 import boosti.model.Question;
 import boosti.service.QuestionsService;
@@ -31,7 +31,7 @@ public class QuestionsController {
   }
 
   @GetMapping("/api/questions")
-  public Set<Question> getByTopic(@RequestParam(required = false) Optional<String> topic) {
+  public Collection<Question> getByTopic(@RequestParam(required = false) Optional<String> topic) {
     return topic.map(questionsService::getByTopic).orElseGet(questionsService::getAll);
   }
 

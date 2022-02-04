@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -29,17 +28,17 @@ public class QuestionsService {
     return question.id() == null ? new Question(question.topic(), question.text()) : question;
   }
 
-  public List<Question> getByIds(Collection<Long> ids) {
+  public Collection<Question> getByIds(Collection<Long> ids) {
     return questions.stream().filter(it -> ids.contains(it.id())).collect(toList());
   }
 
-  public Set<Question> getByTopic(String topic) {
+  public Collection<Question> getByTopic(String topic) {
     return questions.stream()
         .filter(question -> topic.equals(question.topic()))
         .collect(Collectors.toSet());
   }
 
-  public Set<Question> getAll() {
+  public Collection<Question> getAll() {
     return questions;
   }
 
@@ -50,7 +49,7 @@ public class QuestionsService {
     return questionToDelete;
   }
 
-  public Set<Question> deleteAll() {
+  public Collection<Question> deleteAll() {
     questions = new HashSet<>();
     return questions;
   }
