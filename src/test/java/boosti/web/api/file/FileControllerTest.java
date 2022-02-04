@@ -1,4 +1,4 @@
-package boosti.web.api;
+package boosti.web.api.file;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,13 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 class FileControllerTest {
 
   @Mock MultipartFile file;
-
   @Mock Parser parser;
-
   @Mock QuestionsService questionsService;
 
-  @Spy @InjectMocks
-  FileController fileController;
+  @Spy @InjectMocks FileController fileController;
 
   @BeforeEach
   void setUp() throws Exception {

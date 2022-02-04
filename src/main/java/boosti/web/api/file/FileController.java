@@ -1,4 +1,4 @@
-package boosti.web.api;
+package boosti.web.api.file;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -48,7 +48,7 @@ public class FileController {
             .filter(it -> it.endsWith("csv"))
             .isPresent();
     if (!hasValidExtension) {
-      throw new RuntimeException("Unsupported file type.");
+      throw new UnsupportedFileTypeException("Unsupported file type.");
     }
   }
 }
