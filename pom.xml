@@ -79,6 +79,9 @@
   <profiles>
     <profile>
       <id>jacoco</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <build>
         <plugins>
           <plugin>
