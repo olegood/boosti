@@ -1,17 +1,15 @@
 import { List, ListItem } from '@mui/material'
 import React from 'react'
 
-export default function FileInfo(props) {
-
-  const { selectedFile } = props
+export default function FileInfo({ selectedFile }) {
 
   const showFileInfo = selectedFile => {
-    const { name, type, size, lastModifiedDate } = selectedFile
+    const { name, type, size, lastModified } = selectedFile
     return (<><List>
       <ListItem>Filename: {name}</ListItem>
       {type && <ListItem>Filetype: {type}</ListItem>}
       <ListItem>Size in bytes: {size}</ListItem>
-      <ListItem>Last Modified Date: {lastModifiedDate.toLocaleDateString()}</ListItem>
+      <ListItem>Last Modified Date: {new Date(lastModified).toLocaleDateString()}</ListItem>
     </List></>)
   }
 
