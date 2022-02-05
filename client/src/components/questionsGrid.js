@@ -3,6 +3,7 @@ import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid'
 import FileDownload from 'js-file-download'
 import React, { useEffect, useState } from 'react'
 import QuestionsService from '../service/questionsService.js'
+import Header from './common/header/header.js'
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -49,6 +50,7 @@ export default function QuestionsGrid() {
 
   return (
     <Container maxWidth="xl">
+      <Header text={'Questions'}/>
       <div style={{ height: 700, width: '100%' }}>
         <DataGrid
           loading={loading}
