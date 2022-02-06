@@ -1,7 +1,7 @@
 import { Container, List, ListItem, ListSubheader } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import AppInfoService from '../service/appInfoService'
-import Header from './common/header/header'
+import AppInfoService from '../service/appInfoService.js'
+import Header from './components/common/header/header.js'
 
 export default function PageAbout() {
 

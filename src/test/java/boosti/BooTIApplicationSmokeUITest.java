@@ -10,15 +10,9 @@ import static com.codeborne.selenide.Selenide.open;
 import static java.util.Arrays.stream;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class BooTIApplicationSmokeUITest {
-
-  @BeforeAll
-  static void beforeAll() {
-    open("http://localhost:3000/");
-  }
 
   @AfterAll
   static void afterAll() {
@@ -26,15 +20,9 @@ class BooTIApplicationSmokeUITest {
   }
 
   @Test
-  void smokeAllTabsExist() {
-    // expect
-    checkTextElementsPresent("Questions", "Import", "About");
-  }
-
-  @Test
-  void smokeTabQuestions() {
+  void smokePageQuestions() {
     // when
-    $(byText("Questions")).click();
+    navigate("/questions");
 
     // then
     $(byText("No rows")).should(exist);
@@ -42,9 +30,9 @@ class BooTIApplicationSmokeUITest {
   }
 
   @Test
-  void smokeTabImport() {
+  void smokePageImport() {
     // when
-    $(byText("Import")).click();
+    navigate("/import");
 
     // then
     $(byText("Import File")).should(exist);
@@ -54,9 +42,9 @@ class BooTIApplicationSmokeUITest {
   }
 
   @Test
-  void smokeTabAbout() {
+  void smokePageAbout() {
     // when
-    $(byText("About")).click();
+    navigate("/about");
 
     // then
     checkTextElementsPresent("Name:", "Group:", "Artifact:", "Version:", "React:");
@@ -64,5 +52,9 @@ class BooTIApplicationSmokeUITest {
 
   void checkTextElementsPresent(String... values) {
     stream(values).forEach(value -> $(byText(value)).should(exist));
+  }
+
+  private void navigate(String relativeUrl) {
+    open("http://localhost:3000" + relativeUrl);
   }
 }

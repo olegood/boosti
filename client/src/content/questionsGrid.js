@@ -3,7 +3,7 @@ import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid'
 import FileDownload from 'js-file-download'
 import React, { useEffect, useState } from 'react'
 import QuestionsService from '../service/questionsService.js'
-import Header from './common/header/header.js'
+import Header from './components/common/header/header.js'
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
