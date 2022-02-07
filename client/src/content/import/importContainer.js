@@ -2,7 +2,7 @@ import { Button, Container, styled, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import QuestionsService from '../../service/questionsService.js'
 import Header from '../components/common/header/header.js'
-import FileInfo from '../fileInfo.js'
+import FileInfo from './fileInfo.js'
 import './css/import-container.css'
 
 const Input = styled('input')({
