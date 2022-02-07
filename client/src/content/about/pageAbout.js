@@ -1,6 +1,6 @@
 import { Container, List, ListItem, ListSubheader } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import AppInfoService from '../../service/appInfoService.js'
+import ServiceAppInfo from '../../service/serviceAppInfo.js'
 import Header from '../components/common/header/header.js'
 
 export default function PageAbout() {
@@ -13,7 +13,7 @@ export default function PageAbout() {
   })
 
   useEffect(() => {
-    AppInfoService.getBuildInfo().then(resp => {
+    ServiceAppInfo.getBuildInfo().then(resp => {
       setAppInfo(resp.data)
     })
   }, [])

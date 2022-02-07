@@ -1,6 +1,6 @@
 import { Box, Button, Container, FormControl, TextField } from '@mui/material'
 import React, { useState } from 'react'
-import QuestionsService from '../../service/questionsService.js'
+import ServiceQuestions from '../../service/serviceQuestions.js'
 import Header from '../components/common/header/header.js'
 
 export default function AddQuestion() {
@@ -9,8 +9,8 @@ export default function AddQuestion() {
   const [text, setText] = useState('')
 
   const handleSave = () => {
-    QuestionsService.saveQuestion({ topic, text })
-      .then(resp => handleClear())
+    ServiceQuestions.saveQuestion({ topic, text })
+      .then(() => handleClear())
       .catch(resp => console.error(resp))
   }
 
@@ -37,7 +37,7 @@ export default function AddQuestion() {
                          const { value } = e.target
                          setText(value)
                        }}/>
-            <Button variant={'contained'} onClick={handleSave} disabled={topic === '' || text===''}>Save</Button>
+            <Button variant={'contained'} onClick={handleSave} disabled={topic === '' || text === ''}>Save</Button>
             <Button variant={'outlined'} onClick={handleClear}>Clear</Button>
           </FormControl>
         </Box>

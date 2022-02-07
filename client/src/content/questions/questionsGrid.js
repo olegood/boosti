@@ -2,7 +2,7 @@ import { Button, Container } from '@mui/material'
 import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid'
 import FileDownload from 'js-file-download'
 import React, { useEffect, useState } from 'react'
-import QuestionsService from '../../service/questionsService.js'
+import ServiceQuestions from '../../service/serviceQuestions.js'
 import Header from '../components/common/header/header.js'
 
 const columns = [
@@ -27,7 +27,7 @@ export default function QuestionsGrid() {
   const [selected, setSelected] = useState(new Set())
 
   const handleExportSelected = () => {
-    QuestionsService.exportQuestions([...selected])
+    ServiceQuestions.exportQuestions([...selected])
       .then(resp => FileDownload(resp.data, 'export_' + Date.now().valueOf() + '.txt'))
       .catch(err => console.error(err))
   }
@@ -42,10 +42,12 @@ export default function QuestionsGrid() {
 
   useEffect(() => {
     setLoading(true)
-    QuestionsService.getQuestions().then(resp => {
-      setRows(resp.data)
-      setLoading(false)
-    }).catch(err => console.error(err))
+    ServiceQuestions.getQuestions()
+      .then(resp => {
+        setRows(resp.data)
+        setLoading(false)
+      })
+      .catch(err => console.error(err))
   }, [])
 
   return (

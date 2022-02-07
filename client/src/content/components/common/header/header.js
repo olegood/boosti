@@ -4,11 +4,13 @@ import React from 'react'
 
 export default function Header(props) {
   const { text } = props
-  return (<>
-    <Typography variant="h3" component="div">
-      {text}
-    </Typography>
-  </>)
+  return (
+    <React.Fragment>
+      <Typography variant="h3" component="div">
+        {text}
+      </Typography>
+    </React.Fragment>
+  )
 }
 
 Header.propTypes = {

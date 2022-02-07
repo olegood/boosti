@@ -1,9 +1,9 @@
 import { Button, Container, styled, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import QuestionsService from '../../service/questionsService.js'
+import ServiceFile from '../../service/serviceFile.js'
 import Header from '../components/common/header/header.js'
-import FileInfo from './fileInfo.js'
 import './css/import-container.css'
+import FileInfo from './fileInfo.js'
 
 const Input = styled('input')({
   display: 'none',
@@ -29,8 +29,8 @@ export default function ImportContainer() {
     const data = new FormData()
     data.append('file', selectedFile)
 
-    QuestionsService.uploadFile(data)
-      .then(resp => {
+    ServiceFile.uploadFile(data)
+      .then(() => {
         setIsError(false)
         setUploadResult('Success')
       })
@@ -46,9 +46,7 @@ export default function ImportContainer() {
       <div>
         <label htmlFor="contained-button-file">
           <Input type="file" id="contained-button-file" onChange={changeHandler}/>
-          <Button variant="contained" component="span">
-            Browse
-          </Button>
+          <Button variant="contained" component="span">Browse</Button>
         </label>
         <FileInfo selectedFile={selectedFile}/>
         <Button variant="contained" onClick={handleSubmission} disabled={!isSelected}>Upload</Button>

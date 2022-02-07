@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = 'http://localhost:8082'
 
-export default class BaseService {
+export default class ServiceBase {
 
   get = (url) => axios.get(`${baseUrl}${url}`)
 
