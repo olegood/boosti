@@ -7,7 +7,8 @@ import { Route, Routes } from 'react-router'
 import AppFooter from './content/appFooter.js'
 import ImportContainer from './content/import/importContainer.js'
 import PageAbout from './content/pageAbout.js'
-import QuestionsGrid from './content/questionsGrid.js'
+import AddQuestion from './content/questions/addQuestion.js'
+import QuestionsGrid from './content/questions/questionsGrid.js'
 import AppNavigation from './navigation/appNavigation.js'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<QuestionsGrid/>}/>
         <Route path="/questions" element={<QuestionsGrid/>}/>
+        <Route path="/questions/add" element={<AddQuestion/>}/>
         <Route path="/import" element={<ImportContainer/>}/>
         <Route path="/about" element={<PageAbout/>}/>
       </Routes>

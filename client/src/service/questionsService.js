@@ -11,6 +11,8 @@ class QuestionsService extends BaseService {
       'Content-Type': 'multipart/form-data'
     }
   })
+
+  saveQuestion = (data) => this.post('/api/questions', data)
 }
 
 export default new QuestionsService()
