@@ -1,5 +1,6 @@
 package boosti.service;
 
+import static java.util.Collections.emptySet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
@@ -7,9 +8,11 @@ import static org.hamcrest.Matchers.is;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import boosti.model.Question;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -112,5 +115,30 @@ class QuestionsServiceTest {
     // then
     assertThat(result, empty());
     assertThat(service.getAll(), empty());
+  }
+
+  @Test
+  void shouldNotDeleteQuestionsIfIdsEmpty() {
+    // given
+    var beforeDeletion = service.getAll();
+
+    // when
+    service.deleteByIds(emptySet());
+
+    // then
+    assertThat(service.getAll(), is(beforeDeletion));
+  }
+
+  @Test
+  void shouldDeleteQuestionsByIds() {
+    // given
+    var sizeBeforeDeletion = service.getAll().size();
+
+    // when
+    service.deleteByIds(Set.of(41L, 42L));
+
+    // then
+    assertThat(service.getAll(), Matchers.not(hasSize(sizeBeforeDeletion)));
+    assertThat(service.getAll(), hasSize(2));
   }
 }

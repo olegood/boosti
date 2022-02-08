@@ -2,6 +2,7 @@ package boosti.web.api;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 import boosti.model.Question;
 import boosti.service.QuestionsService;
@@ -43,8 +44,14 @@ public class QuestionsController {
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  @DeleteMapping("/api/questions")
+  @DeleteMapping("/api/questions/all")
   public ResponseEntity<Void> deleteAll() {
+    return ResponseEntity.noContent().build();
+  }
+
+  @DeleteMapping("/api/questions")
+  public ResponseEntity<Void> deleteByIds(@RequestBody Set<Long> ids) {
+    questionsService.deleteByIds(ids);
     return ResponseEntity.noContent().build();
   }
 }

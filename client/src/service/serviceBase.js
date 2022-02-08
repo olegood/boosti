@@ -9,4 +9,6 @@ export default class ServiceBase {
   post = (url, body) => axios.post(`${baseUrl}${url}`, body)
 
   post = (url, body, config) => axios.post(`${baseUrl}${url}`, body, config)
+
+  delete = (url, body) => axios.delete(`${baseUrl}${url}`, { data: body })
 }

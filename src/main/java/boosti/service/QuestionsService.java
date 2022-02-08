@@ -53,4 +53,8 @@ public class QuestionsService {
     questions = new HashSet<>();
     return questions;
   }
+
+  public void deleteByIds(Set<Long> ids) {
+    questions.removeAll(getByIds(ids));
+  }
 }

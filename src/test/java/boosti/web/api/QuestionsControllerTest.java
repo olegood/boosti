@@ -9,6 +9,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.Set;
 
 import boosti.model.Question;
 import boosti.service.QuestionsService;
@@ -25,8 +26,7 @@ class QuestionsControllerTest {
 
   @Mock QuestionsService questionsService;
 
-  @InjectMocks
-  QuestionsController questionsController;
+  @InjectMocks QuestionsController questionsController;
 
   @Test
   void shouldReturnCreatedWhenSaveQuestion() {
@@ -77,5 +77,14 @@ class QuestionsControllerTest {
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
     assertThat(result.getBody(), is(nullValue()));
+  }
+
+  @Test
+  void shouldReturnNoContentWhenDeleteByIds() {
+    // when
+    var result = questionsController.deleteByIds(Set.of(41L, 42L));
+
+    // then
+    assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
   }
 }

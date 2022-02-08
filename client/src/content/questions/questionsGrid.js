@@ -26,29 +26,40 @@ export default function QuestionsGrid() {
   const [rows, setRows] = useState([])
   const [selected, setSelected] = useState(new Set())
 
+  const [needRefresh, setNeedRefresh] = useState(false)
+
   const handleExportSelected = () => {
     ServiceQuestions.exportQuestions([...selected])
       .then(resp => FileDownload(resp.data, 'export_' + Date.now().valueOf() + '.txt'))
       .catch(err => console.error(err))
   }
 
+  const handleDeleteSelected = () => {
+    ServiceQuestions.deleteQuestions([...selected])
+      .then(() => setNeedRefresh(true))
+      .catch(err => console.error(err))
+  }
+
   const toolbar = () => {
+    const noRowsSelected = !(selected && selected.size > 0)
     return (
       <GridToolbarContainer>
-        <Button onClick={handleExportSelected} disabled={!(selected && selected.size > 0)}>Export Selected</Button>
+        <Button onClick={handleExportSelected} disabled={noRowsSelected}>Export Selected</Button>
+        <Button onClick={handleDeleteSelected} disabled={noRowsSelected}>Delete Selected</Button>
       </GridToolbarContainer>
     )
   }
 
   useEffect(() => {
     setLoading(true)
+    setNeedRefresh(false)
     ServiceQuestions.getQuestions()
       .then(resp => {
         setRows(resp.data)
         setLoading(false)
       })
       .catch(err => console.error(err))
-  }, [])
+  }, [needRefresh])
 
   return (
     <Container maxWidth="xl">
