@@ -6,6 +6,10 @@ import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -86,5 +90,28 @@ class QuestionsControllerTest {
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
+  }
+
+  @Test
+  void shouldCallQuestionsServiceGetByTopicWhenRequestByTopic() {
+    // given
+    var topic = "Java";
+
+    // when
+    var result = questionsController.getByTopic(Optional.of(topic));
+
+    // then
+    verify(questionsService, times(1)).getByTopic(topic);
+    verify(questionsService, never()).getAll();
+  }
+
+  @Test
+  void shouldCallQuestionsServiceGetAllWhenRequestByEmptyTopic() {
+    // when
+    var result = questionsController.getByTopic(Optional.empty());
+
+    // then
+    verify(questionsService, times(1)).getAll();
+    verify(questionsService, never()).getByTopic(anyString());
   }
 }
