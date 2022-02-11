@@ -9,12 +9,10 @@ import static org.hamcrest.core.Is.isA;
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
 
-import java.util.Collection;
 import java.util.Set;
-import java.util.function.Function;
 
 import boosti.domain.QuestionRepository;
-import boosti.web.model.QuestionData;
+import boosti.web.api.export.converter.Converter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +25,7 @@ import org.springframework.http.HttpStatus;
 class ExportControllerTest {
 
   @Mock QuestionRepository questionRepository;
-  @Mock Function<Collection<QuestionData>, byte[]> converter;
+  @Mock Converter<byte[]> converter;
 
   @InjectMocks ExportController exportController;
 

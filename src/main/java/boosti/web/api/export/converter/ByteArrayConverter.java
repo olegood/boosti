@@ -1,10 +1,9 @@
-package boosti.web.api.export;
+package boosti.web.api.export.converter;
 
 import static java.nio.ByteBuffer.allocate;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 import boosti.domain.Question;
 import org.springframework.context.annotation.Primary;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Primary
 @Component
-public class ToPlainTextConverter implements Function<Collection<Question>, byte[]> {
+public class ByteArrayConverter implements Converter<byte[]> {
 
   @Override
   public byte[] apply(Collection<Question> questionData) {

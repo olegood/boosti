@@ -1,4 +1,4 @@
-package boosti.web.api.export;
+package boosti.web.api.export.converter;
 
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -8,9 +8,9 @@ import java.util.List;
 import boosti.domain.Question;
 import org.junit.jupiter.api.Test;
 
-class ToPlainTextConverterTest {
+class ByteArrayConverterTest {
 
-  ToPlainTextConverter converter = new ToPlainTextConverter();
+  Converter<byte[]> converter = new ByteArrayConverter();
 
   @Test
   void shouldReturnEmptyResourceForEmptyCollection() {

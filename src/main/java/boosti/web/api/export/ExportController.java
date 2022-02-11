@@ -1,11 +1,9 @@
 package boosti.web.api.export;
 
-import java.util.Collection;
 import java.util.Set;
-import java.util.function.Function;
 
-import boosti.domain.Question;
 import boosti.domain.QuestionRepository;
+import boosti.web.api.export.converter.Converter;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -18,10 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExportController {
 
   private final QuestionRepository questionRepository;
-  private final Function<Collection<Question>, byte[]> converter;
+  private final Converter<byte[]> converter;
 
-  public ExportController(
-      QuestionRepository repository, Function<Collection<Question>, byte[]> converter) {
+  public ExportController(QuestionRepository repository, Converter<byte[]> converter) {
     this.questionRepository = repository;
     this.converter = converter;
   }
