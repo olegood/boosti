@@ -12,7 +12,7 @@ import static java.util.Arrays.stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-class BoosTIApplicationSmokeUITest {
+class BoosTIAppSmokeUITest {
 
   @AfterAll
   static void afterAll() {
