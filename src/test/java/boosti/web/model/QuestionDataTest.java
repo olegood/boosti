@@ -1,10 +1,11 @@
-package boosti.model;
+package boosti.web.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.hamcrest.Matchers;
@@ -13,11 +14,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class QuestionTest {
+class QuestionDataTest {
 
   @ParameterizedTest
   @MethodSource("questionsEqualityProvider")
-  void checkTwoQuestionsAreEqual(Question one, Object two, boolean expected) {
+  void checkTwoQuestionsAreEqual(QuestionData one, Object two, boolean expected) {
     // when
     var result = one.equals(two);
 
@@ -34,15 +35,15 @@ class QuestionTest {
         arguments(from(42L, "<topic One>", "<text One>"), new Object(), false));
   }
 
-  private static Question from(Long id, String topic, String text) {
-    return new Question(id, topic, text);
+  private static QuestionData from(Long id, String topic, String text) {
+    return QuestionData.builder().withTopic(topic).withText(text).withId(id).build();
   }
 
   @Test
   void twoQuestionsShouldHaveTheSameHashIfTheyAreEqual() {
     // given
-    var one = new Question(42L, "<topic>", "<text>");
-    var two = new Question(58L, "<topic>", "<text>");
+    var one = from(42L, "<topic>", "<text>");
+    var two = from(58L, "<topic>", "<text>");
 
     // when
     var hashOne = one.hashCode();
@@ -55,8 +56,8 @@ class QuestionTest {
   @Test
   void twoQuestionsShouldNotHaveTheSameHashIfTheyAreNotEqual() {
     // given
-    var one = new Question(42L, "<topic>", "<text>");
-    var two = new Question(58L, "<topic Two>", "<text Two>");
+    var one = from(42L, "<topic>", "<text>");
+    var two = from(58L, "<topic Two>", "<text Two>");
 
     // when
     var hashOne = one.hashCode();
@@ -64,5 +65,30 @@ class QuestionTest {
 
     // then
     assertNotEquals(hashOne, hashTwo);
+  }
+
+  @Test
+  void shouldContainAllInformationWhenToString() {
+    // given
+    var question =
+        QuestionData.builder()
+            .withId(42L)
+            .withTopic("Java")
+            .withText("What is JVM?")
+            .withAnswer("-")
+            .withTags(Set.of("java"))
+            .build();
+
+    // when
+    var result = question.toString();
+
+    // then
+    checkContainsStrings(result, "id=42", "topic=Java", "answer=-", "tags=[java]");
+  }
+
+  private void checkContainsStrings(String result, String... values) {
+    for (String value : values) {
+      assertThat(result, Matchers.containsString(value));
+    }
   }
 }

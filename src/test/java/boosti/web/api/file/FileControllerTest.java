@@ -9,9 +9,10 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import boosti.model.Question;
-import boosti.service.QuestionsService;
-import boosti.service.parse.Parser;
+import boosti.domain.Question;
+import boosti.service.QuestionService;
+import boosti.service.parse.ContentParser;
+import boosti.web.model.QuestionData;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,8 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 class FileControllerTest {
 
   @Mock MultipartFile file;
-  @Mock Parser parser;
-  @Mock QuestionsService questionsService;
+  @Mock ContentParser contentParser;
+  @Mock QuestionService questionService;
+  @Spy ModelMapper mapper;
 
   @Spy @InjectMocks FileController fileController;
 
@@ -57,8 +60,10 @@ class FileControllerTest {
     // given
     when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
 
-    when(parser.parseFrom(anyCollection())).thenReturn(List.of(new Question("<topic>", "<text>")));
-    when(questionsService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
+    when(contentParser.parseFrom(anyCollection()))
+        .thenReturn(
+            List.of(QuestionData.builder().withTopic("<topic>").withText("<text>").build()));
+    when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
     var result = fileController.uploadFile(file);
@@ -72,7 +77,7 @@ class FileControllerTest {
     // given
     when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
 
-    when(parser.parseFrom(anyCollection())).thenThrow(RuntimeException.class);
+    when(contentParser.parseFrom(anyCollection())).thenThrow(RuntimeException.class);
 
     // when
     var result = fileController.uploadFile(file);

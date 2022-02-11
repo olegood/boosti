@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
+
+  <changeSet id="Create" author="liquibase-docs">
+    <createSequence schemaName="boosti" sequenceName="sq_question_id" dataType="int" startValue="100"/>
+  </changeSet>
+
+  <changeSet id="question_table" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="question">
+      <column name="id" type="int" valueSequenceNext="sq_question_id">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="topic" type="varchar"/>
+      <column name="text" type="varchar"/>
+      <column name="answer" type="varchar"/>
+      <column name="tags" type="varchar"/>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

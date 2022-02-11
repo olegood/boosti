@@ -13,8 +13,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Function;
 
-import boosti.model.Question;
-import boosti.service.QuestionsService;
+import boosti.domain.QuestionRepository;
+import boosti.web.model.QuestionData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,15 +26,15 @@ import org.springframework.http.HttpStatus;
 @ExtendWith(MockitoExtension.class)
 class ExportControllerTest {
 
-  @Mock QuestionsService questionsService;
-  @Mock Function<Collection<Question>, byte[]> converter;
+  @Mock QuestionRepository questionRepository;
+  @Mock Function<Collection<QuestionData>, byte[]> converter;
 
   @InjectMocks ExportController exportController;
 
   @Test
   void shouldReturnNoContentIfNoQuestionsToExport() {
     // given
-    when(questionsService.getByIds(anyCollection())).thenReturn(emptyList());
+    when(questionRepository.findAllById(anyCollection())).thenReturn(emptyList());
     when(converter.apply(anyCollection())).thenReturn(new byte[] {});
 
     // when

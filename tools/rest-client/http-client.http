@@ -13,7 +13,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="file"; filename="test_questions.csv"
 
 // the file content to upload
-< ./test_questions.csv
+< ../test_questions.csv
 
 ### Save new question
 POST {{host}}/api/questions

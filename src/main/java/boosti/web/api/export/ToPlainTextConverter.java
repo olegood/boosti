@@ -6,7 +6,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import java.util.Collection;
 import java.util.function.Function;
 
-import boosti.model.Question;
+import boosti.domain.Question;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 public class ToPlainTextConverter implements Function<Collection<Question>, byte[]> {
 
   @Override
-  public byte[] apply(Collection<Question> questions) {
-    return questions.stream()
-        .map(Question::text)
+  public byte[] apply(Collection<Question> questionData) {
+    return questionData.stream()
+        .map(Question::getText)
         .map(it -> (it + '\n').getBytes(UTF_8))
         .reduce(
             new byte[] {},

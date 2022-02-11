@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.List;
 
-import boosti.model.Question;
+import boosti.domain.Question;
 import org.junit.jupiter.api.Test;
 
 class ToPlainTextConverterTest {
@@ -23,8 +23,12 @@ class ToPlainTextConverterTest {
 
   @Test
   void shouldReturnValidResourceForECollectionOfQuestions() {
+    // given
+    var question = new Question();
+    question.setText("<text>");
+
     // when
-    var result = converter.apply(List.of(new Question("", "<text>")));
+    var result = converter.apply(List.of(question));
 
     // then
     assertArrayEquals(new byte[] {60, 116, 101, 120, 116, 62, 10}, result);

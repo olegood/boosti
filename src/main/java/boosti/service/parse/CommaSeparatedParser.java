@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import boosti.model.Question;
+import boosti.web.model.QuestionData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Configuration
 @PropertySource("classpath:upload.properties")
-public class CSVContentParser implements Parser {
+public class CommaSeparatedParser implements ContentParser {
 
   @Value("${separator}")
   private String separator;
@@ -23,7 +23,7 @@ public class CSVContentParser implements Parser {
   }
 
   @Override
-  public Collection<Question> parseFrom(Collection<String> values) {
+  public Collection<QuestionData> parseFrom(Collection<String> values) {
     return values.stream()
         .filter((Predicate.not(String::isBlank)))
         .filter(it -> !it.startsWith("#"))
@@ -31,7 +31,7 @@ public class CSVContentParser implements Parser {
         .collect(Collectors.toList());
   }
 
-  private Question parse(String value) {
+  private QuestionData parse(String value) {
     checkInputValue(value);
 
     var index = value.indexOf(separator);
@@ -41,7 +41,7 @@ public class CSVContentParser implements Parser {
 
     ensureQuestionCouldBeCreated(topic, text);
 
-    return new Question(topic, text);
+    return QuestionData.builder().withTopic(topic).withText(text).build();
   }
 
   private void checkInputValue(String input) {

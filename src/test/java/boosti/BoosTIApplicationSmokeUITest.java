@@ -12,7 +12,7 @@ import static java.util.Arrays.stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-class BooTIApplicationSmokeUITest {
+class BoosTIApplicationSmokeUITest {
 
   @AfterAll
   static void afterAll() {
@@ -25,8 +25,8 @@ class BooTIApplicationSmokeUITest {
     navigate("/questions");
 
     // then
-    $(byText("No rows")).should(exist);
     $(byText("Export Selected")).should(exist, disabled);
+    $(byText("Delete Selected")).should(exist, disabled);
   }
 
   @Test

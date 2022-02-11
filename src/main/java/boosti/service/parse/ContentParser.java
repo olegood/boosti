@@ -2,16 +2,16 @@ package boosti.service.parse;
 
 import java.util.Collection;
 
-import boosti.model.Question;
+import boosti.web.model.QuestionData;
 
 @FunctionalInterface
-public interface Parser {
+public interface ContentParser {
 
   /**
    * Converts input stream of string into questions.
    *
    * @param values origin stream of string
-   * @return stream of parsed {@link Question}
+   * @return stream of parsed {@link QuestionData}
    */
-  Collection<Question> parseFrom(Collection<String> values);
+  Collection<QuestionData> parseFrom(Collection<String> values);
 }

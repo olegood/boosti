@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import boosti.model.Question;
+import boosti.web.model.QuestionData;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +18,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class CSVContentParserTest {
+class CommaSeparatedParserTest {
 
-  CSVContentParser parser = new CSVContentParser();
+  CommaSeparatedParser parser = new CommaSeparatedParser();
 
   @BeforeEach
   void setUp() {
@@ -37,7 +37,8 @@ class CSVContentParserTest {
   void shouldReturnSingletonListForOneValidQuestion() {
     // given
     var values = List.of("Java,What is JVM?");
-    var expected = singletonList(new Question("Java", "What is JVM?"));
+    var expected =
+        singletonList(QuestionData.builder().withTopic("Java").withText("What is JVM?").build());
 
     // when
     var result = parser.parseFrom(values);
@@ -66,7 +67,10 @@ class CSVContentParserTest {
     var result = parser.parseFrom(values);
 
     assertThat(result, Matchers.hasSize(1));
-    assertThat(result, Matchers.hasItem(new Question("Java", "What is JVM?")));
+    assertThat(
+        result,
+        Matchers.hasItem(
+            QuestionData.builder().withTopic("Java").withText("What is JVM?").build()));
   }
 
   @Test
@@ -82,13 +86,14 @@ class CSVContentParserTest {
     assertThat(
         result,
         Matchers.containsInAnyOrder(
-            new Question("Java", "What is JVM?"), new Question("SQL", "Hey, what is DDL?")));
+            QuestionData.builder().withTopic("Java").withText("What is JVM?").build(),
+            QuestionData.builder().withTopic("SQL").withText("Hey, what is DDL?").build()));
   }
 
   @ParameterizedTest
   @MethodSource("inputCollectionsAndResultProvider")
   void shouldParseCorrectUsingSimpleSeparator(
-      Collection<String> values, Collection<Question> expectedResult) {
+      Collection<String> values, Collection<QuestionData> expectedResult) {
     // when
     var result = parser.parseFrom(values);
 
@@ -102,10 +107,17 @@ class CSVContentParserTest {
         arguments(
             List.of("Design Patterns,,,Could you please describe Strategy design pattern?"),
             List.of(
-                new Question(
-                    "Design Patterns", ",,Could you please describe Strategy design pattern?"))),
-        arguments(List.of("Java,What is JVM?"), List.of(new Question("Java", "What is JVM?"))),
-        arguments(List.of("SQL  ,What is DDL? "), List.of(new Question("SQL", "What is DDL?"))));
+                QuestionData.builder()
+                    .withTopic("Design Patterns")
+                    .withText(",,Could you please describe Strategy design pattern?")
+                    .build())),
+        arguments(
+            List.of("Java,What is JVM?"),
+            List.of(QuestionData.builder().withTopic("Java").withText("What is JVM?").build())),
+        arguments(
+            List.of("SQL  ,What is DDL? "),
+            List.of(
+                QuestionData.builder().withTopic("SQL").withText("What is DDL?").build())));
   }
 
   @Test

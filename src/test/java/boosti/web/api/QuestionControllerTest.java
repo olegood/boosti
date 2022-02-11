@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -15,31 +16,35 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.Set;
 
-import boosti.model.Question;
-import boosti.service.QuestionsService;
+import boosti.domain.Question;
+import boosti.service.QuestionService;
+import boosti.web.model.QuestionData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
-class QuestionsControllerTest {
+class QuestionControllerTest {
 
-  @Mock QuestionsService questionsService;
+  @Mock QuestionService questionService;
+  @Spy ModelMapper modelMapper;
 
-  @InjectMocks QuestionsController questionsController;
+  @InjectMocks QuestionController questionController;
 
   @Test
   void shouldReturnCreatedWhenSaveQuestion() {
     // given
-    var question = new Question("<topic>", "<text>");
-    when(questionsService.save(question)).then(AdditionalAnswers.returnsFirstArg());
+    var question = QuestionData.builder().withTopic("<topic>").withText("<text>").build();
+    when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
-    var result = questionsController.saveQuestion(question);
+    var result = questionController.saveQuestion(question);
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.CREATED));
@@ -49,25 +54,24 @@ class QuestionsControllerTest {
   @Test
   void shouldReturnSuccessIfQuestionWasSuccessfullyDeleted() {
     // given
-    when(questionsService.delete(anyLong()))
-        .thenReturn(Optional.of(new Question("<topic>", "<text>")));
+    when(questionService.deleteById(anyLong())).thenReturn(Optional.of(new Question()));
 
     // when
-    var result = questionsController.delete(42L);
+    var result = questionController.delete(42L);
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.OK));
     assertThat(result.getBody(), is(notNullValue()));
-    assertThat(result.getBody(), isA(Question.class));
+    assertThat(result.getBody(), isA(QuestionData.class));
   }
 
   @Test
   void shouldReturnNotFoundIfQuestionWasNotDeleted() {
     // given
-    when(questionsService.delete(anyLong())).thenReturn(Optional.empty());
+    when(questionService.deleteById(anyLong())).thenReturn(Optional.empty());
 
     // when
-    var result = questionsController.delete(-2L);
+    var result = questionController.delete(-2L);
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
@@ -76,7 +80,7 @@ class QuestionsControllerTest {
   @Test
   void shouldReturnNoContentWhenDeleteAllQuestions() {
     // when
-    var result = questionsController.deleteAll();
+    var result = questionController.deleteAll();
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
@@ -86,7 +90,7 @@ class QuestionsControllerTest {
   @Test
   void shouldReturnNoContentWhenDeleteByIds() {
     // when
-    var result = questionsController.deleteByIds(Set.of(41L, 42L));
+    var result = questionController.deleteByIds(Set.of(41L, 42L));
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
@@ -98,20 +102,20 @@ class QuestionsControllerTest {
     var topic = "Java";
 
     // when
-    var result = questionsController.getByTopic(Optional.of(topic));
+    var result = questionController.getByTopic(Optional.of(topic));
 
     // then
-    verify(questionsService, times(1)).getByTopic(topic);
-    verify(questionsService, never()).getAll();
+    verify(questionService, times(1)).getByTopic(topic);
+    verify(questionService, never()).getAll();
   }
 
   @Test
   void shouldCallQuestionsServiceGetAllWhenRequestByEmptyTopic() {
     // when
-    var result = questionsController.getByTopic(Optional.empty());
+    var result = questionController.getByTopic(Optional.empty());
 
     // then
-    verify(questionsService, times(1)).getAll();
-    verify(questionsService, never()).getByTopic(anyString());
+    verify(questionService, times(1)).getAll();
+    verify(questionService, never()).getByTopic(anyString());
   }
 }

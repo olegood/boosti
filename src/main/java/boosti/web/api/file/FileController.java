@@ -5,26 +5,33 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import boosti.service.QuestionsService;
-import boosti.service.parse.Parser;
+import boosti.domain.Question;
+import boosti.service.QuestionService;
+import boosti.service.parse.ContentParser;
+import boosti.web.model.QuestionData;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@RequestMapping("/api/file")
 public class FileController {
 
-  private final QuestionsService questionsService;
-  private final Parser parser;
+  private final QuestionService questionService;
+  private final ContentParser parser;
+  private final ModelMapper mapper;
 
-  public FileController(QuestionsService questionsService, Parser parser) {
-    this.questionsService = questionsService;
+  public FileController(QuestionService questionService, ContentParser parser, ModelMapper mapper) {
+    this.questionService = questionService;
     this.parser = parser;
+    this.mapper = mapper;
   }
 
-  @PostMapping("/api/file/upload")
+  @PostMapping("/upload")
   public ResponseEntity<String> uploadFile(@RequestParam MultipartFile file) {
     try (var inputStream = file.getInputStream();
         var br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
@@ -36,8 +43,14 @@ public class FileController {
     return ResponseEntity.ok().build();
   }
 
+  private Question toEntity(QuestionData data) {
+    return mapper.map(data, Question.class);
+  }
+
   private void parseContent(BufferedReader br) {
-    parser.parseFrom(br.lines().toList()).forEach(questionsService::save);
+    parser.parseFrom(br.lines().toList()).stream()
+        .map(this::toEntity)
+        .forEach(questionService::save);
   }
 
   private void checkSupportingFileType(MultipartFile file) {

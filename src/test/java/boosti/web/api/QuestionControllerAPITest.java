@@ -14,7 +14,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 @SpringBootTest(
     properties = "spring.main.banner-mode=off",
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class QuestionsControllerAPITest {
+class QuestionControllerAPITest {
 
   @LocalServerPort int randomServerPort;
 
