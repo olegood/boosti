@@ -33,7 +33,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
-class QuestionServiceTest {
+class QuestionServiceImplTest {
 
   @Mock QuestionRepository repository;
   @InjectMocks QuestionServiceImpl questionService;
