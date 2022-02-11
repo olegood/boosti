@@ -154,9 +154,8 @@
                         </limit>
                       </limits>
                       <excludes>
-                        <exclude>*Test</exclude>
                         <exclude>*Config</exclude>
-                        <exclude>*BoosTIApplication</exclude>
+                        <exclude>*BoosTIApp</exclude>
                       </excludes>
                     </rule>
                   </rules>
