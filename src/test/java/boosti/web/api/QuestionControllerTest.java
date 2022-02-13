@@ -1,18 +1,19 @@
 package boosti.web.api;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ class QuestionControllerTest {
   @Test
   void shouldReturnCreatedWhenSaveQuestion() {
     // given
-    var question = QuestionData.builder().withTopic("<topic>").withText("<text>").build();
+    var question = QuestionData.builder().withText("<text>").build();
     when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
@@ -97,25 +98,33 @@ class QuestionControllerTest {
   }
 
   @Test
-  void shouldCallQuestionsServiceGetByTopicWhenRequestByTopic() {
-    // given
-    var topic = "Java";
-
-    // when
-    var result = questionController.getByTopic(Optional.of(topic));
-
-    // then
-    verify(questionService, times(1)).getByTopic(topic);
-    verify(questionService, never()).getAll();
-  }
-
-  @Test
   void shouldCallQuestionsServiceGetAllWhenRequestByEmptyTopic() {
     // when
-    var result = questionController.getByTopic(Optional.empty());
+    questionController.getAll();
 
     // then
     verify(questionService, times(1)).getAll();
-    verify(questionService, never()).getByTopic(anyString());
+  }
+
+  @Test
+  void shouldReturnDataWhenGetAll() {
+    // given
+    var id = 42L;
+    var text = "What is JVM?";
+
+    var question = new Question();
+    question.setId(id);
+    question.setText(text);
+    when(questionService.getAll()).thenReturn(List.of(question));
+
+    var data = QuestionData.builder().withId(id).withText(text).build();
+
+    // when
+    var result = questionController.getAll();
+
+    // then
+    verify(questionService, times(1)).getAll();
+    assertThat(result, hasSize(1));
+    assertThat(result, containsInAnyOrder(data));
   }
 }

@@ -1,10 +1,7 @@
 package boosti.service;
 
-import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
-import static java.util.Collections.singleton;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyIterable;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -43,10 +39,10 @@ class QuestionServiceImplTest {
     // given
     var questions =
         Stream.of(
-                from(41L, "Java", "What is JVM"),
-                from(42L, "Java", "What is JRE"),
-                from("Java", "What is Garbage Collector"),
-                from("Maven", "What is BOM (Bill of materials)"))
+                from(41L, "What is JVM"),
+                from(42L, "What is JRE"),
+                from("What is Garbage Collector"),
+                from("What is BOM (Bill of materials)"))
             // todo: avoid using mapper here
             .map(data -> new ModelMapper().map(data, Question.class))
             .toList();
@@ -60,12 +56,12 @@ class QuestionServiceImplTest {
     assertThat(result, hasSize(4));
   }
 
-  private static QuestionData from(Long id, String topic, String text) {
-    return QuestionData.builder().withTopic(topic).withText(text).withId(id).build();
+  private static QuestionData from(Long id, String text) {
+    return QuestionData.builder().withText(text).withId(id).build();
   }
 
-  private static QuestionData from(String topic, String text) {
-    return QuestionData.builder().withTopic(topic).withText(text).build();
+  private static QuestionData from(String text) {
+    return QuestionData.builder().withText(text).build();
   }
 
   @Test
@@ -78,34 +74,6 @@ class QuestionServiceImplTest {
 
     // then
     verify(repository, times(1)).save(question);
-  }
-
-  @Test
-  void shouldReturnQuestionsByTopic() {
-    // given
-    var topic = "Java";
-    when(repository.findByTopic(topic)).thenReturn(singleton(new Question()));
-
-    // when
-    var result = questionService.getByTopic(topic);
-
-    // then
-    assertThat(result, hasSize(1));
-    verify(repository, times(1)).findByTopic(topic);
-  }
-
-  @Test
-  void shouldReturnEmptyListIfNoQuestionsFoundByRequestedTopic() {
-    // given
-    var topic = "Kotlin";
-    when(repository.findByTopic(topic)).thenReturn(emptyList());
-
-    // when
-    var result = questionService.getByTopic(topic);
-
-    // then
-    assertThat(result, is(empty()));
-    verify(repository, atLeastOnce()).findByTopic(topic);
   }
 
   @Test

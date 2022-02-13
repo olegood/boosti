@@ -5,20 +5,40 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
 
-  <changeSet id="Create" author="liquibase-docs">
+  <changeSet id="CreateSequenceCategoryId" author="Oleg Anastassov">
+    <createSequence schemaName="boosti" sequenceName="sq_category_id" dataType="int" startValue="100"/>
+  </changeSet>
+
+  <changeSet id="CreateTableCategory" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="category">
+      <column name="id" type="int" valueSequenceNext="sq_category_id">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="CreateSequenceQuestionId" author="Oleg Anastassov">
     <createSequence schemaName="boosti" sequenceName="sq_question_id" dataType="int" startValue="100"/>
   </changeSet>
 
-  <changeSet id="question_table" author="Oleg Anastassov">
+  <changeSet id="CreateTableQuestion" author="Oleg Anastassov">
     <createTable schemaName="boosti" tableName="question">
       <column name="id" type="int" valueSequenceNext="sq_question_id">
         <constraints primaryKey="true" nullable="false"/>
       </column>
-      <column name="topic" type="varchar"/>
+      <column name="category_id" type="int"/>
       <column name="text" type="varchar"/>
       <column name="answer" type="varchar"/>
       <column name="tags" type="varchar"/>
     </createTable>
+  </changeSet>
+
+  <changeSet id="AddForeignKeyQuestion_Category" author="Oleg Anastassov">
+    <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="question" baseTableSchemaName="boosti"
+                             constraintName="fk_question_category" onDelete="CASCADE" onUpdate="RESTRICT"
+                             referencedColumnNames="id" referencedTableName="category"
+                             referencedTableSchemaName="boosti" validate="true"/>
   </changeSet>
 
 </databaseChangeLog>

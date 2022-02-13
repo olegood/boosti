@@ -62,7 +62,7 @@ class FileControllerTest {
 
     when(contentParser.parseFrom(anyCollection()))
         .thenReturn(
-            List.of(QuestionData.builder().withTopic("<topic>").withText("<text>").build()));
+            List.of(QuestionData.builder().withText("<text>").build()));
     when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when

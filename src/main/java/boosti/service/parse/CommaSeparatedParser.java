@@ -41,7 +41,7 @@ public class CommaSeparatedParser implements ContentParser {
 
     ensureQuestionCouldBeCreated(topic, text);
 
-    return QuestionData.builder().withTopic(topic).withText(text).build();
+    return QuestionData.builder().withText(text).build();
   }
 
   private void checkInputValue(String input) {

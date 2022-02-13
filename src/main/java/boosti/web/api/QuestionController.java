@@ -3,7 +3,6 @@ package boosti.web.api;
 import static java.util.stream.Collectors.toList;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 
 import boosti.domain.Question;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,8 +32,8 @@ public class QuestionController {
   }
 
   @PostMapping
-  public ResponseEntity<QuestionData> saveQuestion(@RequestBody QuestionData questionData) {
-    var result = questionService.save(toEntity(questionData));
+  public ResponseEntity<QuestionData> saveQuestion(@RequestBody QuestionData data) {
+    var result = questionService.save(toEntity(data));
     return ResponseEntity.status(HttpStatus.CREATED).body(toData(result));
   }
 
@@ -48,11 +46,8 @@ public class QuestionController {
   }
 
   @GetMapping
-  public Collection<QuestionData> getByTopic(
-      @RequestParam(required = false) Optional<String> topic) {
-    return topic.map(questionService::getByTopic).orElseGet(questionService::getAll).stream()
-        .map(this::toData)
-        .collect(toList());
+  public Collection<QuestionData> getAll() {
+    return questionService.getAll().stream().map(this::toData).collect(toList());
   }
 
   @DeleteMapping("/{id}")

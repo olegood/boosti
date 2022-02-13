@@ -5,6 +5,7 @@ GET {{host}}/api/questions
 ### Get all questions by specified topic
 GET {{host}}/api/questions?topic=Maven
 
+
 ### Upload questions
 POST {{host}}/api/file/upload
 Content-Type: multipart/form-data; boundary=boundary
@@ -15,16 +16,23 @@ Content-Disposition: form-data; name="file"; filename="test_questions.csv"
 // the file content to upload
 < ../test_questions.csv
 
+
 ### Save new question
 POST {{host}}/api/questions
 Content-Type: application/json
 
 {
   "topic": "Kotlin",
+  "category": {
+    "id": 3
+  },
   "text": "What is the difference between '.kt' and '.kts' files?"
 }
+
 
 ### Get Build Properties (Application Info)
 GET {{host}}/api/build-properties
 
-###
+
+### Get all categories
+GET {{host}}/api/categories

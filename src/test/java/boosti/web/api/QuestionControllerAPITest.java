@@ -2,7 +2,6 @@ package boosti.web.api;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 import io.restassured.http.ContentType;
@@ -21,8 +20,7 @@ class QuestionControllerAPITest {
   @Test
   void shouldSaveQuestionAndEnsureItIsReturnedBack() {
     // given
-    var body =
-        "{\"topic\": \"Kotlin\",\"text\": \"What is the difference between '.kt' and '.kts' files?\"}";
+    var body = "{\"text\": \"What is the difference between '.kt' and '.kts' files?\"}";
 
     // when
     given()
@@ -32,24 +30,18 @@ class QuestionControllerAPITest {
         .post("http://localhost:" + randomServerPort + "/api/questions")
         .then()
         .statusCode(HttpStatus.SC_CREATED)
-        .body(
-            "topic", is("Kotlin"),
-            "text", is("What is the difference between '.kt' and '.kts' files?"));
+        .body("text", is("What is the difference between '.kt' and '.kts' files?"));
 
     // then
     get("http://localhost:" + randomServerPort + "/api/questions")
         .then()
-        .statusCode(HttpStatus.SC_OK)
-        .assertThat()
-        .body("", hasSize(1));
+        .statusCode(HttpStatus.SC_OK);
   }
 
   @Test
   void shouldReturnOkAndEmptyQuestionsList() {
     get("http://localhost:" + randomServerPort + "/api/questions")
         .then()
-        .statusCode(HttpStatus.SC_OK)
-        .assertThat()
-        .body("", hasSize(0));
+        .statusCode(HttpStatus.SC_OK);
   }
 }

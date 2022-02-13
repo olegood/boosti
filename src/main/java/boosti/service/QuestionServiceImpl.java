@@ -24,11 +24,6 @@ public class QuestionServiceImpl implements QuestionService {
   }
 
   @Override
-  public Collection<Question> getByTopic(String topic) {
-    return repository.findByTopic(topic);
-  }
-
-  @Override
   public Collection<Question> getAll() {
     return repository.findAll();
   }

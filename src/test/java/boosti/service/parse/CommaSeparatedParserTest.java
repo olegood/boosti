@@ -37,8 +37,7 @@ class CommaSeparatedParserTest {
   void shouldReturnSingletonListForOneValidQuestion() {
     // given
     var values = List.of("Java,What is JVM?");
-    var expected =
-        singletonList(QuestionData.builder().withTopic("Java").withText("What is JVM?").build());
+    var expected = singletonList(QuestionData.builder().withText("What is JVM?").build());
 
     // when
     var result = parser.parseFrom(values);
@@ -67,10 +66,7 @@ class CommaSeparatedParserTest {
     var result = parser.parseFrom(values);
 
     assertThat(result, Matchers.hasSize(1));
-    assertThat(
-        result,
-        Matchers.hasItem(
-            QuestionData.builder().withTopic("Java").withText("What is JVM?").build()));
+    assertThat(result, Matchers.hasItem(QuestionData.builder().withText("What is JVM?").build()));
   }
 
   @Test
@@ -86,8 +82,8 @@ class CommaSeparatedParserTest {
     assertThat(
         result,
         Matchers.containsInAnyOrder(
-            QuestionData.builder().withTopic("Java").withText("What is JVM?").build(),
-            QuestionData.builder().withTopic("SQL").withText("Hey, what is DDL?").build()));
+            QuestionData.builder().withText("What is JVM?").build(),
+            QuestionData.builder().withText("Hey, what is DDL?").build()));
   }
 
   @ParameterizedTest
@@ -108,16 +104,14 @@ class CommaSeparatedParserTest {
             List.of("Design Patterns,,,Could you please describe Strategy design pattern?"),
             List.of(
                 QuestionData.builder()
-                    .withTopic("Design Patterns")
                     .withText(",,Could you please describe Strategy design pattern?")
                     .build())),
         arguments(
             List.of("Java,What is JVM?"),
-            List.of(QuestionData.builder().withTopic("Java").withText("What is JVM?").build())),
+            List.of(QuestionData.builder().withText("What is JVM?").build())),
         arguments(
             List.of("SQL  ,What is DDL? "),
-            List.of(
-                QuestionData.builder().withTopic("SQL").withText("What is DDL?").build())));
+            List.of(QuestionData.builder().withText("What is DDL?").build())));
   }
 
   @Test

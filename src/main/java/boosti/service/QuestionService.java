@@ -9,8 +9,6 @@ public interface QuestionService {
 
   Question save(Question question);
 
-  Collection<Question> getByTopic(String topic);
-
   Collection<Question> getAll();
 
   Optional<Question> deleteById(Long id);

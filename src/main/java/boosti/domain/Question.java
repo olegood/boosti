@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
@@ -21,7 +22,8 @@ public class Question {
   @SequenceGenerator(name = "sq_question_id")
   private Long id;
 
-  private String topic;
+  @OneToOne private Category category;
+
   private String text;
   private String answer;
 
