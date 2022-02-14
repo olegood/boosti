@@ -9,7 +9,7 @@ import AppFooter from './content/appFooter.js'
 import Welcome from './content/home/welcome.js'
 import ImportContainer from './content/import/importContainer.js'
 import AddQuestion from './content/questions/addQuestion.js'
-import QuestionsGrid from './content/questions/questionsGrid.js'
+import ViewQuestions from './content/questions/view/viewQuestions.js'
 import AppNavigation from './navigation/appNavigation.js'
 
 const routes = [
@@ -19,7 +19,7 @@ const routes = [
   },
   {
     path: '/questions',
-    element: <QuestionsGrid/>
+    element: <ViewQuestions/>
   },
   {
     path: '/questions/add',

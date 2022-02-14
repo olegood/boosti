@@ -1,5 +1,6 @@
 import { Box, Button, Container, FormControl, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import ServiceCategories from '../../service/serviceCategories.js'
 import ServiceQuestions from '../../service/serviceQuestions.js'
 import Header from '../components/common/header/header.js'
 
@@ -7,6 +8,13 @@ export default function AddQuestion() {
 
   const [topic, setTopic] = useState('')
   const [text, setText] = useState('')
+  const [categories, setCategories] = useState()
+
+  useEffect(() => {
+    ServiceCategories.getAllCategories()
+      .then(resp => setCategories(resp.data))
+      .catch(err => console.error(err))
+  }, [])
 
   const handleSave = () => {
     ServiceQuestions.saveQuestion({ topic, text })

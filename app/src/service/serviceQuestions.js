@@ -2,7 +2,7 @@ import ServiceBase from './serviceBase.js'
 
 class ServiceQuestions extends ServiceBase {
 
-  getQuestions = () => this.get('/api/questions')
+  getAllQuestions = () => this.get('/api/questions')
 
   exportQuestions = data => this.post('/api/questions/export', data)
 
