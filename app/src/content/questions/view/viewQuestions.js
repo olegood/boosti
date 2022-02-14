@@ -12,10 +12,10 @@ import React, { useEffect, useState } from 'react'
 import ServiceQuestions from '../../../service/serviceQuestions.js'
 import Header from '../../components/common/header/header.js'
 import { QUESTIONS_COLUMNS } from './grid/constants.js'
-import CustomGridToolbarDeleteButton from './grid/toolbar/customGridToolbarDeleteButton.js'
-import CustomGridToolbarExportButton from './grid/toolbar/customGridToolbarExporttButton.js'
-import CustomGridToolbarImportButton from './grid/toolbar/customGridToolbarImportButton.js'
-import CustomGridToolbarNewButton from './grid/toolbar/customGridToolbarNewButton.js'
+import CustomToolbarDeleteButton from './grid/toolbar/customToolbarDeleteButton.js'
+import CustomToolbarExportButton from './grid/toolbar/customToolbarExporttButton.js'
+import CustomToolbarImportButton from './grid/toolbar/customToolbarImportButton.js'
+import CustomToolbarNewButton from './grid/toolbar/customToolbarNewButton.js'
 
 export default function ViewQuestions() {
 
@@ -58,11 +58,11 @@ export default function ViewQuestions() {
         <GridToolbarDensitySelector/>
         <GridToolbarExport/>
 
-        <CustomGridToolbarNewButton/>
-        <CustomGridToolbarImportButton/>
+        <CustomToolbarNewButton/>
+        <CustomToolbarImportButton/>
 
-        <CustomGridToolbarDeleteButton onClick={handleDeleteSelected} disabled={noRowsSelected}/>
-        <CustomGridToolbarExportButton onClick={handleExportSelected} disabled={noRowsSelected}/>
+        <CustomToolbarDeleteButton onClick={handleDeleteSelected} disabled={noRowsSelected}/>
+        <CustomToolbarExportButton onClick={handleExportSelected} disabled={noRowsSelected}/>
       </GridToolbarContainer>
     )
   }
