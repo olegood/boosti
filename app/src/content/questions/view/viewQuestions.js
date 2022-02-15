@@ -1,21 +1,15 @@
 import { Container } from '@mui/material'
-import {
-  DataGrid,
-  GridToolbarColumnsButton,
-  GridToolbarContainer,
-  GridToolbarDensitySelector,
-  GridToolbarExport,
-  GridToolbarFilterButton
-} from '@mui/x-data-grid'
+import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid'
 import FileDownload from 'js-file-download'
 import React, { useEffect, useState } from 'react'
 import ServiceQuestions from '../../../service/serviceQuestions.js'
 import Header from '../../components/common/header/header.js'
+import AddQuestionDialog from '../addQuestionDialog.js'
 import { QUESTIONS_COLUMNS } from './grid/constants.js'
-import CustomToolbarDeleteButton from './grid/toolbar/customToolbarDeleteButton.js'
-import CustomToolbarExportButton from './grid/toolbar/customToolbarExporttButton.js'
-import CustomToolbarImportButton from './grid/toolbar/customToolbarImportButton.js'
-import CustomToolbarNewButton from './grid/toolbar/customToolbarNewButton.js'
+import CustomToolbarDelete from './grid/toolbar/customToolbarDelete.js'
+import CustomToolbarExport from './grid/toolbar/customToolbarExport.js'
+import CustomToolbarImport from './grid/toolbar/customToolbarImport.js'
+import CustomToolbarNew from './grid/toolbar/customToolbarNew.js'
 
 export default function ViewQuestions() {
 
@@ -25,6 +19,8 @@ export default function ViewQuestions() {
   const [selected, setSelected] = useState(new Set())
 
   const [needRefresh, setNeedRefresh] = useState(false)
+
+  const [openNewDialog, setOpenNewDialog] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -36,6 +32,11 @@ export default function ViewQuestions() {
       })
       .catch(err => console.error(err))
   }, [needRefresh])
+
+  const handleCloseNewDialog = () => {
+    setOpenNewDialog(false)
+    setNeedRefresh(true)
+  }
 
   const handleExportSelected = () => {
     ServiceQuestions.exportQuestions([...selected])
@@ -53,16 +54,17 @@ export default function ViewQuestions() {
     const noRowsSelected = !(selected && selected.size > 0)
     return (
       <GridToolbarContainer>
-        <GridToolbarColumnsButton/>
-        <GridToolbarFilterButton/>
-        <GridToolbarDensitySelector/>
-        <GridToolbarExport/>
+        {/*TODO: Temporary toolbar buttons*/}
+        {/*<GridToolbarColumnsButton/>*/}
+        {/*<GridToolbarFilterButton/>*/}
+        {/*<GridToolbarDensitySelector/>*/}
+        {/*<GridToolbarExport/>*/}
 
-        <CustomToolbarNewButton/>
-        <CustomToolbarImportButton/>
+        <CustomToolbarNew onClick={() => setOpenNewDialog(true)}/>
+        <CustomToolbarImport/>
 
-        <CustomToolbarDeleteButton onClick={handleDeleteSelected} disabled={noRowsSelected}/>
-        <CustomToolbarExportButton onClick={handleExportSelected} disabled={noRowsSelected}/>
+        <CustomToolbarDelete onClick={handleDeleteSelected} disabled={noRowsSelected}/>
+        <CustomToolbarExport onClick={handleExportSelected} disabled={noRowsSelected}/>
       </GridToolbarContainer>
     )
   }
@@ -85,6 +87,7 @@ export default function ViewQuestions() {
           onSelectionModelChange={(ids) => setSelected(new Set(ids))}
         />
       </div>
+      <AddQuestionDialog open={openNewDialog} onSave={handleCloseNewDialog} onCancel={handleCloseNewDialog}/>
     </Container>
   )
 }
