@@ -2,6 +2,7 @@ export const QUESTIONS_COLUMNS = [
   { field: 'id', headerName: 'ID', width: 100 },
   {
     field: 'text',
+    flex: 1,
     headerName: 'Text',
     width: 600,
   },
