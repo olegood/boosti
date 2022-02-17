@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
@@ -23,14 +22,14 @@ export default function AddQuestionDialog({ open, onSave, onCancel }) {
     category: {
       id: null
     },
-    text: null
+    text: null,
+    answer: null
   })
 
   useEffect(() => {
     ServiceCategories.getAllCategories()
       .then(resp => setCategories(resp.data))
       .catch(err => console.error(err))
-    setQuestionData({})
   }, [])
 
   const handleCategoryChange = (event) => {
@@ -53,36 +52,41 @@ export default function AddQuestionDialog({ open, onSave, onCancel }) {
     )
   }
 
+  const handleAnswerChange = (event) => {
+    const { value } = event.target
+    setQuestionData(() => ({
+        ...questionData,
+        answer: value
+      })
+    )
+  }
+
   const handleSave = () => {
     ServiceQuestions.saveQuestion(questionData).then(() => onCancel.call())
   }
 
-  const noValues = questionData?.category?.id || questionData?.text?.length === 0
-
-  console.info(noValues)
-
   return (
-    <Dialog disableEscapeKeyDown open={open} onClose={onCancel}>
-      <DialogTitle>Add New Question</DialogTitle>
+    <Dialog disableEscapeKeyDown open={open} onClose={onCancel} maxWidth={'md'} fullWidth={true}>
+      <DialogTitle>New Question</DialogTitle>
       <DialogContent>
-        <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-          <FormControl sx={{ m: 1, minWidth: 300 }}>
-            <InputLabel htmlFor="category">Category</InputLabel>
-            <Select native onChange={handleCategoryChange} input={<OutlinedInput label="Category" id="category"/>}>
-              <option aria-label="None" value=""/>
-              {
-                categories.map(category => {
-                  const { id, name } = category
-                  return <option value={id}>{name}</option>
-                })
-              }
-            </Select>
-            <TextField id="text" label="Text" variant="outlined" onChange={handleTextChange}/>
-          </FormControl>
-        </Box>
+        <FormControl>
+          <InputLabel htmlFor="category">Category</InputLabel>
+          <Select sx={{ minWidth: 150 }} native onChange={handleCategoryChange}
+                  input={<OutlinedInput label="Category" id="category"/>}>
+            <option aria-label="None" value=""/>
+            {
+              categories.map(category => {
+                const { id, name } = category
+                return <option value={id}>{name}</option>
+              })
+            }
+          </Select>
+          <TextField id="text" label="Text" variant="outlined" onChange={handleTextChange}/>
+          <TextField id="answer" label="Answer" variant="outlined" onChange={handleAnswerChange}/>
+        </FormControl>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSave} disabled={noValues}>Save</Button>
+        <Button onClick={handleSave}>Save</Button>
         <Button onClick={() => onCancel(questionData)}>Cancel</Button>
       </DialogActions>
     </Dialog>
