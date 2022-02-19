@@ -1,7 +1,10 @@
-package boosti.domain;
+package boosti.domain.quiz;
 
+import java.util.Collection;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,29 +12,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
+import boosti.domain.Question;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Quiz {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne private Category category;
-
-  private String text;
-  private String answer;
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
-      name = "question_tags",
-      joinColumns = @JoinColumn(name = "question_id"),
-      inverseJoinColumns = @JoinColumn(name = "tag_id"))
-  private Set<Tag> tags;
+      name = "quiz_questions",
+      joinColumns = @JoinColumn(name = "quiz_id"),
+      inverseJoinColumns = @JoinColumn(name = "question_id"))
+  private Set<Question> questions;
 }

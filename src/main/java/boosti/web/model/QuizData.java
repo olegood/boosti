@@ -1,25 +1,19 @@
 package boosti.web.model;
 
-import java.util.Collection;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** Data Transfer Object. */
 @Data
 @Builder(setterPrefix = "with")
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionData {
+public class QuizData {
 
   private Long id;
-
-  private SimpleRefData category;
-
-  private String text;
-  private String answer;
-
-  private Collection<SimpleRefData> tags;
+  private String status;
+  private Set<QuestionData> questions;
 }

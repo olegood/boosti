@@ -1,0 +1,31 @@
+Table question {
+  id int [primary key]
+  category_id int [ref: - category.id]
+  text varchar
+  answer varchar
+}
+
+Table category {
+  id int [pk]
+  name varchar
+}
+
+Table tag {
+  id int [primary key]
+  name varchar
+}
+
+Table question_tags {
+  question_id int [ref: > question.id]
+  tag_id int [ref: > tag.id]
+}
+
+Table quiz {
+  id int [primary key]
+  status varchar
+}
+
+Table quiz_questions {
+  quiz_id int [ref: > quiz.id]
+  question_id int [ref: > question.id]
+}

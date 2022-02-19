@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Category {
+public class Tag {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

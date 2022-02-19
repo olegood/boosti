@@ -5,40 +5,96 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
 
-  <changeSet id="CreateSequenceCategoryId" author="Oleg Anastassov">
-    <createSequence schemaName="boosti" sequenceName="sq_category_id" dataType="int" startValue="100"/>
-  </changeSet>
-
   <changeSet id="CreateTableCategory" author="Oleg Anastassov">
     <createTable schemaName="boosti" tableName="category">
-      <column name="id" type="int" valueSequenceNext="sq_category_id">
+      <column name="id" type="int">
         <constraints primaryKey="true" nullable="false"/>
       </column>
       <column name="name" type="varchar"/>
     </createTable>
   </changeSet>
 
-  <changeSet id="CreateSequenceQuestionId" author="Oleg Anastassov">
-    <createSequence schemaName="boosti" sequenceName="sq_question_id" dataType="int" startValue="100"/>
+  <changeSet id="CreateTableTag" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="tag">
+      <column name="id" type="int">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar"/>
+    </createTable>
   </changeSet>
 
   <changeSet id="CreateTableQuestion" author="Oleg Anastassov">
     <createTable schemaName="boosti" tableName="question">
-      <column name="id" type="int" valueSequenceNext="sq_question_id">
+      <column name="id" type="int">
         <constraints primaryKey="true" nullable="false"/>
       </column>
       <column name="category_id" type="int"/>
       <column name="text" type="varchar"/>
       <column name="answer" type="varchar"/>
-      <column name="tags" type="varchar"/>
     </createTable>
   </changeSet>
 
   <changeSet id="AddForeignKeyQuestion_Category" author="Oleg Anastassov">
-    <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="question" baseTableSchemaName="boosti"
+    <addForeignKeyConstraint baseTableSchemaName="boosti" referencedTableSchemaName="boosti"
+                             baseTableName="question" baseColumnNames="category_id"
+                             referencedTableName="category" referencedColumnNames="id"
                              constraintName="fk_question_category" onDelete="CASCADE" onUpdate="RESTRICT"
-                             referencedColumnNames="id" referencedTableName="category"
-                             referencedTableSchemaName="boosti" validate="true"/>
+                             validate="true"/>
+  </changeSet>
+
+  <changeSet id="CreateTableQuestionTags" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="question_tags">
+      <column name="question_id" type="int"/>
+      <column name="tag_id" type="int"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="AddForeignKeyQuestionTags_Question" author="Oleg Anastassov">
+    <addForeignKeyConstraint baseTableSchemaName="boosti" referencedTableSchemaName="boosti"
+                             baseTableName="question_tags" baseColumnNames="question_id"
+                             referencedTableName="question" referencedColumnNames="id"
+                             constraintName="fk_question_tags_question" onDelete="CASCADE" onUpdate="RESTRICT"
+                             validate="true"/>
+  </changeSet>
+
+  <changeSet id="AddForeignKeyQuestionTags_Tag" author="Oleg Anastassov">
+    <addForeignKeyConstraint baseTableSchemaName="boosti" referencedTableSchemaName="boosti"
+                             baseTableName="question_tags" baseColumnNames="tag_id"
+                             referencedTableName="tag" referencedColumnNames="id"
+                             constraintName="fk_question_tags_tag" onDelete="CASCADE" onUpdate="RESTRICT"
+                             validate="true"/>
+  </changeSet>
+
+  <changeSet id="CreateTableQuiz" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="quiz">
+      <column name="id" type="int" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="status" type="varchar"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="CreateTableQuizQuestions" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="quiz_questions">
+      <column name="quiz_id" type="int"/>
+      <column name="question_id" type="int"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="AddForeignKeyQuizQuestions_Quiz" author="Oleg Anastassov">
+    <addForeignKeyConstraint baseTableSchemaName="boosti" referencedTableSchemaName="boosti"
+                             baseTableName="quiz_questions" baseColumnNames="quiz_id"
+                             referencedTableName="quiz" referencedColumnNames="id"
+                             constraintName="fk_quiz_questions_quiz" onDelete="CASCADE" onUpdate="RESTRICT"
+                             validate="true"/>
+  </changeSet>
+
+  <changeSet id="AddForeignKeyQuizQuestions_Question" author="Oleg Anastassov">
+    <addForeignKeyConstraint baseTableSchemaName="boosti" referencedTableSchemaName="boosti"
+                             baseTableName="quiz_questions" baseColumnNames="question_id"
+                             referencedTableName="question" referencedColumnNames="id"
+                             constraintName="fk_quiz_questions_question" onDelete="CASCADE" onUpdate="RESTRICT"
+                             validate="true"/>
   </changeSet>
 
 </databaseChangeLog>

@@ -36,3 +36,19 @@ GET {{host}}/api/build-properties
 
 ### Get all categories
 GET {{host}}/api/categories
+
+
+### Save Quiz
+POST {{host}}/api/quizzes
+Content-Type: application/json
+
+{
+  "ids": [
+    102
+  ]
+}
+
+
+### Get Quiz by id
+GET {{host}}/api/quizzes/501
+
