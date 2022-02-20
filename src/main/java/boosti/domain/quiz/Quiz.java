@@ -1,6 +1,5 @@
 package boosti.domain.quiz;
 
-import java.util.Collection;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

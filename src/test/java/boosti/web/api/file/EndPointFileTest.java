@@ -27,14 +27,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @ExtendWith(MockitoExtension.class)
-class FileControllerTest {
+class EndPointFileTest {
 
   @Mock MultipartFile file;
   @Mock ContentParser contentParser;
   @Mock QuestionService questionService;
   @Spy ModelMapper mapper;
 
-  @Spy @InjectMocks FileController fileController;
+  @Spy @InjectMocks EndPointFile endPointFile;
 
   @BeforeEach
   void setUp() throws Exception {
@@ -48,7 +48,20 @@ class FileControllerTest {
     when(file.getOriginalFilename()).thenReturn("not_valid_extension.err");
 
     // when
-    var result = fileController.uploadFile(file);
+    var result = endPointFile.uploadFile(file);
+
+    // then
+    assertThat(result.getStatusCode(), Matchers.is(HttpStatus.UNPROCESSABLE_ENTITY));
+    assertThat(result.getBody(), Matchers.is("Unsupported file type."));
+  }
+
+  @Test
+  void shouldReturnInternalErrorForUnsupportedFileNameExtension() {
+    // given
+    when(file.getOriginalFilename()).thenReturn("not_valid_filename_ends_with_csv");
+
+    // when
+    var result = endPointFile.uploadFile(file);
 
     // then
     assertThat(result.getStatusCode(), Matchers.is(HttpStatus.UNPROCESSABLE_ENTITY));
@@ -61,12 +74,11 @@ class FileControllerTest {
     when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
 
     when(contentParser.parseFrom(anyCollection()))
-        .thenReturn(
-            List.of(QuestionData.builder().withText("<text>").build()));
+        .thenReturn(List.of(QuestionData.builder().withText("<text>").build()));
     when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
-    var result = fileController.uploadFile(file);
+    var result = endPointFile.uploadFile(file);
 
     // then
     assertThat(result.getStatusCode(), Matchers.is(HttpStatus.OK));
@@ -80,7 +92,7 @@ class FileControllerTest {
     when(contentParser.parseFrom(anyCollection())).thenThrow(RuntimeException.class);
 
     // when
-    var result = fileController.uploadFile(file);
+    var result = endPointFile.uploadFile(file);
 
     // then
     assertThat(result.getStatusCode(), Matchers.is(HttpStatus.UNPROCESSABLE_ENTITY));

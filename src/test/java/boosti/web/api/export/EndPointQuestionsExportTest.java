@@ -22,12 +22,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
-class ExportControllerTest {
+class EndPointQuestionsExportTest {
 
   @Mock QuestionRepository questionRepository;
   @Mock Converter<byte[]> converter;
 
-  @InjectMocks ExportController exportController;
+  @InjectMocks EndPointQuestionsExport endPointQuestionsExport;
 
   @Test
   void shouldReturnNoContentIfNoQuestionsToExport() {
@@ -36,7 +36,7 @@ class ExportControllerTest {
     when(converter.apply(anyCollection())).thenReturn(new byte[] {});
 
     // when
-    var result = exportController.export(emptySet());
+    var result = endPointQuestionsExport.export(emptySet());
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
@@ -48,7 +48,7 @@ class ExportControllerTest {
     when(converter.apply(anyCollection())).thenReturn(new byte[] {1, 2, 3});
 
     // when
-    var result = exportController.export(Set.of(42L, 43L));
+    var result = endPointQuestionsExport.export(Set.of(42L, 43L));
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.OK));

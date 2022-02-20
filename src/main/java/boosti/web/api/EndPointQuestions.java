@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/questions")
-public class QuestionController {
+public class EndPointQuestions {
 
   private final QuestionService questionService;
   private final ModelMapper modelMapper;
 
-  public QuestionController(QuestionService questionService, ModelMapper modelMapper) {
+  public EndPointQuestions(QuestionService questionService, ModelMapper modelMapper) {
     this.questionService = questionService;
     this.modelMapper = modelMapper;
   }

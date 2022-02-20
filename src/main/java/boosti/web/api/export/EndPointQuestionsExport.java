@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ExportController {
+public class EndPointQuestionsExport {
 
   private final QuestionRepository questionRepository;
   private final Converter<byte[]> converter;
 
-  public ExportController(QuestionRepository repository, Converter<byte[]> converter) {
+  public EndPointQuestionsExport(QuestionRepository repository, Converter<byte[]> converter) {
     this.questionRepository = repository;
     this.converter = converter;
   }

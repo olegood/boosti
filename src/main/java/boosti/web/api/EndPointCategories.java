@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/categories")
-public class CategoryController {
+public class EndPointCategories {
 
   private final CategoryRepository repository;
   private final ModelMapper modelMapper;
 
-  public CategoryController(CategoryRepository repository, ModelMapper modelMapper) {
+  public EndPointCategories(CategoryRepository repository, ModelMapper modelMapper) {
     this.repository = repository;
     this.modelMapper = modelMapper;
   }

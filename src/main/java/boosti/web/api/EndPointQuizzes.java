@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/quizzes")
-public class QuizController {
+public class EndPointQuizzes {
 
   private final QuizService quizService;
   private final QuestionRepository questionRepository;
 
   private final ModelMapper modelMapper;
 
-  public QuizController(
+  public EndPointQuizzes(
       QuizService quizService, QuestionRepository questionRepository, ModelMapper modelMapper) {
     this.quizService = quizService;
     this.questionRepository = questionRepository;

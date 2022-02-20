@@ -25,8 +25,8 @@ class BoosTIAppSmokeUITest {
     navigate("/questions");
 
     // then
-    $(byText("Export Selected")).should(exist, disabled);
-    $(byText("Delete Selected")).should(exist, disabled);
+    $(byText("Export")).should(exist, disabled);
+    $(byText("Delete")).should(exist, disabled);
   }
 
   @Test

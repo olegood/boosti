@@ -10,9 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.info.BuildProperties;
 
-class BuildPropertiesControllerTest {
+class EndPointBuildPropertiesTest {
 
-  BuildPropertiesController buildPropertiesController;
+  EndPointBuildProperties endPointBuildProperties;
 
   @BeforeEach
   void setUp() {
@@ -20,13 +20,13 @@ class BuildPropertiesControllerTest {
     props.put("name", "boosti-web");
     props.put("version", "dev");
 
-    buildPropertiesController = new BuildPropertiesController(new BuildProperties(props));
+    endPointBuildProperties = new EndPointBuildProperties(new BuildProperties(props));
   }
 
   @Test
   void shouldReturnAllAvailableBuildInfoProperties() {
     // when
-    var result = buildPropertiesController.getBuildInfo();
+    var result = endPointBuildProperties.getBuildInfo();
 
     // then
     var keySet = result.keySet();

@@ -1,9 +1,12 @@
 package boosti.web.api.file;
 
+import static java.util.function.Predicate.not;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import boosti.domain.Question;
 import boosti.service.QuestionService;
@@ -19,13 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/file")
-public class FileController {
+public class EndPointFile {
 
   private final QuestionService questionService;
   private final ContentParser parser;
   private final ModelMapper mapper;
 
-  public FileController(QuestionService questionService, ContentParser parser, ModelMapper mapper) {
+  public EndPointFile(QuestionService questionService, ContentParser parser, ModelMapper mapper) {
     this.questionService = questionService;
     this.parser = parser;
     this.mapper = mapper;
@@ -54,14 +57,14 @@ public class FileController {
   }
 
   private void checkSupportingFileType(MultipartFile file) {
-    var hasValidExtension =
-        Optional.ofNullable(file)
-            .map(MultipartFile::getOriginalFilename)
-            .map(String::toLowerCase)
-            .filter(it -> it.endsWith("csv"))
-            .isPresent();
-    if (!hasValidExtension) {
-      throw new UnsupportedFileTypeException("Unsupported file type.");
-    }
+    Predicate<String> endsWithCsv = value -> value.endsWith(".csv");
+    Optional.ofNullable(file)
+        .map(MultipartFile::getOriginalFilename)
+        .map(String::toLowerCase)
+        .filter(not(endsWithCsv))
+        .ifPresent(
+            (action) -> {
+              throw new UnsupportedFileTypeException("Unsupported file type.");
+            });
   }
 }

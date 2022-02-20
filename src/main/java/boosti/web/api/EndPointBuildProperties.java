@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/build-properties")
-public class BuildPropertiesController {
+public class EndPointBuildProperties {
 
   private final BuildProperties build;
 
-  public BuildPropertiesController(BuildProperties build) {
+  public EndPointBuildProperties(BuildProperties build) {
     this.build = build;
   }
 

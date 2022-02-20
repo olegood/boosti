@@ -20,11 +20,11 @@ public class QuizServiceImpl implements QuizService {
   }
 
   @Override
-  public void save(Collection<Question> questions) {
+  public Quiz save(Collection<Question> questions) {
     var quiz = new Quiz();
     quiz.setStatus(Status.DRAFT);
     quiz.setQuestions(new HashSet<>(questions));
-    repository.save(quiz);
+    return repository.save(quiz);
   }
 
   @Override

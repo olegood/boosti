@@ -31,12 +31,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
-class QuestionControllerTest {
+class EndPointQuestionsTest {
 
   @Mock QuestionService questionService;
   @Spy ModelMapper modelMapper;
 
-  @InjectMocks QuestionController questionController;
+  @InjectMocks
+  EndPointQuestions endPointQuestions;
 
   @Test
   void shouldReturnCreatedWhenSaveQuestion() {
@@ -45,7 +46,7 @@ class QuestionControllerTest {
     when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
-    var result = questionController.saveQuestion(question);
+    var result = endPointQuestions.saveQuestion(question);
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.CREATED));
@@ -58,7 +59,7 @@ class QuestionControllerTest {
     when(questionService.deleteById(anyLong())).thenReturn(Optional.of(new Question()));
 
     // when
-    var result = questionController.delete(42L);
+    var result = endPointQuestions.delete(42L);
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.OK));
@@ -72,7 +73,7 @@ class QuestionControllerTest {
     when(questionService.deleteById(anyLong())).thenReturn(Optional.empty());
 
     // when
-    var result = questionController.delete(-2L);
+    var result = endPointQuestions.delete(-2L);
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
@@ -81,7 +82,7 @@ class QuestionControllerTest {
   @Test
   void shouldReturnNoContentWhenDeleteAllQuestions() {
     // when
-    var result = questionController.deleteAll();
+    var result = endPointQuestions.deleteAll();
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
@@ -91,7 +92,7 @@ class QuestionControllerTest {
   @Test
   void shouldReturnNoContentWhenDeleteByIds() {
     // when
-    var result = questionController.deleteByIds(Set.of(41L, 42L));
+    var result = endPointQuestions.deleteByIds(Set.of(41L, 42L));
 
     // then
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
@@ -100,7 +101,7 @@ class QuestionControllerTest {
   @Test
   void shouldCallQuestionsServiceGetAllWhenRequestByEmptyTopic() {
     // when
-    questionController.getAll();
+    endPointQuestions.getAll();
 
     // then
     verify(questionService, times(1)).getAll();
@@ -120,7 +121,7 @@ class QuestionControllerTest {
     var data = QuestionData.builder().withId(id).withText(text).build();
 
     // when
-    var result = questionController.getAll();
+    var result = endPointQuestions.getAll();
 
     // then
     verify(questionService, times(1)).getAll();

@@ -21,12 +21,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryControllerTest {
+class EndPointCategoriesTest {
 
   @Mock CategoryRepository repository;
   @Spy ModelMapper modelMapper;
 
-  @InjectMocks CategoryController controller;
+  @InjectMocks
+  EndPointCategories controller;
 
   @Test
   void shouldCallRepositoryFindAllWhenGetAll() {
