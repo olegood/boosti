@@ -9,10 +9,11 @@ import static org.hamcrest.core.Is.isA;
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Set;
 
+import boosti.domain.Question;
 import boosti.domain.QuestionRepository;
-import boosti.web.api.export.converter.Converter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +26,6 @@ import org.springframework.http.HttpStatus;
 class EndPointQuestionsExportTest {
 
   @Mock QuestionRepository questionRepository;
-  @Mock Converter<byte[]> converter;
 
   @InjectMocks EndPointQuestionsExport endPointQuestionsExport;
 
@@ -33,7 +33,6 @@ class EndPointQuestionsExportTest {
   void shouldReturnNoContentIfNoQuestionsToExport() {
     // given
     when(questionRepository.findAllById(anyCollection())).thenReturn(emptyList());
-    when(converter.apply(anyCollection())).thenReturn(new byte[] {});
 
     // when
     var result = endPointQuestionsExport.export(emptySet());
@@ -45,7 +44,10 @@ class EndPointQuestionsExportTest {
   @Test
   void shouldReturnOkWhenQuestionsCanBeExported() {
     // given
-    when(converter.apply(anyCollection())).thenReturn(new byte[] {1, 2, 3});
+    var question = new Question();
+    question.setText("<text>");
+
+    when(questionRepository.findAllById(anyCollection())).thenReturn(List.of(question));
 
     // when
     var result = endPointQuestionsExport.export(Set.of(42L, 43L));
