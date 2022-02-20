@@ -20,7 +20,14 @@ class EndPointQuestionsAPITest {
   @Test
   void shouldSaveQuestionAndEnsureItIsReturnedBack() {
     // given
-    var body = "{\"text\": \"What is the difference between '.kt' and '.kts' files?\"}";
+    var body = """
+            {
+              "category": {
+                "id": 13
+              },
+              "text": "What is the difference between '.kt' and '.kts' files?"
+            }
+            """;
 
     // when
     given()
