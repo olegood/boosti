@@ -16,18 +16,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
 class EndPointCategoriesTest {
 
   @Mock CategoryRepository repository;
-  @Spy ModelMapper modelMapper;
 
-  @InjectMocks
-  EndPointCategories controller;
+  @InjectMocks EndPointCategories controller;
 
   @Test
   void shouldCallRepositoryFindAllWhenGetAll() {

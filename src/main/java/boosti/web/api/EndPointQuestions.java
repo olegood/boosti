@@ -5,10 +5,10 @@ import static java.util.stream.Collectors.toList;
 import java.util.Collection;
 import java.util.Set;
 
-import boosti.domain.Question;
 import boosti.service.QuestionService;
+import boosti.service.conversion.target.QuestionAsQuestionData;
+import boosti.service.conversion.target.QuestionDataAsQuestion;
 import boosti.web.model.QuestionData;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,37 +24,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class EndPointQuestions {
 
   private final QuestionService questionService;
-  private final ModelMapper modelMapper;
 
-  public EndPointQuestions(QuestionService questionService, ModelMapper modelMapper) {
+  public EndPointQuestions(QuestionService questionService) {
     this.questionService = questionService;
-    this.modelMapper = modelMapper;
   }
 
   @PostMapping
   public ResponseEntity<QuestionData> saveQuestion(@RequestBody QuestionData data) {
-    var result = questionService.save(toEntity(data));
-    return ResponseEntity.status(HttpStatus.CREATED).body(toData(result));
-  }
+    var question = new QuestionDataAsQuestion(data).content();
 
-  private Question toEntity(QuestionData data) {
-    return modelMapper.map(data, Question.class);
-  }
+    var result = questionService.save(question);
+    var body = new QuestionAsQuestionData(result).content();
 
-  private QuestionData toData(Question question) {
-    return modelMapper.map(question, QuestionData.class);
+    return ResponseEntity.status(HttpStatus.CREATED).body(body);
   }
 
   @GetMapping
   public Collection<QuestionData> getAll() {
-    return questionService.getAll().stream().map(this::toData).collect(toList());
+    return questionService.getAll().stream()
+        .map(QuestionAsQuestionData::new)
+        .map(QuestionAsQuestionData::content)
+        .collect(toList());
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<QuestionData> delete(@PathVariable Long id) {
     return questionService
         .deleteById(id)
-        .map(value -> ResponseEntity.ok().body(toData(value)))
+        .map(QuestionAsQuestionData::new)
+        .map(QuestionAsQuestionData::content)
+        .map(body -> ResponseEntity.ok().body(body))
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 

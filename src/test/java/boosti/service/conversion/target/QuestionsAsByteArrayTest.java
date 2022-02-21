@@ -8,12 +8,12 @@ import java.util.List;
 import boosti.domain.Question;
 import org.junit.jupiter.api.Test;
 
-class TargetByteArrayTest {
+class QuestionsAsByteArrayTest {
 
   @Test
   void shouldReturnEmptyByteArrayForEmptyCollectionOfQuestions() {
     // given
-    var byteArray = new TargetByteArray(emptyList());
+    var byteArray = new QuestionsAsByteArray(emptyList());
 
     // when
     var result = byteArray.content();
@@ -28,7 +28,7 @@ class TargetByteArrayTest {
     var question = new Question();
     question.setText("<text>");
 
-    var byteArray = new TargetByteArray(List.of(question));
+    var byteArray = new QuestionsAsByteArray(List.of(question));
 
     // when
     var result = byteArray.content();
@@ -40,7 +40,7 @@ class TargetByteArrayTest {
   @Test
   void shouldReturnEmptyByteArrayIfQuestionTextIsNull() {
     // given
-    var byteArray = new TargetByteArray(List.of(new Question()));
+    var byteArray = new QuestionsAsByteArray(List.of(new Question()));
 
     // when
     var result = byteArray.content();

@@ -16,12 +16,12 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 // todo: rename tests
-class TargetCollectionQuestionDataTest {
+class StringAsQuestionDataCollectionTest {
 
   @Test
   void shouldReturnEmptyStreamForEmptyStringValues() {
     // given
-    var collectionQuestionData = new TargetCollectionQuestionData(emptyList());
+    var collectionQuestionData = new StringCollectionAsQuestionDataCollection(emptyList());
 
     // then
     assertThat(collectionQuestionData.content(), Matchers.empty());
@@ -30,7 +30,7 @@ class TargetCollectionQuestionDataTest {
   @Test
   void shouldIgnoreEmptyLines() {
     // given
-    var collectionQuestionData = new TargetCollectionQuestionData(List.of("\n", "   ", "\n\n"));
+    var collectionQuestionData = new StringCollectionAsQuestionDataCollection(List.of("\n", "   ", "\n\n"));
 
     // then
     assertThat(collectionQuestionData.content(), Matchers.empty());
@@ -40,7 +40,7 @@ class TargetCollectionQuestionDataTest {
   void shouldIgnoreLinesStartWithCommentSymbol() {
     // when
     var collectionQuestionData =
-        new TargetCollectionQuestionData(List.of("# This is a comment", "Java,What is JVM? "));
+        new StringCollectionAsQuestionDataCollection(List.of("# This is a comment", "Java,What is JVM? "));
 
     // then
     var result = collectionQuestionData.content();
@@ -53,7 +53,7 @@ class TargetCollectionQuestionDataTest {
   void shouldCorrectlyParseMixedLines() {
     // when
     var collectionQuestionData =
-        new TargetCollectionQuestionData(
+        new StringCollectionAsQuestionDataCollection(
             List.of("# This is a comment", "Java,What is JVM? ", "   SQL  , Hey, what is DDL?"));
 
     // then
@@ -72,7 +72,7 @@ class TargetCollectionQuestionDataTest {
   void shouldParseCorrectUsingSimpleSeparator(
       Collection<String> source, Collection<QuestionData> expectedResult) {
     // given
-    var collectionQuestionData = new TargetCollectionQuestionData(source);
+    var collectionQuestionData = new StringCollectionAsQuestionDataCollection(source);
 
     // when
     var result = collectionQuestionData.content();

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import boosti.domain.Question;
 import boosti.service.QuestionService;
+import boosti.web.api.EndPointFile;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -22,7 +22,6 @@ import org.springframework.mock.web.MockMultipartFile;
 class EndPointFileTest {
 
   @Mock QuestionService questionService;
-  @Spy ModelMapper mapper;
 
   @Spy @InjectMocks EndPointFile endPointFile;
 

@@ -14,12 +14,12 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 // todo: check tests names
-class TargetQuestionDataTest {
+class StringAsQuestionDataTest {
 
   @Test
   void shouldReturnSingletonListForOneValidQuestion() {
     // given
-    var questionAsData = new TargetQuestionData("Java,What is JVM?");
+    var questionAsData = new StringAsQuestionData("Java,What is JVM?");
     var expected = QuestionData.builder().withText("What is JVM?").build();
 
     // when
@@ -32,7 +32,7 @@ class TargetQuestionDataTest {
   @Test
   void shouldThrowExceptionIfInputValueHasNoSeparatorInIt() {
     // given
-    var questionAsData = new TargetQuestionData("Value that does not contain separator");
+    var questionAsData = new StringAsQuestionData("Value that does not contain separator");
 
     // when
     var exception = assertThrows(RuntimeException.class, questionAsData::content);
@@ -49,7 +49,7 @@ class TargetQuestionDataTest {
   @MethodSource("emptyTopicOrTextProvider")
   void shouldThrowExceptionWhenTopicOrTextAreEmpty(String source) {
     // given
-    var questionAsData = new TargetQuestionData(source);
+    var questionAsData = new StringAsQuestionData(source);
 
     // when
     var exception = assertThrows(RuntimeException.class, questionAsData::content);

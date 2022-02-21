@@ -2,18 +2,18 @@ package boosti.service.conversion.target;
 
 import java.util.Arrays;
 
-import boosti.service.conversion.Target;
+import boosti.service.conversion.SourceAsTarget;
 import boosti.web.model.QuestionData;
 
-public class TargetQuestionData extends Target<String, QuestionData> {
+public class StringAsQuestionData extends SourceAsTarget<String, QuestionData> {
 
   private final String separator;
 
-  public TargetQuestionData(String source) {
+  public StringAsQuestionData(String source) {
     this(source, ",");
   }
 
-  public TargetQuestionData(String source, String separator) {
+  public StringAsQuestionData(String source, String separator) {
     super(source);
     this.separator = separator;
   }

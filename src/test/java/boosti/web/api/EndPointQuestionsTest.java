@@ -25,19 +25,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class EndPointQuestionsTest {
 
   @Mock QuestionService questionService;
-  @Spy ModelMapper modelMapper;
 
-  @InjectMocks
-  EndPointQuestions endPointQuestions;
+  @InjectMocks EndPointQuestions endPointQuestions;
 
   @Test
   void shouldReturnCreatedWhenSaveQuestion() {

@@ -5,13 +5,13 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import boosti.service.conversion.Target;
+import boosti.service.conversion.SourceAsTarget;
 import boosti.web.model.QuestionData;
 
-public class TargetCollectionQuestionData
-    extends Target<Collection<String>, Collection<QuestionData>> {
+public class StringCollectionAsQuestionDataCollection
+    extends SourceAsTarget<Collection<String>, Collection<QuestionData>> {
 
-  public TargetCollectionQuestionData(Collection<String> source) {
+  public StringCollectionAsQuestionDataCollection(Collection<String> source) {
     super(source);
   }
 
@@ -21,8 +21,8 @@ public class TargetCollectionQuestionData
         .filter(Objects::nonNull)
         .filter((Predicate.not(String::isBlank)))
         .filter(it -> !it.startsWith("#"))
-        .map(TargetQuestionData::new)
-        .map(TargetQuestionData::content)
+        .map(StringAsQuestionData::new)
+        .map(StringAsQuestionData::content)
         .collect(Collectors.toList());
   }
 }

@@ -23,9 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,8 +31,6 @@ class EndPointQuizzesTest {
 
   @Mock QuizService quizService;
   @Mock QuestionRepository questionRepository;
-
-  @Spy ModelMapper modelMapper;
 
   @InjectMocks EndPointQuizzes endPointQuizzes;
 

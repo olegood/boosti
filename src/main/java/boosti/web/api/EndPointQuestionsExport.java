@@ -3,7 +3,7 @@ package boosti.web.api;
 import java.util.Set;
 
 import boosti.domain.QuestionRepository;
-import boosti.service.conversion.target.TargetByteArray;
+import boosti.service.conversion.target.QuestionsAsByteArray;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -25,7 +25,7 @@ public class EndPointQuestionsExport {
   public ResponseEntity<Resource> export(@RequestBody Set<Long> ids) {
     var questions = questionRepository.findAllById(ids);
 
-    var questionsAsByteArray = new TargetByteArray(questions);
+    var questionsAsByteArray = new QuestionsAsByteArray(questions);
     var resource = new ByteArrayResource(questionsAsByteArray.content());
 
     if (resource.contentLength() == 0) {

@@ -7,11 +7,11 @@ import java.util.Collection;
 import java.util.Objects;
 
 import boosti.domain.Question;
-import boosti.service.conversion.Target;
+import boosti.service.conversion.SourceAsTarget;
 
-public class TargetByteArray extends Target<Collection<Question>, byte[]> {
+public class QuestionsAsByteArray extends SourceAsTarget<Collection<Question>, byte[]> {
 
-  public TargetByteArray(Collection<Question> source) {
+  public QuestionsAsByteArray(Collection<Question> source) {
     super(source);
   }
 

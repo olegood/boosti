@@ -1,4 +1,4 @@
-package boosti.web.api.file;
+package boosti.web.api;
 
 import static java.util.function.Predicate.not;
 
@@ -8,11 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import boosti.domain.Question;
 import boosti.service.QuestionService;
-import boosti.service.conversion.target.TargetCollectionQuestionData;
-import boosti.web.model.QuestionData;
-import org.modelmapper.ModelMapper;
+import boosti.service.conversion.target.QuestionDataAsQuestion;
+import boosti.service.conversion.target.StringCollectionAsQuestionDataCollection;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class EndPointFile {
 
   private final QuestionService questionService;
-  private final ModelMapper mapper;
 
-  public EndPointFile(QuestionService questionService, ModelMapper mapper) {
+  public EndPointFile(QuestionService questionService) {
     this.questionService = questionService;
-    this.mapper = mapper;
   }
 
   @PostMapping("/upload")
@@ -44,13 +40,12 @@ public class EndPointFile {
     return ResponseEntity.ok().build();
   }
 
-  private Question toEntity(QuestionData data) {
-    return mapper.map(data, Question.class);
-  }
-
   private void parseContent(BufferedReader br) {
-    var linesAsData = new TargetCollectionQuestionData(br.lines().toList());
-    linesAsData.content().stream().map(this::toEntity).forEach(questionService::save);
+    var linesAsData = new StringCollectionAsQuestionDataCollection(br.lines().toList());
+    linesAsData.content().stream()
+        .map(QuestionDataAsQuestion::new)
+        .map(QuestionDataAsQuestion::content)
+        .forEach(questionService::save);
   }
 
   private void checkSupportingFileType(MultipartFile file) {

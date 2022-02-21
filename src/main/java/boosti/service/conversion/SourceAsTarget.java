@@ -6,11 +6,11 @@ package boosti.service.conversion;
  * @param <S> type of source
  * @param <T> target type
  */
-public abstract class Target<S, T> {
+public abstract class SourceAsTarget<S, T> {
 
   protected final S source;
 
-  protected Target(S source) {
+  protected SourceAsTarget(S source) {
     this.source = source;
   }
 
