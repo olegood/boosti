@@ -10,7 +10,7 @@ public abstract class Target<S, T> {
 
   protected final S source;
 
-  public Target(S source) {
+  protected Target(S source) {
     this.source = source;
   }
 

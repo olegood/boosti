@@ -60,7 +60,7 @@ public class EndPointFile {
         .map(String::toLowerCase)
         .filter(not(endsWithCsv))
         .ifPresent(
-            (unsupportedFile) -> {
+            unsupportedFile -> {
               throw new IllegalArgumentException("Unsupported file type.");
             });
   }
