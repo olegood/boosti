@@ -1,9 +1,11 @@
 package boosti.service.conversion.target;
 
+import static java.util.function.Predicate.not;
+import static java.util.stream.Collectors.toList;
+
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import boosti.service.conversion.SourceAsTarget;
 import boosti.web.model.QuestionData;
@@ -17,12 +19,13 @@ public class StringCollectionAsQuestionDataCollection
 
   @Override
   public Collection<QuestionData> content() {
+    Predicate<String> startsWithDash = it -> it.startsWith("#");
     return source.stream()
         .filter(Objects::nonNull)
-        .filter((Predicate.not(String::isBlank)))
-        .filter(it -> !it.startsWith("#"))
+        .filter(not(String::isBlank))
+        .filter(not(startsWithDash))
         .map(StringAsQuestionData::new)
         .map(StringAsQuestionData::content)
-        .collect(Collectors.toList());
+        .collect(toList());
   }
 }

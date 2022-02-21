@@ -1,5 +1,6 @@
 package boosti.service;
 
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -7,6 +8,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyIterable;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
@@ -65,12 +67,21 @@ class QuestionServiceImplTest {
   }
 
   @Test
+  void shouldCallRepositoryFindAllByIdWhenGetAllById() {
+    // when
+    questionService.getAllById(emptySet());
+
+    // then
+    verify(repository, times(1)).findAllById(anyCollection());
+  }
+
+  @Test
   void shouldSaveQuestion() {
     // given
     var question = new Question();
 
     // when
-    var result = questionService.save(question);
+    questionService.save(question);
 
     // then
     verify(repository, times(1)).save(question);
@@ -129,5 +140,17 @@ class QuestionServiceImplTest {
 
     // then
     verify(repository, times(1)).deleteAllById(anyIterable());
+  }
+
+  @Test
+  void shouldReturnEmptyByteArrayForEmptyQuestions() {
+    // given
+    when(questionService.getAllById(anyCollection())).thenReturn(emptyList());
+
+    // when
+    var result = questionService.getAllAsByteArray(emptySet());
+
+    // then
+    assertThat(result, is(new byte[] {}));
   }
 }

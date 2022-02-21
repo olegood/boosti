@@ -1,9 +1,5 @@
 package boosti.web.api;
 
-import java.util.Collection;
-
-import boosti.domain.Question;
-import boosti.domain.QuestionRepository;
 import boosti.service.QuizService;
 import boosti.service.conversion.target.QuizAsQuizData;
 import boosti.web.model.IdsData;
@@ -21,16 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class EndPointQuizzes {
 
   private final QuizService quizService;
-  private final QuestionRepository questionRepository;
 
-  public EndPointQuizzes(QuizService quizService, QuestionRepository questionRepository) {
+  public EndPointQuizzes(QuizService quizService) {
     this.quizService = quizService;
-    this.questionRepository = questionRepository;
   }
 
   @PostMapping
   public void save(@RequestBody IdsData data) {
-    quizService.save(toEntity(data));
+    quizService.save(data.getIds());
   }
 
   @GetMapping("/{id}")
@@ -41,9 +35,5 @@ public class EndPointQuizzes {
         .map(QuizAsQuizData::content)
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
-  }
-
-  private Collection<Question> toEntity(IdsData data) {
-    return questionRepository.findAllById(data.getIds());
   }
 }

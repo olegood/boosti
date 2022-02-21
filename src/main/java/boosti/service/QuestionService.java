@@ -11,7 +11,11 @@ public interface QuestionService {
 
   Collection<Question> getAll();
 
+  Collection<Question> getAllById(Collection<Long> ids);
+
   Optional<Question> deleteById(Long id);
 
   void deleteAllById(Collection<Long> ids);
+
+  byte[] getAllAsByteArray(Collection<Long> ids);
 }

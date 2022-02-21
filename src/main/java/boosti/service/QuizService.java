@@ -8,7 +8,7 @@ import boosti.domain.quiz.Quiz;
 
 public interface QuizService {
 
-  Quiz save(Collection<Question> questions);
+  Quiz save(Collection<Long> ids);
 
   Optional<Quiz> getById(Long id);
 }

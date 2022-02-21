@@ -1,6 +1,5 @@
 package boosti.web.api;
 
-import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -9,11 +8,9 @@ import static org.hamcrest.core.Is.isA;
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
 import java.util.Set;
 
-import boosti.domain.Question;
-import boosti.domain.QuestionRepository;
+import boosti.service.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,14 +22,14 @@ import org.springframework.http.HttpStatus;
 @ExtendWith(MockitoExtension.class)
 class EndPointQuestionsExportTest {
 
-  @Mock QuestionRepository questionRepository;
+  @Mock QuestionService questionService;
 
   @InjectMocks EndPointQuestionsExport endPointQuestionsExport;
 
   @Test
   void shouldReturnNoContentIfNoQuestionsToExport() {
     // given
-    when(questionRepository.findAllById(anyCollection())).thenReturn(emptyList());
+    when(questionService.getAllAsByteArray(anyCollection())).thenReturn(new byte[] {});
 
     // when
     var result = endPointQuestionsExport.export(emptySet());
@@ -44,10 +41,7 @@ class EndPointQuestionsExportTest {
   @Test
   void shouldReturnOkWhenQuestionsCanBeExported() {
     // given
-    var question = new Question();
-    question.setText("<text>");
-
-    when(questionRepository.findAllById(anyCollection())).thenReturn(List.of(question));
+    when(questionService.getAllAsByteArray(anyCollection())).thenReturn(new byte[] {42, 43});
 
     // when
     var result = endPointQuestionsExport.export(Set.of(42L, 43L));

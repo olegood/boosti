@@ -26,7 +26,7 @@ public class Quiz {
   private Long id;
 
   @Enumerated(EnumType.STRING)
-  private Status status;
+  private Status status = Status.DRAFT;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(

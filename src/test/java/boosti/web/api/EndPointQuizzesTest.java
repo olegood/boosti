@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,7 +13,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import boosti.domain.QuestionRepository;
 import boosti.domain.quiz.Quiz;
 import boosti.service.QuizService;
 import boosti.web.model.IdsData;
@@ -30,7 +28,6 @@ import org.springframework.http.HttpStatus;
 class EndPointQuizzesTest {
 
   @Mock QuizService quizService;
-  @Mock QuestionRepository questionRepository;
 
   @InjectMocks EndPointQuizzes endPointQuizzes;
 
@@ -63,9 +60,6 @@ class EndPointQuizzesTest {
 
   @Test
   void shouldCallQuizServiceWhenSaveQuiz() {
-    // given
-    when(questionRepository.findAllById(anyCollection())).thenReturn(emptyList());
-
     var data = IdsData.builder().withIds(emptyList()).build();
 
     // when

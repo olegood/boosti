@@ -1,10 +1,14 @@
 package boosti.service;
 
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import boosti.domain.QuestionRepository;
 import boosti.domain.quiz.Quiz;
 import boosti.domain.quiz.QuizRepository;
 import boosti.domain.quiz.Status;
@@ -20,18 +24,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
 
-  @Mock QuizRepository repository;
+  @Mock QuizRepository quizRepository;
+  @Mock QuestionRepository questionRepository;
+
   @InjectMocks QuizServiceImpl quizService;
 
   @Captor ArgumentCaptor<Quiz> quizCaptor;
 
   @Test
   void shouldSaveQuizInitiallyInDraftStatus() {
+    // given
+    when(questionRepository.findAllById(anyCollection())).thenReturn(emptyList());
+
     // when
     quizService.save(emptySet());
 
     // then
-    verify(repository).save(quizCaptor.capture());
+    verify(quizRepository).save(quizCaptor.capture());
 
     var quiz = quizCaptor.getValue();
     assertThat(quiz.getStatus(), Matchers.is(Status.DRAFT));
@@ -43,6 +52,6 @@ class QuizServiceImplTest {
     quizService.getById(42L);
 
     // then
-    verify(repository, times(1)).findById(42L);
+    verify(quizRepository, times(1)).findById(42L);
   }
 }

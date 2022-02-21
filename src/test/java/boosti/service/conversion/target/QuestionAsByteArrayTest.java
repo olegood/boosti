@@ -1,6 +1,5 @@
 package boosti.service.conversion.target;
 
-import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.List;
@@ -8,12 +7,27 @@ import java.util.List;
 import boosti.domain.Question;
 import org.junit.jupiter.api.Test;
 
-class QuestionsAsByteArrayTest {
+class QuestionAsByteArrayTest {
 
   @Test
-  void shouldReturnEmptyByteArrayForEmptyCollectionOfQuestions() {
+  void shouldReturnEmptyByteArrayForQuestionWithEmptyText() {
     // given
-    var byteArray = new QuestionsAsByteArray(emptyList());
+    var question = new Question();
+    question.setText("");
+
+    var byteArray = new QuestionAsByteArray(new Question());
+
+    // when
+    var result = byteArray.content();
+
+    // then
+    assertArrayEquals(new byte[] {}, result);
+  }
+
+  @Test
+  void shouldReturnEmptyByteArrayWhenQuestionIsNull() {
+    // given
+    var byteArray = new QuestionAsByteArray(null);
 
     // when
     var result = byteArray.content();
@@ -28,19 +42,19 @@ class QuestionsAsByteArrayTest {
     var question = new Question();
     question.setText("<text>");
 
-    var byteArray = new QuestionsAsByteArray(List.of(question));
+    var byteArray = new QuestionAsByteArray(question);
 
     // when
     var result = byteArray.content();
 
     // then
-    assertArrayEquals(new byte[] {60, 116, 101, 120, 116, 62, 10}, result);
+    assertArrayEquals(new byte[] {60, 116, 101, 120, 116, 62}, result);
   }
 
   @Test
   void shouldReturnEmptyByteArrayIfQuestionTextIsNull() {
     // given
-    var byteArray = new QuestionsAsByteArray(List.of(new Question()));
+    var byteArray = new QuestionAsByteArray(new Question());
 
     // when
     var result = byteArray.content();
