@@ -1,4 +1,4 @@
-package boosti.web.api.export;
+package boosti.web.api;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;

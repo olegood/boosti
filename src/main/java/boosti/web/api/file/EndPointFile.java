@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import boosti.domain.Question;
 import boosti.service.QuestionService;
-import boosti.service.parse.ContentParser;
+import boosti.service.conversion.target.TargetCollectionQuestionData;
 import boosti.web.model.QuestionData;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class EndPointFile {
 
   private final QuestionService questionService;
-  private final ContentParser parser;
   private final ModelMapper mapper;
 
-  public EndPointFile(QuestionService questionService, ContentParser parser, ModelMapper mapper) {
+  public EndPointFile(QuestionService questionService, ModelMapper mapper) {
     this.questionService = questionService;
-    this.parser = parser;
     this.mapper = mapper;
   }
 
@@ -51,9 +49,8 @@ public class EndPointFile {
   }
 
   private void parseContent(BufferedReader br) {
-    parser.parseFrom(br.lines().toList()).stream()
-        .map(this::toEntity)
-        .forEach(questionService::save);
+    var linesAsData = new TargetCollectionQuestionData(br.lines().toList());
+    linesAsData.content().stream().map(this::toEntity).forEach(questionService::save);
   }
 
   private void checkSupportingFileType(MultipartFile file) {
@@ -63,8 +60,8 @@ public class EndPointFile {
         .map(String::toLowerCase)
         .filter(not(endsWithCsv))
         .ifPresent(
-            (action) -> {
-              throw new UnsupportedFileTypeException("Unsupported file type.");
+            (unsupportedFile) -> {
+              throw new IllegalArgumentException("Unsupported file type.");
             });
   }
 }

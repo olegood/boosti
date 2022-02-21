@@ -1,4 +1,4 @@
-package boosti.web.api.export.format;
+package boosti.service.conversion.target;
 
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -6,15 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import java.util.List;
 
 import boosti.domain.Question;
-import boosti.web.api.export.target.ByteArray;
 import org.junit.jupiter.api.Test;
 
-class ByteArrayTest {
+class TargetByteArrayTest {
 
   @Test
   void shouldReturnEmptyByteArrayForEmptyCollectionOfQuestions() {
     // given
-    var byteArray = new ByteArray(emptyList());
+    var byteArray = new TargetByteArray(emptyList());
 
     // when
     var result = byteArray.content();
@@ -29,7 +28,7 @@ class ByteArrayTest {
     var question = new Question();
     question.setText("<text>");
 
-    var byteArray = new ByteArray(List.of(question));
+    var byteArray = new TargetByteArray(List.of(question));
 
     // when
     var result = byteArray.content();
@@ -41,7 +40,7 @@ class ByteArrayTest {
   @Test
   void shouldReturnEmptyByteArrayIfQuestionTextIsNull() {
     // given
-    var byteArray = new ByteArray(List.of(new Question()));
+    var byteArray = new TargetByteArray(List.of(new Question()));
 
     // when
     var result = byteArray.content();

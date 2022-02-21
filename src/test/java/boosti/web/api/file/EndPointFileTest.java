@@ -2,19 +2,11 @@ package boosti.web.api.file;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
-
-import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import boosti.domain.Question;
 import boosti.service.QuestionService;
-import boosti.service.parse.ContentParser;
-import boosti.web.model.QuestionData;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -24,28 +16,20 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
 @ExtendWith(MockitoExtension.class)
 class EndPointFileTest {
 
-  @Mock MultipartFile file;
-  @Mock ContentParser contentParser;
   @Mock QuestionService questionService;
   @Spy ModelMapper mapper;
 
   @Spy @InjectMocks EndPointFile endPointFile;
 
-  @BeforeEach
-  void setUp() throws Exception {
-    when(file.getInputStream())
-        .thenReturn(new ByteArrayInputStream("this is sample".getBytes(StandardCharsets.UTF_8)));
-  }
-
   @Test
   void shouldReturnInternalErrorForUnsupportedFileExtension() {
     // given
-    when(file.getOriginalFilename()).thenReturn("not_valid_extension.err");
+    var file = fakeFile("not_valid_extension.err");
 
     // when
     var result = endPointFile.uploadFile(file);
@@ -58,7 +42,7 @@ class EndPointFileTest {
   @Test
   void shouldReturnInternalErrorForUnsupportedFileNameExtension() {
     // given
-    when(file.getOriginalFilename()).thenReturn("not_valid_filename_ends_with_csv");
+    var file = fakeFile("not_valid_filename_ends_with_csv");
 
     // when
     var result = endPointFile.uploadFile(file);
@@ -71,10 +55,12 @@ class EndPointFileTest {
   @Test
   void shouldReturnSuccessForSupportedFileExtension() {
     // given
-    when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
+    var file =
+        fakeFile(
+            "valid_extension.csv",
+            // "<topic>,<text>"
+            new byte[] {60, 116, 111, 112, 105, 99, 62, 44, 60, 116, 101, 120, 116, 62, 10});
 
-    when(contentParser.parseFrom(anyCollection()))
-        .thenReturn(List.of(QuestionData.builder().withText("<text>").build()));
     when(questionService.save(any(Question.class))).then(AdditionalAnswers.returnsFirstArg());
 
     // when
@@ -87,14 +73,20 @@ class EndPointFileTest {
   @Test
   void shouldReturnInternalErrorForAnyParserException() {
     // given
-    when(file.getOriginalFilename()).thenReturn("valid_extension.csv");
-
-    when(contentParser.parseFrom(anyCollection())).thenThrow(RuntimeException.class);
+    var fileWithUnacceptedContent = fakeFile("valid_extension.csv");
 
     // when
-    var result = endPointFile.uploadFile(file);
+    var result = endPointFile.uploadFile(fileWithUnacceptedContent);
 
     // then
     assertThat(result.getStatusCode(), Matchers.is(HttpStatus.UNPROCESSABLE_ENTITY));
+  }
+
+  private MockMultipartFile fakeFile(String originalFileName) {
+    return fakeFile(originalFileName, new byte[] {-1});
+  }
+
+  private MockMultipartFile fakeFile(String originalFileName, byte[] content) {
+    return new MockMultipartFile("valid_name", originalFileName, "<content type>", content);
   }
 }

@@ -1,4 +1,4 @@
-package boosti.web.api.export.target;
+package boosti.service.conversion;
 
 /**
  * Represents the source in target data format.

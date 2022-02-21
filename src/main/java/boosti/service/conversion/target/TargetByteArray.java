@@ -1,4 +1,4 @@
-package boosti.web.api.export.target;
+package boosti.service.conversion.target;
 
 import static java.nio.ByteBuffer.allocate;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -7,10 +7,11 @@ import java.util.Collection;
 import java.util.Objects;
 
 import boosti.domain.Question;
+import boosti.service.conversion.Target;
 
-public class ByteArray extends Target<Collection<Question>, byte[]> {
+public class TargetByteArray extends Target<Collection<Question>, byte[]> {
 
-  public ByteArray(Collection<Question> source) {
+  public TargetByteArray(Collection<Question> source) {
     super(source);
   }
 
