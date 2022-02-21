@@ -1,4 +1,4 @@
-package boosti.web.api.file;
+package boosti.web.api;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import boosti.domain.Question;
 import boosti.service.QuestionService;
-import boosti.web.api.EndPointFile;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

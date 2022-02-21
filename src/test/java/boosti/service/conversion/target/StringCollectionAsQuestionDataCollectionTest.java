@@ -16,7 +16,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 // todo: rename tests
-class StringAsQuestionDataCollectionTest {
+class StringCollectionAsQuestionDataCollectionTest {
 
   @Test
   void shouldReturnEmptyStreamForEmptyStringValues() {
@@ -30,7 +30,8 @@ class StringAsQuestionDataCollectionTest {
   @Test
   void shouldIgnoreEmptyLines() {
     // given
-    var collectionQuestionData = new StringCollectionAsQuestionDataCollection(List.of("\n", "   ", "\n\n"));
+    var collectionQuestionData =
+        new StringCollectionAsQuestionDataCollection(List.of("\n", "   ", "\n\n"));
 
     // then
     assertThat(collectionQuestionData.content(), Matchers.empty());
@@ -40,7 +41,8 @@ class StringAsQuestionDataCollectionTest {
   void shouldIgnoreLinesStartWithCommentSymbol() {
     // when
     var collectionQuestionData =
-        new StringCollectionAsQuestionDataCollection(List.of("# This is a comment", "Java,What is JVM? "));
+        new StringCollectionAsQuestionDataCollection(
+            List.of("# This is a comment", "Java,What is JVM? "));
 
     // then
     var result = collectionQuestionData.content();
