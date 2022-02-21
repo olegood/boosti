@@ -14,38 +14,38 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-  private final QuestionRepository repository;
+  private final QuestionRepository questionRepo;
 
-  public QuestionServiceImpl(QuestionRepository repository) {
-    this.repository = repository;
+  public QuestionServiceImpl(QuestionRepository questionRepo) {
+    this.questionRepo = questionRepo;
   }
 
   @Override
   public Question save(Question question) {
-    return repository.save(question);
+    return questionRepo.save(question);
   }
 
   @Override
   public Collection<Question> getAll() {
-    return repository.findAll();
+    return questionRepo.findAll();
   }
 
   @Override
   public Collection<Question> getAllById(Collection<Long> ids) {
-    return repository.findAllById(ids);
+    return questionRepo.findAllById(ids);
   }
 
   @Override
   public Optional<Question> deleteById(Long id) {
-    var question = repository.findById(id);
-    question.ifPresent(repository::delete);
+    var question = questionRepo.findById(id);
+    question.ifPresent(questionRepo::delete);
     return question;
   }
 
   @Override
   public void deleteAllById(Collection<Long> ids) {
     if (!isEmpty(ids)) {
-      repository.deleteAllById(ids);
+      questionRepo.deleteAllById(ids);
     }
   }
 

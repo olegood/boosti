@@ -12,26 +12,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuizServiceImpl implements QuizService {
 
-  private final QuizRepository quizRepository;
-  private final QuestionRepository questionRepository;
+  private final QuizRepository quizRepo;
+  private final QuestionRepository questionRepo;
 
-  public QuizServiceImpl(QuizRepository quizRepository, QuestionRepository questionRepository) {
-    this.quizRepository = quizRepository;
-    this.questionRepository = questionRepository;
+  public QuizServiceImpl(QuizRepository quizRepo, QuestionRepository questionRepo) {
+    this.quizRepo = quizRepo;
+    this.questionRepo = questionRepo;
   }
 
   @Override
   public Quiz save(Collection<Long> ids) {
     var quiz = new Quiz();
 
-    var questions = questionRepository.findAllById(ids);
+    var questions = questionRepo.findAllById(ids);
     quiz.setQuestions(new HashSet<>(questions));
 
-    return quizRepository.save(quiz);
+    return quizRepo.save(quiz);
   }
 
   @Override
   public Optional<Quiz> getById(Long id) {
-    return quizRepository.findById(id);
+    return quizRepo.findById(id);
   }
 }

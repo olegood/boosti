@@ -24,8 +24,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
 
-  @Mock QuizRepository quizRepository;
-  @Mock QuestionRepository questionRepository;
+  @Mock QuizRepository quizRepo;
+  @Mock QuestionRepository questionRepo;
 
   @InjectMocks QuizServiceImpl quizService;
 
@@ -34,13 +34,13 @@ class QuizServiceImplTest {
   @Test
   void shouldSaveQuizInitiallyInDraftStatus() {
     // given
-    when(questionRepository.findAllById(anyCollection())).thenReturn(emptyList());
+    when(questionRepo.findAllById(anyCollection())).thenReturn(emptyList());
 
     // when
     quizService.save(emptySet());
 
     // then
-    verify(quizRepository).save(quizCaptor.capture());
+    verify(quizRepo).save(quizCaptor.capture());
 
     var quiz = quizCaptor.getValue();
     assertThat(quiz.getStatus(), Matchers.is(Status.DRAFT));
@@ -52,6 +52,6 @@ class QuizServiceImplTest {
     quizService.getById(42L);
 
     // then
-    verify(quizRepository, times(1)).findById(42L);
+    verify(quizRepo, times(1)).findById(42L);
   }
 }

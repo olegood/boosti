@@ -33,7 +33,7 @@ import org.modelmapper.ModelMapper;
 @ExtendWith(MockitoExtension.class)
 class QuestionServiceImplTest {
 
-  @Mock QuestionRepository repository;
+  @Mock QuestionRepository questionRepo;
   @InjectMocks QuestionServiceImpl questionService;
 
   @Test
@@ -49,7 +49,7 @@ class QuestionServiceImplTest {
             .map(data -> new ModelMapper().map(data, Question.class))
             .toList();
 
-    when(repository.findAll()).thenReturn(questions);
+    when(questionRepo.findAll()).thenReturn(questions);
 
     // when
     var result = questionService.getAll();
@@ -72,7 +72,7 @@ class QuestionServiceImplTest {
     questionService.getAllById(emptySet());
 
     // then
-    verify(repository, times(1)).findAllById(anyCollection());
+    verify(questionRepo, times(1)).findAllById(anyCollection());
   }
 
   @Test
@@ -84,14 +84,14 @@ class QuestionServiceImplTest {
     questionService.save(question);
 
     // then
-    verify(repository, times(1)).save(question);
+    verify(questionRepo, times(1)).save(question);
   }
 
   @Test
   void shouldReturnQuestionAfterDeletion() {
     // given
     var question = new Question();
-    when(repository.findById(anyLong())).thenReturn(Optional.of(question));
+    when(questionRepo.findById(anyLong())).thenReturn(Optional.of(question));
 
     var id = 41L;
 
@@ -99,8 +99,8 @@ class QuestionServiceImplTest {
     var result = questionService.deleteById(id);
 
     // then
-    verify(repository, times(1)).findById(id);
-    verify(repository, times(1)).delete(question);
+    verify(questionRepo, times(1)).findById(id);
+    verify(questionRepo, times(1)).delete(question);
 
     assertTrue(result.isPresent());
     assertThat(result.get(), is(question));
@@ -109,7 +109,7 @@ class QuestionServiceImplTest {
   @Test
   void shouldReturnEmptyOptionalIfNoQuestionsToDelete() {
     // given
-    when(repository.findById(anyLong())).thenReturn(Optional.empty());
+    when(questionRepo.findById(anyLong())).thenReturn(Optional.empty());
 
     var id = -1L;
 
@@ -117,8 +117,8 @@ class QuestionServiceImplTest {
     var result = questionService.deleteById(-1L);
 
     // then
-    verify(repository, times(1)).findById(id);
-    verify(repository, never()).delete(any(Question.class));
+    verify(questionRepo, times(1)).findById(id);
+    verify(questionRepo, never()).delete(any(Question.class));
 
     assertFalse(result.isPresent());
     assertThat(result, is(Optional.empty()));
@@ -130,7 +130,7 @@ class QuestionServiceImplTest {
     questionService.deleteAllById(emptySet());
 
     // then
-    verify(repository, never()).deleteAllById(anyIterable());
+    verify(questionRepo, never()).deleteAllById(anyIterable());
   }
 
   @Test
@@ -139,7 +139,7 @@ class QuestionServiceImplTest {
     questionService.deleteAllById(Set.of(42L, 43L));
 
     // then
-    verify(repository, times(1)).deleteAllById(anyIterable());
+    verify(questionRepo, times(1)).deleteAllById(anyIterable());
   }
 
   @Test

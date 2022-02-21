@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/categories")
 public class EndPointCategories {
 
-  private final CategoryRepository repository;
+  private final CategoryRepository categoryRepo;
 
-  public EndPointCategories(CategoryRepository repository) {
-    this.repository = repository;
+  public EndPointCategories(CategoryRepository categoryRepo) {
+    this.categoryRepo = categoryRepo;
   }
 
   @GetMapping
   public Collection<SimpleRefData> getAll() {
-    return repository.findAll().stream()
+    return categoryRepo.findAll().stream()
         .map(CategoryAsSimpleRefData::new)
         .map(CategoryAsSimpleRefData::content)
         .collect(toList());

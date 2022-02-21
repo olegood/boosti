@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EndPointQuestionsExport {
 
-  private final QuestionService service;
+  private final QuestionService questionService;
 
-  public EndPointQuestionsExport(QuestionService service) {
-    this.service = service;
+  public EndPointQuestionsExport(QuestionService questionService) {
+    this.questionService = questionService;
   }
 
   @PostMapping("/api/questions/export")
   public ResponseEntity<Resource> export(@RequestBody Set<Long> ids) {
-    var questionsAsByteArray = service.getAllAsByteArray(ids);
+    var questionsAsByteArray = questionService.getAllAsByteArray(ids);
 
     var resource = new ByteArrayResource(questionsAsByteArray);
     if (resource.contentLength() == 0) {

@@ -21,17 +21,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class EndPointCategoriesTest {
 
-  @Mock CategoryRepository repository;
+  @Mock CategoryRepository categoryRepo;
 
-  @InjectMocks EndPointCategories controller;
+  @InjectMocks EndPointCategories endPointCategories;
 
   @Test
   void shouldCallRepositoryFindAllWhenGetAll() {
     // when
-    controller.getAll();
+    endPointCategories.getAll();
 
     // then
-    verify(repository, times(1)).findAll();
+    verify(categoryRepo, times(1)).findAll();
   }
 
   @Test
@@ -43,15 +43,15 @@ class EndPointCategoriesTest {
     var category = new Category();
     category.setId(id);
     category.setName(name);
-    when(repository.findAll()).thenReturn(List.of(category));
+    when(categoryRepo.findAll()).thenReturn(List.of(category));
 
     var data = SimpleRefData.builder().withId(id).withName(name).build();
 
     // when
-    var result = controller.getAll();
+    var result = endPointCategories.getAll();
 
     // then
-    verify(repository, times(1)).findAll();
+    verify(categoryRepo, times(1)).findAll();
     assertThat(result, hasSize(1));
     assertThat(result, containsInAnyOrder(data));
   }
