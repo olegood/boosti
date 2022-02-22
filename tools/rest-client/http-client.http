@@ -20,11 +20,11 @@ Content-Disposition: form-data; name="file"; filename="test_questions.csv"
 ### Save new question
 POST {{host}}/api/questions
 Content-Type: application/json
+Accept: application/json
 
 {
-  "topic": "Kotlin",
   "category": {
-    "id": 3
+    "id": 13
   },
   "text": "What is the difference between '.kt' and '.kts' files?"
 }

@@ -23,7 +23,8 @@ class EndPointQuestionsAPITest {
     var body = """
             {
               "category": {
-                "id": 13
+                "id": 11,
+                "name": "Java"
               },
               "text": "What is the difference between '.kt' and '.kts' files?"
             }
@@ -32,6 +33,7 @@ class EndPointQuestionsAPITest {
     // when
     given()
         .contentType(ContentType.JSON)
+        .accept(ContentType.JSON)
         .body(body)
         .when()
         .post("http://localhost:" + randomServerPort + "/api/questions")
