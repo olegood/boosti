@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+  <question id="42">
+    <category id="3">
+      <name>Kotlin</name>
+    </category>
+    <text>Is this a question's text?</text>
+  </question>
+  <question id="43">
+    <category id="1">
+      <name>Java</name>
+    </category>
+    <text>Who is author of Java?</text>
+  </question>
+</questions>

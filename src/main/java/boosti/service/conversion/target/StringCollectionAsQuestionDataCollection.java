@@ -2,6 +2,7 @@ package boosti.service.conversion.target;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Stream.of;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -19,11 +20,11 @@ public class StringCollectionAsQuestionDataCollection
 
   @Override
   public Collection<QuestionData> content() {
-    Predicate<String> startsWithDash = it -> it.startsWith("#");
+    Predicate<String> linesWithCorrectStarting = line -> of("#", "//").noneMatch(line::startsWith);
     return source.stream()
         .filter(Objects::nonNull)
         .filter(not(String::isBlank))
-        .filter(not(startsWithDash))
+        .filter(linesWithCorrectStarting)
         .map(StringAsQuestionData::new)
         .map(StringAsQuestionData::content)
         .collect(toList());

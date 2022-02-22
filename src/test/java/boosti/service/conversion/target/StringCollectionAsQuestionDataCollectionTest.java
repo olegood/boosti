@@ -38,7 +38,7 @@ class StringCollectionAsQuestionDataCollectionTest {
   }
 
   @Test
-  void shouldIgnoreLinesStartWithCommentSymbol() {
+  void shouldIgnoreLinesStartingWithDash() {
     // when
     var collectionQuestionData =
         new StringCollectionAsQuestionDataCollection(
@@ -49,6 +49,45 @@ class StringCollectionAsQuestionDataCollectionTest {
 
     assertThat(result, Matchers.hasSize(1));
     assertThat(result, Matchers.hasItem(QuestionData.builder().withText("What is JVM?").build()));
+  }
+
+  @Test
+  void shouldIgnoreLinesStartingWithSlashes() {
+    // when
+    var collectionQuestionData =
+        new StringCollectionAsQuestionDataCollection(
+            List.of("// This is a comment", "Java,What is JVM? "));
+
+    // then
+    var result = collectionQuestionData.content();
+
+    assertThat(result, Matchers.hasSize(1));
+    assertThat(result, Matchers.hasItem(QuestionData.builder().withText("What is JVM?").build()));
+  }
+
+  @Test
+  void shouldCorrectlyParseLinesContainingIgnoredSymbols() {
+    // when
+    var collectionQuestionData =
+        new StringCollectionAsQuestionDataCollection(
+            List.of(
+                "// This is a comment",
+                "Java,Is pair of symbols '//' - single line comment in Java? ",
+                "CSV,Will CSV parser ignore lines with starting # (dash)?"));
+
+    // then
+    var result = collectionQuestionData.content();
+
+    assertThat(result, Matchers.hasSize(2));
+    assertThat(
+        result,
+        Matchers.containsInAnyOrder(
+            QuestionData.builder()
+                .withText("Is pair of symbols '//' - single line comment in Java?")
+                .build(),
+            QuestionData.builder()
+                .withText("Will CSV parser ignore lines with starting # (dash)?")
+                .build()));
   }
 
   @Test

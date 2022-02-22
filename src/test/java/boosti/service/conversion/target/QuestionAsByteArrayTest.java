@@ -2,8 +2,6 @@ package boosti.service.conversion.target;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import java.util.List;
-
 import boosti.domain.Question;
 import org.junit.jupiter.api.Test;
 

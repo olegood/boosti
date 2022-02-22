@@ -19,5 +19,5 @@ public abstract class SourceAsTarget<S, T> {
    *
    * @return content in target data format
    */
-  public abstract T content();
+  public abstract T content() throws Exception;
 }

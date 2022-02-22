@@ -1,9 +1,9 @@
 package boosti.web.api;
 
 import boosti.service.QuizService;
-import boosti.service.conversion.target.QuizAsQuizData;
 import boosti.web.model.IdsData;
 import boosti.web.model.QuizData;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,8 +31,7 @@ public class EndPointQuizzes {
   public ResponseEntity<QuizData> getById(@PathVariable Long id) {
     return quizService
         .getById(id)
-        .map(QuizAsQuizData::new)
-        .map(QuizAsQuizData::content)
+        .map(quiz -> new ModelMapper().map(quiz, QuizData.class))
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
   }

@@ -5,10 +5,10 @@ import static java.util.stream.Collectors.toList;
 import java.util.Collection;
 import java.util.Set;
 
+import boosti.domain.Question;
 import boosti.service.QuestionService;
-import boosti.service.conversion.target.QuestionAsQuestionData;
-import boosti.service.conversion.target.QuestionDataAsQuestion;
 import boosti.web.model.QuestionData;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,10 +31,10 @@ public class EndPointQuestions {
 
   @PostMapping
   public ResponseEntity<QuestionData> saveQuestion(@RequestBody QuestionData data) {
-    var question = new QuestionDataAsQuestion(data).content();
+    var question = new ModelMapper().map(data, Question.class);
 
     var result = questionService.save(question);
-    var body = new QuestionAsQuestionData(result).content();
+    var body = new ModelMapper().map(result, QuestionData.class);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(body);
   }
@@ -42,8 +42,7 @@ public class EndPointQuestions {
   @GetMapping
   public Collection<QuestionData> getAll() {
     return questionService.getAll().stream()
-        .map(QuestionAsQuestionData::new)
-        .map(QuestionAsQuestionData::content)
+        .map(question -> new ModelMapper().map(question, QuestionData.class))
         .collect(toList());
   }
 
@@ -51,8 +50,7 @@ public class EndPointQuestions {
   public ResponseEntity<QuestionData> delete(@PathVariable Long id) {
     return questionService
         .deleteById(id)
-        .map(QuestionAsQuestionData::new)
-        .map(QuestionAsQuestionData::content)
+        .map(question -> new ModelMapper().map(question, QuestionData.class))
         .map(body -> ResponseEntity.ok().body(body))
         .orElseGet(() -> ResponseEntity.notFound().build());
   }

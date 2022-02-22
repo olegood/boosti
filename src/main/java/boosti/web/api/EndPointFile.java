@@ -8,9 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import boosti.domain.Question;
 import boosti.service.QuestionService;
-import boosti.service.conversion.target.QuestionDataAsQuestion;
 import boosti.service.conversion.target.StringCollectionAsQuestionDataCollection;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +44,7 @@ public class EndPointFile {
   private void parseContent(BufferedReader br) {
     var linesAsData = new StringCollectionAsQuestionDataCollection(br.lines().toList());
     linesAsData.content().stream()
-        .map(QuestionDataAsQuestion::new)
-        .map(QuestionDataAsQuestion::content)
+        .map(questionData -> new ModelMapper().map(questionData, Question.class))
         .forEach(questionService::save);
   }
 
