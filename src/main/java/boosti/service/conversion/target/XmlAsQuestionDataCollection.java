@@ -1,5 +1,6 @@
 package boosti.service.conversion.target;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import boosti.service.conversion.SourceAsTarget;
@@ -14,7 +15,7 @@ public class XmlAsQuestionDataCollection extends SourceAsTarget<String, Collecti
   }
 
   @Override
-  public Collection<QuestionData> content() throws Exception {
+  public Collection<QuestionData> content() throws IOException {
     return new XmlMapper().readValue(source, new TypeReference<>() {});
   }
 }

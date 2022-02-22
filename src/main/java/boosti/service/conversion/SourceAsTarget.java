@@ -1,5 +1,7 @@
 package boosti.service.conversion;
 
+import java.io.IOException;
+
 /**
  * Represents the source in target data format.
  *
@@ -19,5 +21,5 @@ public abstract class SourceAsTarget<S, T> {
    *
    * @return content in target data format
    */
-  public abstract T content() throws Exception;
+  public abstract T content() throws IOException;
 }
