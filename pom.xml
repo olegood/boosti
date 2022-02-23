@@ -228,4 +228,16 @@
     </profile>
   </profiles>
 
+  <developers>
+    <developer>
+      <id>olegood</id>
+      <name>Oleg Anastassov</name>
+      <email>oleg.anastassov@gmail.com</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
 </project>
