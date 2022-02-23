@@ -4,4 +4,5 @@
   <logger name="org.springframework" level="OFF"/>
   <logger name="org.apache" level="OFF"/>
   <logger name="boosti" level="OFF"/>
+  <logger name="com.tngtech" level="OFF"/>
 </configuration>
