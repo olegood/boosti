@@ -1,6 +1,6 @@
 package arch;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
@@ -11,9 +11,10 @@ public class AllClassesRulesArchTest {
 
   @ArchTest
   ArchRule allClassesNamesRule =
-      classes()
+      noClasses()
           .that()
           .resideOutsideOfPackages("..model..")
           .should()
-          .haveNameNotMatching(".*(or|er)$");
+          .haveNameMatching(".*(o|e)r$")
+          .because("Recommendation from @yegor256");
 }
