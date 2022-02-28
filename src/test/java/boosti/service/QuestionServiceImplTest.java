@@ -2,6 +2,7 @@ package boosti.service;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
+import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -161,5 +162,20 @@ class QuestionServiceImplTest {
 
     // then
     assertThat(result, is(new byte[] {}));
+  }
+
+  @Test
+  void shouldReturnByteArrayContent() {
+    // given
+    var question = new Question();
+    question.setText("<text>");
+
+    when(questionService.getAllById(anyCollection())).thenReturn(singletonList(question));
+
+    // when
+    var result = questionService.getAllAsByteArray(Set.of(42L));
+
+    // then
+    assertThat(result, is(new byte[] {10, 60, 116, 101, 120, 116, 62}));
   }
 }
