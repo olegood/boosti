@@ -26,6 +26,11 @@ public class QuestionServiceImpl implements QuestionService {
   }
 
   @Override
+  public Optional<Question> getById(Long id) {
+    return questionRepo.findById(id);
+  }
+
+  @Override
   public Collection<Question> getAll() {
     return questionRepo.findAll();
   }
@@ -49,6 +54,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
   }
 
+  @Override
   public byte[] getAllAsByteArray(Collection<Long> ids) {
     return getAllById(ids).stream()
         .map(QuestionAsByteArray::new)

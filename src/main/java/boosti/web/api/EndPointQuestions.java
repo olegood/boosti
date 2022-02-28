@@ -1,6 +1,8 @@
 package boosti.web.api;
 
+import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -8,6 +10,7 @@ import java.util.Set;
 import boosti.domain.Question;
 import boosti.service.QuestionService;
 import boosti.web.model.QuestionData;
+import boosti.web.model.SimpleRefData;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,5 +67,12 @@ public class EndPointQuestions {
   public ResponseEntity<Void> deleteByIds(@RequestBody Set<Long> ids) {
     questionService.deleteAllById(ids);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/{id}/tags")
+  public Set<SimpleRefData> getQuestionTags(@PathVariable Long id) {
+    return questionService.getById(id).map(Question::getTags).orElse(emptySet()).stream()
+        .map(it -> new ModelMapper().map(it, SimpleRefData.class))
+        .collect(toSet());
   }
 }

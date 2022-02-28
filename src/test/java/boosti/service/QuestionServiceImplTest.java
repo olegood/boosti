@@ -67,6 +67,15 @@ class QuestionServiceImplTest {
   }
 
   @Test
+  void shouldCallRepositoryFindByIdWhenGetById() {
+    // when
+    questionService.getById(42L);
+
+    // then
+    verify(questionRepo, times(1)).findById(42L);
+  }
+
+  @Test
   void shouldCallRepositoryFindAllByIdWhenGetAllById() {
     // when
     questionService.getAllById(emptySet());

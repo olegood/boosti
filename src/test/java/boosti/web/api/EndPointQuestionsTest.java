@@ -1,5 +1,7 @@
 package boosti.web.api;
 
+import static java.util.Collections.emptySet;
+import static java.util.Optional.empty;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
@@ -18,8 +20,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import boosti.domain.Question;
+import boosti.domain.Tag;
 import boosti.service.QuestionService;
 import boosti.web.model.QuestionData;
+import boosti.web.model.SimpleRefData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
@@ -66,7 +70,7 @@ class EndPointQuestionsTest {
   @Test
   void shouldReturnNotFoundIfQuestionWasNotDeleted() {
     // given
-    when(questionService.deleteById(anyLong())).thenReturn(Optional.empty());
+    when(questionService.deleteById(anyLong())).thenReturn(empty());
 
     // when
     var result = endPointQuestions.delete(-2L);
@@ -123,5 +127,55 @@ class EndPointQuestionsTest {
     verify(questionService, times(1)).getAll();
     assertThat(result, hasSize(1));
     assertThat(result, containsInAnyOrder(data));
+  }
+
+  @Test
+  void shouldReturnEmptyTagsIfQuestionNotFound() {
+    // given
+    when(questionService.getById(anyLong())).thenReturn(empty());
+
+    // when
+    var result = endPointQuestions.getQuestionTags(42L);
+
+    // then
+    assertThat(result, is(emptySet()));
+  }
+
+  @Test
+  void shouldReturnEmptyTagsIfQuestionHasNoTags() {
+    // given
+    when(questionService.getById(anyLong())).thenReturn(Optional.of(new Question()));
+
+    // when
+    var result = endPointQuestions.getQuestionTags(42L);
+
+    // then
+    assertThat(result, is(emptySet()));
+  }
+
+  @Test
+  void shouldReturnSimpleRefDataIfQuestionHaveTags() {
+    // given
+    var question = new Question();
+    question.setTags(Set.of(newTagWithName("java"), newTagWithName("kotlin")));
+
+    when(questionService.getById(42L)).thenReturn(Optional.of(question));
+
+    // when
+    var result = endPointQuestions.getQuestionTags(42L);
+
+    // then
+    assertThat(result, hasSize(2));
+    assertThat(result, containsInAnyOrder(newDataWithName("java"), newDataWithName("kotlin")));
+  }
+
+  private Tag newTagWithName(String name) {
+    var tag = new Tag();
+    tag.setName(name);
+    return tag;
+  }
+
+  private SimpleRefData newDataWithName(String name) {
+    return SimpleRefData.builder().withName(name).build();
   }
 }

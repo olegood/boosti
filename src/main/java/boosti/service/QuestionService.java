@@ -9,6 +9,8 @@ public interface QuestionService {
 
   Question save(Question question);
 
+  Optional<Question> getById(Long id);
+
   Collection<Question> getAll();
 
   Collection<Question> getAllById(Collection<Long> ids);
