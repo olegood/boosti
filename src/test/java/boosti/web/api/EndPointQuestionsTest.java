@@ -85,6 +85,7 @@ class EndPointQuestionsTest {
     var result = endPointQuestions.deleteAll();
 
     // then
+    verify(questionService, times(1)).deleteAll();
     assertThat(result.getStatusCode(), is(HttpStatus.NO_CONTENT));
     assertThat(result.getBody(), is(nullValue()));
   }

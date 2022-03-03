@@ -41,6 +41,11 @@ public class QuestionServiceImpl implements QuestionService {
   }
 
   @Override
+  public void deleteAll() {
+    questionRepo.deleteAll();
+  }
+
+  @Override
   public Optional<Question> deleteById(Long id) {
     var question = questionRepo.findById(id);
     question.ifPresent(questionRepo::delete);

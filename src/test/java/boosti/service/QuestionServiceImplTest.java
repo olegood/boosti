@@ -98,6 +98,15 @@ class QuestionServiceImplTest {
   }
 
   @Test
+  void shouldCallDeleteAllWhenDeleteAllQuestions() {
+    // when
+    questionService.deleteAll();
+
+    // then
+    verify(questionRepo, times(1)).deleteAll();
+  }
+
+  @Test
   void shouldReturnQuestionAfterDeletion() {
     // given
     var question = new Question();

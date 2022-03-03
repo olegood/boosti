@@ -60,6 +60,7 @@ public class EndPointQuestions {
 
   @DeleteMapping("/all")
   public ResponseEntity<Void> deleteAll() {
+    questionService.deleteAll();
     return ResponseEntity.noContent().build();
   }
 

@@ -15,6 +15,8 @@ public interface QuestionService {
 
   Collection<Question> getAllById(Collection<Long> ids);
 
+  void deleteAll();
+
   Optional<Question> deleteById(Long id);
 
   void deleteAllById(Collection<Long> ids);
