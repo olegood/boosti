@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.3</version>
+    <version>2.6.4</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -62,6 +62,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
     <dependency>
       <groupId>org.liquibase</groupId>
@@ -124,8 +128,9 @@
             <version>0.8.7</version>
             <configuration>
               <excludes>
-                <exclude>**/config/*</exclude>
-                <exclude>**/model/*</exclude>
+                <exclude>**/domain/**</exclude>
+                <exclude>**/config/**</exclude>
+                <exclude>**/model/**</exclude>
                 <exclude>**/*BoosTIApp.class</exclude>
               </excludes>
             </configuration>

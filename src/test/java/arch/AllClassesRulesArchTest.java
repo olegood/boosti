@@ -13,7 +13,7 @@ public class AllClassesRulesArchTest {
   ArchRule allClassesNamesRule =
       noClasses()
           .that()
-          .resideOutsideOfPackages("..model..")
+          .resideOutsideOfPackages("..model..", "..domain..")
           .should()
           .haveNameMatching(".*(o|e)r$")
           .because("Recommendation from @yegor256");

@@ -1,9 +1,31 @@
-### Get all questions
+### [ROLE_AUTHOR]: Get all questions
 GET {{host}}/api/questions
+Accept: application/json
+Authorization: Basic {{base64-basic-author}}
+
+
+### [ROLE_AUTHOR]: Delete question by id
+DELETE {{host}}/api/questions/102
+Accept: application/json
+Authorization: Basic {{base64-basic-author}}
+
+
+### [ROLE_ROOT]: Delete all questions
+DELETE {{host}}/api/questions
+Accept: application/json
+Authorization: Basic {{base64-basic-user}}
+
+
+### [ROLE_AUTHOR]: Get question's tags
+GET {{host}}/api/questions/102/tags
+Accept: application/json
+Authorization: Basic {{base64-basic-root}}
 
 
 ### Get all questions by specified topic
 GET {{host}}/api/questions?topic=Maven
+Accept: application/json
+Authorization: Basic {{basic-authorization-user}}
 
 
 ### Upload questions
@@ -17,7 +39,7 @@ Content-Disposition: form-data; name="file"; filename="test_questions.csv"
 < ../test_questions.csv
 
 
-### Save new question
+### [ROLE_AUTHOR]: Save new question
 POST {{host}}/api/questions
 Content-Type: application/json
 Accept: application/json
@@ -30,13 +52,16 @@ Accept: application/json
 }
 
 
-### Get Build Properties (Application Info)
+### [ROLE_ROOT]: Get Build Properties (Application Info)
 GET {{host}}/api/build-properties
+Accept: application/json
+Authorization: Basic {{basic-authorization-user}}
 
 
 ### Get all categories
 GET {{host}}/api/categories
-
+Accept: application/json
+Authorization: Basic YWRtaW5AYm9vc3RpLm9yZzphZG1pbkBib29zdGkub3Jn
 
 ### Save Quiz
 POST {{host}}/api/quizzes
