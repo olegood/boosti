@@ -6,10 +6,12 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
+@Disabled
 @SpringBootTest(
     properties = "spring.main.banner-mode=off",
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
