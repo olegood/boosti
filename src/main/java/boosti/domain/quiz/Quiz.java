@@ -15,6 +15,11 @@ import javax.persistence.ManyToMany;
 import boosti.domain.Question;
 import lombok.Data;
 
+/**
+ * A set of questions that could be exported.
+ *
+ * @author Oleg Anastassov
+ */
 @Data
 @Entity
 public class Quiz {

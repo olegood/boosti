@@ -7,5 +7,8 @@
   <module name="TreeWalker">
     <module name="AvoidStarImport"/>
     <module name="MissingJavadocMethod"/>
+    <module name="MissingJavadocType">
+      <property name="skipAnnotations" value="SpringBootApplication,Configuration"/>
+    </module>
   </module>
 </module>

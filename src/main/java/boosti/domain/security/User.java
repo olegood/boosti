@@ -7,6 +7,11 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
+/**
+ * Security entity: {@code User}
+ *
+ * @author Oleg Anastassov
+ */
 @Data
 @Entity
 public class User {
