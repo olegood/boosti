@@ -128,9 +128,9 @@
             <version>0.8.7</version>
             <configuration>
               <excludes>
-                <exclude>**/domain/**</exclude>
-                <exclude>**/config/**</exclude>
-                <exclude>**/model/**</exclude>
+                <exclude>**/domain/**/*</exclude>
+                <exclude>**/config/**/*</exclude>
+                <exclude>**/model/**/*</exclude>
                 <exclude>**/*BoosTIApp.class</exclude>
               </excludes>
             </configuration>
