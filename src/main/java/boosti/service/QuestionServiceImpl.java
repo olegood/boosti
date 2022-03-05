@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import boosti.domain.Question;
-import boosti.domain.QuestionRepository;
+import boosti.repo.QuestionRepository;
 import boosti.service.conversion.target.QuestionAsByteArray;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import static java.util.stream.Collectors.toSet;
 
 import java.util.Set;
 
-import boosti.domain.TagRepository;
+import boosti.repo.TagRepository;
 import boosti.web.model.SimpleRefData;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;

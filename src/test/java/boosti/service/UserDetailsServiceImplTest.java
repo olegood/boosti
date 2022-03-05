@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 import java.util.Set;
 
 import boosti.domain.security.User;
-import boosti.domain.security.UserRepository;
+import boosti.repo.UserRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

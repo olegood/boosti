@@ -4,7 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.Collection;
 
-import boosti.domain.CategoryRepository;
+import boosti.repo.CategoryRepository;
 import boosti.web.model.SimpleRefData;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;

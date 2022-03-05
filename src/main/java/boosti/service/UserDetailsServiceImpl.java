@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import boosti.domain.security.User;
-import boosti.domain.security.UserRepository;
+import boosti.repo.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

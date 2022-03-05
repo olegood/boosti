@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import boosti.domain.Question;
-import boosti.domain.QuestionRepository;
+import boosti.repo.QuestionRepository;
 import boosti.web.model.QuestionData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

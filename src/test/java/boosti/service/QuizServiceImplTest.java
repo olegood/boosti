@@ -8,9 +8,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import boosti.domain.QuestionRepository;
+import boosti.repo.QuestionRepository;
 import boosti.domain.quiz.Quiz;
-import boosti.domain.quiz.QuizRepository;
+import boosti.repo.QuizRepository;
 import boosti.domain.quiz.Status;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

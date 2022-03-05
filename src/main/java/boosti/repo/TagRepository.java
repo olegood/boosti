@@ -1,5 +1,6 @@
-package boosti.domain;
+package boosti.repo;
 
+import boosti.domain.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {}

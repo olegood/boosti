@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 
 import boosti.domain.Category;
-import boosti.domain.CategoryRepository;
+import boosti.repo.CategoryRepository;
 import boosti.web.model.SimpleRefData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

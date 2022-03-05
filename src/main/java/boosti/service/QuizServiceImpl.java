@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 
-import boosti.domain.QuestionRepository;
+import boosti.repo.QuestionRepository;
 import boosti.domain.quiz.Quiz;
-import boosti.domain.quiz.QuizRepository;
+import boosti.repo.QuizRepository;
 import org.springframework.stereotype.Service;
 
 @Service
