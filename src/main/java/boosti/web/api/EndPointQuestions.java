@@ -14,7 +14,7 @@ import boosti.web.model.SimpleRefData;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +33,7 @@ public class EndPointQuestions {
     this.questionService = questionService;
   }
 
-  @PreAuthorize("hasRole('ROLE_AUTHOR')")
+  @Secured("ROLE_AUTHOR")
   @PostMapping
   public ResponseEntity<QuestionData> saveQuestion(@RequestBody QuestionData data) {
     var question = new ModelMapper().map(data, Question.class);
@@ -44,7 +44,7 @@ public class EndPointQuestions {
     return ResponseEntity.status(HttpStatus.CREATED).body(body);
   }
 
-  @PreAuthorize("hasRole('ROLE_AUTHOR')")
+  @Secured("ROLE_AUTHOR")
   @GetMapping
   public Collection<QuestionData> getAll() {
     return questionService.getAll().stream()
@@ -52,7 +52,7 @@ public class EndPointQuestions {
         .collect(toList());
   }
 
-  @PreAuthorize("hasRole('ROLE_AUTHOR')")
+  @Secured("ROLE_AUTHOR")
   @DeleteMapping("/{id}")
   public ResponseEntity<QuestionData> delete(@PathVariable Long id) {
     return questionService
@@ -62,7 +62,7 @@ public class EndPointQuestions {
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  @PreAuthorize("hasRole('ROLE_ROOT')")
+  @Secured("ROLE_ROOT")
   @DeleteMapping("/all")
   public ResponseEntity<Void> deleteAll() {
     questionService.deleteAll();
@@ -75,7 +75,7 @@ public class EndPointQuestions {
     return ResponseEntity.noContent().build();
   }
 
-  @PreAuthorize("hasRole('AUTHOR')")
+  @Secured("ROLE_AUTHOR")
   @GetMapping("/{id}/tags")
   public Set<SimpleRefData> getQuestionTags(@PathVariable Long id) {
     return questionService.getById(id).map(Question::getTags).orElse(emptySet()).stream()

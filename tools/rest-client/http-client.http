@@ -11,7 +11,7 @@ Authorization: Basic {{base64-basic-author}}
 
 
 ### [ROLE_ROOT]: Delete all questions
-DELETE {{host}}/api/questions
+DELETE {{host}}/api/questions/all
 Accept: application/json
 Authorization: Basic {{base64-basic-user}}
 
@@ -55,7 +55,7 @@ Accept: application/json
 ### [ROLE_ROOT]: Get Build Properties (Application Info)
 GET {{host}}/api/build-properties
 Accept: application/json
-Authorization: Basic {{basic-authorization-user}}
+Authorization: Basic {{base64-basic-root}}
 
 
 ### Get all categories
