@@ -13,11 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import boosti.domain.Question;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class Quiz {
 
