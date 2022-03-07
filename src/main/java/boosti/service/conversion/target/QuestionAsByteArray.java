@@ -8,6 +8,11 @@ import java.util.function.Function;
 import boosti.domain.Question;
 import boosti.service.conversion.SourceAsTarget;
 
+/**
+ * Converts {@link Question} to array of {@code byte[]}.
+ *
+ * @author Oleg Anastassov
+ */
 public class QuestionAsByteArray extends SourceAsTarget<Question, byte[]> {
 
   public QuestionAsByteArray(Question source) {
