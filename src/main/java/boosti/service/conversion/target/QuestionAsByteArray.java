@@ -15,6 +15,7 @@ import boosti.service.conversion.SourceAsTarget;
  */
 public class QuestionAsByteArray extends SourceAsTarget<Question, byte[]> {
 
+  /** {@inheritDoc} */
   public QuestionAsByteArray(Question source) {
     super(source);
   }
