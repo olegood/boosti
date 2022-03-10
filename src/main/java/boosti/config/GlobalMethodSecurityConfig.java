@@ -15,17 +15,15 @@ public class GlobalMethodSecurityConfig extends GlobalMethodSecurityConfiguratio
 
   @Override
   protected MethodSecurityExpressionHandler createExpressionHandler() {
-    DefaultMethodSecurityExpressionHandler expressionHandler =
-        (DefaultMethodSecurityExpressionHandler) super.createExpressionHandler();
-    expressionHandler.setRoleHierarchy(roleHierarchy());
-    return expressionHandler;
+    var handler = (DefaultMethodSecurityExpressionHandler) super.createExpressionHandler();
+    handler.setRoleHierarchy(roleHierarchy());
+    return handler;
   }
 
   @Bean
   public RoleHierarchy roleHierarchy() {
-    RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-    String hierarchy = "ROLE_ROOT > ROLE_AUTHOR > ROLE_USER";
-    roleHierarchy.setHierarchy(hierarchy);
+    var roleHierarchy = new RoleHierarchyImpl();
+    roleHierarchy.setHierarchy("ROLE_ROOT > ROLE_AUTHOR > ROLE_USER");
     return roleHierarchy;
   }
 }
