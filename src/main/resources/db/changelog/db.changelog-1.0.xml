@@ -97,4 +97,15 @@
                              validate="true"/>
   </changeSet>
 
+  <changeSet id="CreateTableUser" author="Oleg Anastassov">
+    <createTable schemaName="boosti" tableName="USER">
+      <column name="id" type="int" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="email" type="varchar"/>
+      <column name="password" type="varchar"/>
+      <column name="roles" type="varchar"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>

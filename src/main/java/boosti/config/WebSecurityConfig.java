@@ -23,33 +23,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //
-    // todo: switch to database storage
-    // auth.userDetailsService(userDetailsService);
-    //
-    auth.inMemoryAuthentication()
-        .passwordEncoder(passwordEncoder())
-        .withUser("root@email.org")
-        .password(passwordEncoder().encode("root@email.org"))
-        .roles("ROOT")
-        .and()
-        .withUser("author@email.org")
-        .password(passwordEncoder().encode("author@email.org"))
-        .roles("AUTHOR")
-        .and()
-        .withUser("user@email.org")
-        .password(passwordEncoder().encode("user@email.org"))
-        .roles("USER");
+    auth.userDetailsService(userDetailsService);
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf()
-        .ignoringAntMatchers("/api/**")
+        .disable()
+        .headers()
+        .frameOptions()
+        .disable()
         .and()
         .authorizeRequests()
         .antMatchers("/api/**")
         .fullyAuthenticated()
+        .antMatchers("**/h2-console/**")
+        .permitAll()
         .and()
         .httpBasic()
         .and()
