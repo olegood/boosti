@@ -15,7 +15,7 @@ public class GlobalMethodSecurityConfig extends GlobalMethodSecurityConfiguratio
 
   @Override
   protected MethodSecurityExpressionHandler createExpressionHandler() {
-    var handler = (DefaultMethodSecurityExpressionHandler) super.createExpressionHandler();
+    DefaultMethodSecurityExpressionHandler handler = (DefaultMethodSecurityExpressionHandler) super.createExpressionHandler();
     handler.setRoleHierarchy(roleHierarchy());
     return handler;
   }

@@ -1,19 +1,19 @@
 ### [ROLE_AUTHOR]: Get all questions
-GET {{host}}/api/questions
+GET {{host-ssl}}/api/questions
 Accept: application/json
 Authorization: Basic {{base64-basic-author}}
 
 
 ### [ROLE_AUTHOR]: Delete question by id
-DELETE {{host}}/api/questions/102
+DELETE {{host-ssl}}/api/questions/102
 Accept: application/json
 Authorization: Basic {{base64-basic-author}}
 
 
 ### [ROLE_ROOT]: Delete all questions
-DELETE {{host}}/api/questions/all
+DELETE {{host-ssl}}/api/questions/all
 Accept: application/json
-Authorization: Basic {{base64-basic-user}}
+Authorization: Basic {{base64-basic-root}}
 
 
 ### [ROLE_AUTHOR]: Get question's tags
@@ -53,7 +53,7 @@ Accept: application/json
 
 
 ### [ROLE_ROOT]: Get Build Properties (Application Info)
-GET {{host}}/api/build-properties
+GET {{host-ssl}}/api/build-properties
 Accept: application/json
 Authorization: Basic {{base64-basic-root}}
 
