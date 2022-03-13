@@ -1,0 +1,13 @@
+[
+  {
+    "category": {
+      "name": "Kotlin"
+    },
+    "text": "What is the difference between '.kt' and '.kts' files?",
+    "answer": null,
+    "tags": [
+      "jvm",
+      "kotlin"
+    ]
+  }
+]

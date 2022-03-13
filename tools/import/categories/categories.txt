@@ -1,0 +1,10 @@
+SQL
+Java
+Kotlin
+CSS
+HTML
+JavaScript
+ReactJS
+NPM
+NodeJS
+Design Patterns
