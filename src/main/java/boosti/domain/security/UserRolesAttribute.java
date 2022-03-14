@@ -15,7 +15,10 @@ import javax.persistence.AttributeConverter;
  *
  * @author Oleg Anastassov
  * @see javax.persistence.AttributeConverter
+ * @deprecated since there is a roles hierarchy and no granular permissions, there is no need in
+ *     storing roles as comma-separated values
  */
+@Deprecated
 public class UserRolesAttribute implements AttributeConverter<Set<String>, String> {
 
   /**
