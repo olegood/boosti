@@ -1,7 +1,5 @@
 package boosti.domain.security;
 
-import java.util.Set;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +23,5 @@ public class User {
   private String email;
   private String password;
 
-  @Convert(converter = UserRolesAttribute.class)
-  private Set<String> roles;
+  private String role;
 }

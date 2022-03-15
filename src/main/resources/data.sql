@@ -34,7 +34,7 @@ insert into boosti.quiz_questions(quiz_id, question_id)
 values (500, 100),
        (500, 101);
 
-insert into boosti.user(id, email, password, roles)
+insert into boosti.user(id, email, password, role)
 values (400, 'root@email.org', '$2a$10$SdQNpTwCpYUTA05AMOcVSOC8OzLnOqod6Evpq3luH4s722Mp8fImu', 'ROOT'),
        (401, 'author@email.org', '$2a$10$HFBLpD4eLX0fBY7PCsoFzObcZhb5/qy8Znc59huxuy.qx/C.KnosS', 'AUTHOR'),
        (402, 'user@email.org', '$2a$10$N1R6Zh5BKIgmDuEUNxJN0.61HB4RCOELPcJKTjIzeY.ozgUqUk6WK', 'USER');
