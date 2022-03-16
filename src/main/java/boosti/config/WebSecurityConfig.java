@@ -48,6 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 
+  /**
+   * Use {@code bcrypt} as password-hashing function.
+   *
+   * @see https://en.wikipedia.org/wiki/Bcrypt
+   * @return password encoder implementation
+   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
