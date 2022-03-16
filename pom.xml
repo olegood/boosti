@@ -19,7 +19,12 @@
   <properties>
     <java.version>17</java.version>
     <liquibase.version>4.8.0</liquibase.version>
+
+    <modelmapper.version>3.1.0</modelmapper.version>
+
     <selenium.version>4.1.2</selenium.version>
+    <selenide.version>6.3.4</selenide.version>
+    <archunit.version>0.23.1</archunit.version>
   </properties>
 
   <build>
@@ -111,7 +116,7 @@
     <dependency>
       <groupId>org.modelmapper</groupId>
       <artifactId>modelmapper</artifactId>
-      <version>3.1.0</version>
+      <version>${modelmapper.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -130,13 +135,13 @@
     <dependency>
       <groupId>com.codeborne</groupId>
       <artifactId>selenide</artifactId>
-      <version>6.3.4</version>
+      <version>${selenide.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit-junit5</artifactId>
-      <version>0.23.1</version>
+      <version>${archunit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
