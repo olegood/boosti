@@ -9,6 +9,7 @@ public class StringAsQuestionData extends SourceAsTarget<String, QuestionData> {
 
   private final String separator;
 
+  /** {@inheritDoc} */
   public StringAsQuestionData(String source) {
     this(source, ",");
   }

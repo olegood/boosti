@@ -15,6 +15,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  */
 public class XmlAsQuestionDataCollection extends SourceAsTarget<String, Collection<QuestionData>> {
 
+  /** {@inheritDoc} */
   protected XmlAsQuestionDataCollection(String source) {
     super(source);
   }

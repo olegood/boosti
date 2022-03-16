@@ -14,6 +14,7 @@ import boosti.web.model.QuestionData;
 public class StringCollectionAsQuestionDataCollection
     extends SourceAsTarget<Collection<String>, Collection<QuestionData>> {
 
+  /** {@inheritDoc} */
   public StringCollectionAsQuestionDataCollection(Collection<String> source) {
     super(source);
   }

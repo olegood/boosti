@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonAsQuestionDataCollection extends SourceAsTarget<String, Collection<QuestionData>> {
 
+  /** {@inheritDoc} */
   protected JsonAsQuestionDataCollection(String source) {
     super(source);
   }
