@@ -69,6 +69,7 @@ public class EndPointQuestions {
     return ResponseEntity.noContent().build();
   }
 
+  @Secured("ROLE_AUTHOR")
   @DeleteMapping
   public ResponseEntity<Void> deleteByIds(@RequestBody Set<Long> ids) {
     questionService.deleteAllById(ids);
