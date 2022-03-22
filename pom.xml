@@ -34,6 +34,19 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>1.13.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>compileTests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <executions>
@@ -53,6 +66,10 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <includes>
+            <include>**/*Test</include>
+            <include>**/*Spec</include>
+          </includes>
           <excludes>
             <exclude>**/*ITCase</exclude>
             <exclude>**/*APITest</exclude>
@@ -148,7 +165,29 @@
       <version>${archunit.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-junit4</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.spockframework</groupId>
+        <artifactId>spock-bom</artifactId>
+        <version>2.1-groovy-3.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <profiles>
     <profile>
