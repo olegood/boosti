@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 import boosti.domain.Question;
 import boosti.repo.QuestionRepository;
 import boosti.web.model.QuestionData;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,6 +38,15 @@ class QuestionServiceImplTest {
   @Mock QuestionRepository questionRepo;
   @InjectMocks QuestionServiceImpl questionService;
 
+  /**
+   * This test has to be implemented in Groovy.
+   *
+   * <p>Avoid using 'helper' init methods: {@link #from(String)} and {@link #from(Long, String)}
+   *
+   * @see QuestionServiceImplSpec
+   */
+  @Deprecated
+  @Disabled("Will be implemented in Groovy. See: QuestionServiceImplSpec.groovy")
   @Test
   void shouldReturnAllQuestions() {
     // given
@@ -59,10 +69,12 @@ class QuestionServiceImplTest {
     assertThat(result, hasSize(4));
   }
 
+  @Deprecated
   private static QuestionData from(Long id, String text) {
     return QuestionData.builder().withText(text).withId(id).build();
   }
 
+  @Deprecated
   private static QuestionData from(String text) {
     return QuestionData.builder().withText(text).build();
   }
