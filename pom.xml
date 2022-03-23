@@ -29,6 +29,10 @@
     <selenium.version>4.1.2</selenium.version>
     <selenide.version>6.3.4</selenide.version>
     <archunit.version>0.23.1</archunit.version>
+
+    <!-- Spock & Groovy-->
+    <gmavenplus.version>1.13.1</gmavenplus.version>
+    <spock-bom.version>2.1-groovy-3.0</spock-bom.version>
   </properties>
 
   <build>
@@ -36,7 +40,7 @@
       <plugin>
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.13.1</version>
+        <version>${gmavenplus.version}</version>
         <executions>
           <execution>
             <goals>
@@ -182,7 +186,7 @@
       <dependency>
         <groupId>org.spockframework</groupId>
         <artifactId>spock-bom</artifactId>
-        <version>2.1-groovy-3.0</version>
+        <version>${spock-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
