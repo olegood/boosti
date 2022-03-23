@@ -1,5 +1,6 @@
 package boosti.domain.security
 
+
 import spock.lang.Specification
 
 import static org.hamcrest.Matchers.is
