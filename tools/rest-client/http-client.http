@@ -4,6 +4,12 @@ Accept: application/json
 Authorization: Basic {{base64-basic-author}}
 
 
+### Get question by id
+GET {{host-ssl}}/api/questions/101
+Accept: application/json
+Authorization: Basic {{base64-basic-user}}
+
+
 ### [ROLE_AUTHOR]: Delete question by id
 DELETE {{host-ssl}}/api/questions/102
 Accept: application/json

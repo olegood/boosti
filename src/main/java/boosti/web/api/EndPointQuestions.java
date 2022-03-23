@@ -3,6 +3,8 @@ package boosti.web.api;
 import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.hateoas.server.core.DummyInvocationUtils.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import java.util.Collection;
 import java.util.Set;
@@ -31,6 +33,24 @@ public class EndPointQuestions {
 
   public EndPointQuestions(QuestionService questionService) {
     this.questionService = questionService;
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<QuestionData> getQuestion(@PathVariable Long id) {
+    var question = questionService.getById(id);
+    return question
+        .map(it -> ResponseEntity.ok().body(toDataWithLinks(it)))
+        .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  private QuestionData toDataWithLinks(Question question) {
+    var result = new ModelMapper().map(question, QuestionData.class);
+
+    result.add(
+        linkTo(methodOn(EndPointQuestions.class).getQuestion(result.getId())).withSelfRel(),
+        linkTo(methodOn(EndPointQuestions.class).delete(result.getId())).withRel("deleteQuestion"));
+
+    return result;
   }
 
   @Secured("ROLE_AUTHOR")

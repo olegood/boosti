@@ -6,13 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 /** Data Transfer Object. */
 @Data
 @Builder(setterPrefix = "with")
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionData {
+public class QuestionData extends RepresentationModel<QuestionData> {
 
   private Long id;
 

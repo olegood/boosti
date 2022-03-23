@@ -104,7 +104,7 @@
       </column>
       <column name="email" type="varchar"/>
       <column name="password" type="varchar"/>
-      <column name="roles" type="varchar"/>
+      <column name="role" type="varchar"/>
     </createTable>
   </changeSet>
 
