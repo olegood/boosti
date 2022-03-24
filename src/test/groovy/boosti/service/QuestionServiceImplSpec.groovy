@@ -13,10 +13,10 @@ class QuestionServiceImplSpec extends Specification {
 
   def 'service should return all questions from repository'() {
     questionRepo.findAll() >> [
-        new Question(id: 41L, text: "What is JVM"),
-        new Question(id: 42L, text: "What is JRE"),
-        new Question(text: "What is Garbage Collector"),
-        new Question(text: "What is BOM (Bill of materials)")
+        new Question(id: 41, text: 'What is JVM'),
+        new Question(id: 42, text: 'What is JRE'),
+        new Question(text: 'What is Garbage Collector'),
+        new Question(text: 'What is BOM (Bill of materials)')
     ]
 
     when:
