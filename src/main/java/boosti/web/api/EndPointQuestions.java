@@ -37,20 +37,22 @@ public class EndPointQuestions {
 
   @GetMapping("/{id}")
   public ResponseEntity<QuestionData> getQuestion(@PathVariable Long id) {
-    var question = questionService.getById(id);
-    return question
-        .map(it -> ResponseEntity.ok().body(toDataWithLinks(it)))
+    return questionService
+        .getById(id)
+        .map(this::addLinksToData)
+        .map(ResponseEntity.ok()::body)
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  private QuestionData toDataWithLinks(Question question) {
-    var result = new ModelMapper().map(question, QuestionData.class);
+  private QuestionData addLinksToData(Question question) {
+    var data = new ModelMapper().map(question, QuestionData.class);
 
-    result.add(
-        linkTo(methodOn(EndPointQuestions.class).getQuestion(result.getId())).withSelfRel(),
-        linkTo(methodOn(EndPointQuestions.class).delete(result.getId())).withRel("deleteQuestion"));
+    var id = data.getId();
+    data.add(
+        linkTo(methodOn(EndPointQuestions.class).getQuestion(id)).withSelfRel(),
+        linkTo(methodOn(EndPointQuestions.class).delete(id)).withRel("deleteQuestion"));
 
-    return result;
+    return data;
   }
 
   @Secured("ROLE_AUTHOR")
