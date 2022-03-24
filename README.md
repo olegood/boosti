@@ -1,7 +1,5 @@
 # BoosTI: 'Boost' Your Technical Interview
 
-## Description
-
 Pet-project that make **boost** in collecting questions for technical interview and export them in following formats:
 
 - Plain Text (.txt)
