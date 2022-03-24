@@ -6,8 +6,11 @@
 <module name="Checker">
   <module name="TreeWalker">
     <module name="AvoidStarImport"/>
-    <module name="MissingJavadocMethod"/>
+    <module name="MissingJavadocMethod">
+      <property name="excludeScope" value="public"/>
+    </module>
     <module name="MissingJavadocType">
+      <property name="excludeScope" value="public"/>
       <property name="skipAnnotations" value="SpringBootApplication,Configuration"/>
     </module>
   </module>
