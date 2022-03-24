@@ -1,5 +1,7 @@
 # BoosTI: 'Boost' Your Technical Interview
 
+## Description
+
 Pet-project that make **boost** in collecting questions for technical interview and export them in following formats:
 
 - Plain Text (.txt)
@@ -7,7 +9,7 @@ Pet-project that make **boost** in collecting questions for technical interview 
 - Portable Document Format (.pdf)
 
 Sandbox for mastering coding skills, making architectural experiments and place to use various Java ecosystem tools,
-frameworks and libraries usage.
+frameworks and libraries.
 
 ## Tech Stack (major elements)
 
