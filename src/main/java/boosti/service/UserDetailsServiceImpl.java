@@ -3,7 +3,7 @@ package boosti.service;
 import static java.util.Optional.ofNullable;
 import static org.springframework.security.core.userdetails.User.withUsername;
 
-import boosti.domain.security.User;
+import boosti.domain.User;
 import boosti.repo.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

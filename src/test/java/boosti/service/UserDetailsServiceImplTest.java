@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import boosti.domain.security.User;
+import boosti.domain.User;
 import boosti.repo.UserRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

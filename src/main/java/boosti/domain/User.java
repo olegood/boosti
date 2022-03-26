@@ -1,4 +1,4 @@
-package boosti.domain.security;
+package boosti.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
