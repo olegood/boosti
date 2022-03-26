@@ -22,6 +22,7 @@ frameworks and libraries.
 - [Spring Data](https://spring.io/projects/spring-data)
 - [Spring Security](https://spring.io/projects/spring-security)
 - [Spring HATEOAS](https://spring.io/projects/spring-hateoas)
+- [Hibernate ORM](https://hibernate.org/orm/)
 
 ### Database Engine and Tools
 
@@ -44,6 +45,7 @@ frameworks and libraries.
 - [Project Lombok](https://projectlombok.org/)
 - [Model Mapper](http://modelmapper.org/)
 - [Apache POI](https://poi.apache.org/)
+- [Checkstyle](https://checkstyle.org/)
 
 ### Build Tool
 
