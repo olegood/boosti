@@ -4,7 +4,6 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,65 +18,20 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import boosti.domain.Question;
 import boosti.repo.QuestionRepository;
-import boosti.web.model.QuestionData;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionServiceImplTest {
 
   @Mock QuestionRepository questionRepo;
   @InjectMocks QuestionServiceImpl questionService;
-
-  /**
-   * This test has to be implemented in Groovy.
-   *
-   * <p>Avoid using 'helper' init methods: {@link #from(String)} and {@link #from(Long, String)}
-   *
-   * @see QuestionServiceImplSpec
-   */
-  @Deprecated
-  @Disabled("Will be implemented in Groovy. See: QuestionServiceImplSpec.groovy")
-  @Test
-  void shouldReturnAllQuestions() {
-    // given
-    var questions =
-        Stream.of(
-                from(41L, "What is JVM"),
-                from(42L, "What is JRE"),
-                from("What is Garbage Collector"),
-                from("What is BOM (Bill of materials)"))
-            // todo: avoid using mapper here
-            .map(data -> new ModelMapper().map(data, Question.class))
-            .toList();
-
-    when(questionRepo.findAll()).thenReturn(questions);
-
-    // when
-    var result = questionService.getAll();
-
-    // then
-    assertThat(result, hasSize(4));
-  }
-
-  @Deprecated
-  private static QuestionData from(Long id, String text) {
-    return QuestionData.builder().withText(text).withId(id).build();
-  }
-
-  @Deprecated
-  private static QuestionData from(String text) {
-    return QuestionData.builder().withText(text).build();
-  }
 
   @Test
   void shouldCallRepositoryFindByIdWhenGetById() {
