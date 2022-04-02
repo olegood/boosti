@@ -27,7 +27,7 @@
 
     <jacoco.version>0.8.7</jacoco.version>
     <selenium.version>4.1.2</selenium.version>
-    <selenide.version>6.3.4</selenide.version>
+    <selenide.version>6.3.5</selenide.version>
     <archunit.version>0.23.1</archunit.version>
 
     <!-- Spock & Groovy-->
